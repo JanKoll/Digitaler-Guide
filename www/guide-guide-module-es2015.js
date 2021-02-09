@@ -1,6 +1,43 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["guide-guide-module"],{
 
-/***/ "./node_modules/@ionic-native/geolocation/index.js":
+/***/ "5H4I":
+/*!***********************************************!*\
+  !*** ./src/app/guide/guide-routing.module.ts ***!
+  \***********************************************/
+/*! exports provided: GuidePageRoutingModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GuidePageRoutingModule", function() { return GuidePageRoutingModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "tyNb");
+/* harmony import */ var _guide_page__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./guide.page */ "qlbM");
+
+
+
+
+const routes = [
+    {
+        path: '',
+        component: _guide_page__WEBPACK_IMPORTED_MODULE_3__["GuidePage"]
+    }
+];
+let GuidePageRoutingModule = class GuidePageRoutingModule {
+};
+GuidePageRoutingModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+        imports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forChild(routes)],
+        exports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"]],
+    })
+], GuidePageRoutingModule);
+
+
+
+/***/ }),
+
+/***/ "8AGy":
 /*!*********************************************************!*\
   !*** ./node_modules/@ionic-native/geolocation/index.js ***!
   \*********************************************************/
@@ -10,8 +47,8 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Geolocation", function() { return Geolocation; });
-/* harmony import */ var _ionic_native_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ionic-native/core */ "./node_modules/@ionic-native/core/__ivy_ngcc__/index.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
+/* harmony import */ var _ionic_native_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ionic-native/core */ "C6fG");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "qCKp");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -72,33 +109,20 @@ var Geolocation = new GeolocationOriginal();
 
 /***/ }),
 
-/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/components/article-preview/article-preview.component.html":
-/*!*****************************************************************************************************************!*\
-  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/components/article-preview/article-preview.component.html ***!
-  \*****************************************************************************************************************/
+/***/ "CvWb":
+/*!***************************************!*\
+  !*** ./src/app/guide/guide.page.scss ***!
+  \***************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"content\">\n    <div class=\"icon-header\">\n      <div class=\"icon\">\n        <img src=\"../assets/icon/{{ data.icon }}\" alt=\"{{ data.name }} Icon\">\n      </div>\n\n      <h2>{{ data.name }}</h2>\n    </div>\n\n    <div class=\"text\">\n      <div class=\"close\" (click)=\"close()\">X</div>\n      <p>{{ data.intro }}</p>\n\n      <ion-img src=\"../assets/data/media/{{ data.name }}/{{ data.previmg }}\" alt=\"{{ data.name }} Vorschaubild\"></ion-img>\n\n      <div class=\"routerbtn\">\n        <ion-button (click)=\"route(data.name)\">\n          Mehr erfahren\n        </ion-button>\n      </div>\n    </div>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJndWlkZS5wYWdlLnNjc3MifQ== */");
 
 /***/ }),
 
-/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/components/legend/legend.component.html":
-/*!***********************************************************************************************!*\
-  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/components/legend/legend.component.html ***!
-  \***********************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"content\">\n    <div class=\"text\">\n      <div class=\"close\" (click)=\"close()\">X</div>\n\n      <p><b>Legende:</b></p>\n\n      <div class=\"leg\">\n        <div class=\"location\"></div>\n        <p>Aktueller Standort</p>\n      </div>\n\n      <div class=\"leg\">\n        <div class=\"station\">\n          <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 39.62 34.31\"><defs><style>.cls-1{fill:#006c66;stroke-width:4px;}.cls-1,.cls-2{stroke:#eee;stroke-miterlimit:10;}.cls-2{fill:#eee;}</style></defs><g id=\"Layer_2\" data-name=\"Layer 2\"><g id=\"Hintergrund\"><polygon class=\"cls-1\" points=\"28.56 2 11.06 2 2.31 17.16 11.06 32.31 28.56 32.31 37.31 17.16 28.56 2\"/><path class=\"cls-2\" d=\"M18.32,24.24a1.47,1.47,0,0,1,1.49-1.56,1.45,1.45,0,0,1,1.49,1.56,1.49,1.49,0,1,1-3,0ZM19,20.63,18.6,8.5H21l-.35,12.13Z\"/></g></g></svg>\n        </div>\n        <p>Station</p>\n      </div>\n\n      <div class=\"leg\">\n        <div class=\"park\">P</div>\n        <p>Parkplatz</p>\n      </div>\n\n      <div class=\"leg\">\n        <div class=\"qr\"><img src=\"../assets/qr-icon.png\" /></div>\n        <p>QR-Code Scanner</p>\n      </div>\n    </div>\n</div>\n");
-
-/***/ }),
-
-/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/guide/guide.page.html":
+/***/ "DRm0":
 /*!*****************************************************************************!*\
   !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/guide/guide.page.html ***!
   \*****************************************************************************/
@@ -111,73 +135,20 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./src/app/components/article-preview/article-preview.component.scss":
-/*!***************************************************************************!*\
-  !*** ./src/app/components/article-preview/article-preview.component.scss ***!
-  \***************************************************************************/
+/***/ "JGET":
+/*!*****************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/components/article-preview/article-preview.component.html ***!
+  \*****************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvYXJ0aWNsZS1wcmV2aWV3L2FydGljbGUtcHJldmlldy5jb21wb25lbnQuc2NzcyJ9 */");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"content\">\n    <div class=\"icon-header\">\n      <div class=\"icon\">\n        <img src=\"../assets/icon/{{ data.icon }}\" alt=\"{{ data.name }} Icon\">\n      </div>\n\n      <h2>{{ data.name }}</h2>\n    </div>\n\n    <div class=\"text\">\n      <div class=\"close\" (click)=\"close()\">X</div>\n      <p>{{ data.intro }}</p>\n\n      <ion-img src=\"../assets/data/media/{{ data.name }}/{{ data.previmg }}\" alt=\"{{ data.name }} Vorschaubild\"></ion-img>\n\n      <div class=\"routerbtn\">\n        <ion-button (click)=\"route(data.name)\">\n          Mehr erfahren\n        </ion-button>\n      </div>\n    </div>\n</div>\n");
 
 /***/ }),
 
-/***/ "./src/app/components/article-preview/article-preview.component.ts":
-/*!*************************************************************************!*\
-  !*** ./src/app/components/article-preview/article-preview.component.ts ***!
-  \*************************************************************************/
-/*! exports provided: ArticlePreviewComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ArticlePreviewComponent", function() { return ArticlePreviewComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/__ivy_ngcc__/fesm2015/ionic-angular.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
-
-
-
-
-let ArticlePreviewComponent = class ArticlePreviewComponent {
-    constructor(modalCtrl, router) {
-        this.modalCtrl = modalCtrl;
-        this.router = router;
-    }
-    close() {
-        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-            yield this.modalCtrl.dismiss();
-        });
-    }
-    ngOnInit() { }
-    route(id) {
-        this.router.navigate(['/article/', id]);
-        this.modalCtrl.dismiss();
-    }
-};
-ArticlePreviewComponent.ctorParameters = () => [
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] }
-];
-ArticlePreviewComponent.propDecorators = {
-    data: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"] }]
-};
-ArticlePreviewComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-        selector: 'app-article-preview',
-        template: Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(/*! raw-loader!./article-preview.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/components/article-preview/article-preview.component.html")).default,
-        styles: [Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(/*! ./article-preview.component.scss */ "./src/app/components/article-preview/article-preview.component.scss")).default]
-    })
-], ArticlePreviewComponent);
-
-
-
-/***/ }),
-
-/***/ "./src/app/components/legend/legend.component.scss":
+/***/ "KCm/":
 /*!*********************************************************!*\
   !*** ./src/app/components/legend/legend.component.scss ***!
   \*********************************************************/
@@ -186,90 +157,24 @@ ArticlePreviewComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvbGVnZW5kL2xlZ2VuZC5jb21wb25lbnQuc2NzcyJ9 */");
+/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJsZWdlbmQuY29tcG9uZW50LnNjc3MifQ== */");
 
 /***/ }),
 
-/***/ "./src/app/components/legend/legend.component.ts":
-/*!*******************************************************!*\
-  !*** ./src/app/components/legend/legend.component.ts ***!
-  \*******************************************************/
-/*! exports provided: LegendComponent */
+/***/ "U7C4":
+/*!***********************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/components/legend/legend.component.html ***!
+  \***********************************************************************************************/
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LegendComponent", function() { return LegendComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/__ivy_ngcc__/fesm2015/ionic-angular.js");
-
-
-
-let LegendComponent = class LegendComponent {
-    constructor(modalCtrl) {
-        this.modalCtrl = modalCtrl;
-    }
-    close() {
-        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-            yield this.modalCtrl.dismiss();
-        });
-    }
-    ngOnInit() { }
-};
-LegendComponent.ctorParameters = () => [
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"] }
-];
-LegendComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-        selector: 'app-legend',
-        template: Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(/*! raw-loader!./legend.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/components/legend/legend.component.html")).default,
-        styles: [Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(/*! ./legend.component.scss */ "./src/app/components/legend/legend.component.scss")).default]
-    })
-], LegendComponent);
-
-
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"content\">\n    <div class=\"text\">\n      <div class=\"close\" (click)=\"close()\">X</div>\n\n      <p><b>Legende:</b></p>\n\n      <div class=\"leg\">\n        <div class=\"location\"></div>\n        <p>Aktueller Standort</p>\n      </div>\n\n      <div class=\"leg\">\n        <div class=\"station\">\n          <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 39.62 34.31\"><defs><style>.cls-1{fill:#006c66;stroke-width:4px;}.cls-1,.cls-2{stroke:#eee;stroke-miterlimit:10;}.cls-2{fill:#eee;}</style></defs><g id=\"Layer_2\" data-name=\"Layer 2\"><g id=\"Hintergrund\"><polygon class=\"cls-1\" points=\"28.56 2 11.06 2 2.31 17.16 11.06 32.31 28.56 32.31 37.31 17.16 28.56 2\"/><path class=\"cls-2\" d=\"M18.32,24.24a1.47,1.47,0,0,1,1.49-1.56,1.45,1.45,0,0,1,1.49,1.56,1.49,1.49,0,1,1-3,0ZM19,20.63,18.6,8.5H21l-.35,12.13Z\"/></g></g></svg>\n        </div>\n        <p>Station</p>\n      </div>\n\n      <div class=\"leg\">\n        <div class=\"park\">P</div>\n        <p>Parkplatz</p>\n      </div>\n\n      <div class=\"leg\">\n        <div class=\"qr\"><img src=\"../assets/qr-icon.png\" /></div>\n        <p>QR-Code Scanner</p>\n      </div>\n    </div>\n</div>\n");
 
 /***/ }),
 
-/***/ "./src/app/guide/guide-routing.module.ts":
-/*!***********************************************!*\
-  !*** ./src/app/guide/guide-routing.module.ts ***!
-  \***********************************************/
-/*! exports provided: GuidePageRoutingModule */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GuidePageRoutingModule", function() { return GuidePageRoutingModule; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
-/* harmony import */ var _guide_page__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./guide.page */ "./src/app/guide/guide.page.ts");
-
-
-
-
-const routes = [
-    {
-        path: '',
-        component: _guide_page__WEBPACK_IMPORTED_MODULE_3__["GuidePage"]
-    }
-];
-let GuidePageRoutingModule = class GuidePageRoutingModule {
-};
-GuidePageRoutingModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-        imports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forChild(routes)],
-        exports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"]],
-    })
-], GuidePageRoutingModule);
-
-
-
-/***/ }),
-
-/***/ "./src/app/guide/guide.module.ts":
+/***/ "UDB2":
 /*!***************************************!*\
   !*** ./src/app/guide/guide.module.ts ***!
   \***************************************/
@@ -279,13 +184,13 @@ GuidePageRoutingModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GuidePageModule", function() { return GuidePageModule; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/__ivy_ngcc__/fesm2015/ionic-angular.js");
-/* harmony import */ var _guide_routing_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./guide-routing.module */ "./src/app/guide/guide-routing.module.ts");
-/* harmony import */ var _guide_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./guide.page */ "./src/app/guide/guide.page.ts");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "ofXK");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "3Pt+");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
+/* harmony import */ var _guide_routing_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./guide-routing.module */ "5H4I");
+/* harmony import */ var _guide_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./guide.page */ "qlbM");
 
 
 
@@ -311,20 +216,110 @@ GuidePageModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 
 /***/ }),
 
-/***/ "./src/app/guide/guide.page.scss":
-/*!***************************************!*\
-  !*** ./src/app/guide/guide.page.scss ***!
-  \***************************************/
-/*! exports provided: default */
+/***/ "Z0OH":
+/*!*******************************************************!*\
+  !*** ./src/app/components/legend/legend.component.ts ***!
+  \*******************************************************/
+/*! exports provided: LegendComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2d1aWRlL2d1aWRlLnBhZ2Uuc2NzcyJ9 */");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LegendComponent", function() { return LegendComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
+/* harmony import */ var _raw_loader_legend_component_html__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! raw-loader!./legend.component.html */ "U7C4");
+/* harmony import */ var _legend_component_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./legend.component.scss */ "KCm/");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
+
+
+
+
+
+let LegendComponent = class LegendComponent {
+    constructor(modalCtrl) {
+        this.modalCtrl = modalCtrl;
+    }
+    close() {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            yield this.modalCtrl.dismiss();
+        });
+    }
+    ngOnInit() { }
+};
+LegendComponent.ctorParameters = () => [
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"] }
+];
+LegendComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
+        selector: 'app-legend',
+        template: _raw_loader_legend_component_html__WEBPACK_IMPORTED_MODULE_1__["default"],
+        styles: [_legend_component_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
+    })
+], LegendComponent);
+
+
 
 /***/ }),
 
-/***/ "./src/app/guide/guide.page.ts":
+/***/ "bW9M":
+/*!*************************************************************************!*\
+  !*** ./src/app/components/article-preview/article-preview.component.ts ***!
+  \*************************************************************************/
+/*! exports provided: ArticlePreviewComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ArticlePreviewComponent", function() { return ArticlePreviewComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
+/* harmony import */ var _raw_loader_article_preview_component_html__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! raw-loader!./article-preview.component.html */ "JGET");
+/* harmony import */ var _article_preview_component_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./article-preview.component.scss */ "tF3b");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "tyNb");
+
+
+
+
+
+
+let ArticlePreviewComponent = class ArticlePreviewComponent {
+    constructor(modalCtrl, router) {
+        this.modalCtrl = modalCtrl;
+        this.router = router;
+    }
+    close() {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            yield this.modalCtrl.dismiss();
+        });
+    }
+    ngOnInit() { }
+    route(id) {
+        this.router.navigate(['/article/', id]);
+        this.modalCtrl.dismiss();
+    }
+};
+ArticlePreviewComponent.ctorParameters = () => [
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"] }
+];
+ArticlePreviewComponent.propDecorators = {
+    data: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_3__["Input"] }]
+};
+ArticlePreviewComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
+        selector: 'app-article-preview',
+        template: _raw_loader_article_preview_component_html__WEBPACK_IMPORTED_MODULE_1__["default"],
+        styles: [_article_preview_component_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
+    })
+], ArticlePreviewComponent);
+
+
+
+/***/ }),
+
+/***/ "qlbM":
 /*!*************************************!*\
   !*** ./src/app/guide/guide.page.ts ***!
   \*************************************/
@@ -334,14 +329,18 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GuidePage", function() { return GuidePage; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/__ivy_ngcc__/fesm2015/ionic-angular.js");
-/* harmony import */ var _ionic_native_geolocation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic-native/geolocation */ "./node_modules/@ionic-native/geolocation/index.js");
-/* harmony import */ var _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/qr-scanner/ngx */ "./node_modules/@ionic-native/qr-scanner/__ivy_ngcc__/ngx/index.js");
-/* harmony import */ var _components_article_preview_article_preview_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/article-preview/article-preview.component */ "./src/app/components/article-preview/article-preview.component.ts");
-/* harmony import */ var _components_legend_legend_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/legend/legend.component */ "./src/app/components/legend/legend.component.ts");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
+/* harmony import */ var _raw_loader_guide_page_html__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! raw-loader!./guide.page.html */ "DRm0");
+/* harmony import */ var _guide_page_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./guide.page.scss */ "CvWb");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "tyNb");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
+/* harmony import */ var _ionic_native_geolocation__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/geolocation */ "8AGy");
+/* harmony import */ var _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/qr-scanner/ngx */ "BLr9");
+/* harmony import */ var _components_article_preview_article_preview_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/article-preview/article-preview.component */ "bW9M");
+/* harmony import */ var _components_legend_legend_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/legend/legend.component */ "Z0OH");
+
+
 
 
 
@@ -394,7 +393,7 @@ let GuidePage = class GuidePage {
                     "lon": 8.999337
                 }
             };
-            let position = yield _ionic_native_geolocation__WEBPACK_IMPORTED_MODULE_4__["Geolocation"].getCurrentPosition();
+            let position = yield _ionic_native_geolocation__WEBPACK_IMPORTED_MODULE_6__["Geolocation"].getCurrentPosition();
             this.latitude = position.coords.latitude;
             this.longitude = position.coords.longitude;
             // this.latitude = 47.767574;
@@ -427,7 +426,7 @@ let GuidePage = class GuidePage {
     showModal(id) {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             const modal = yield this.modalCtrl.create({
-                component: _components_article_preview_article_preview_component__WEBPACK_IMPORTED_MODULE_6__["ArticlePreviewComponent"],
+                component: _components_article_preview_article_preview_component__WEBPACK_IMPORTED_MODULE_8__["ArticlePreviewComponent"],
                 componentProps: {
                     data: this.data[id]
                 },
@@ -441,7 +440,7 @@ let GuidePage = class GuidePage {
     legend() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             const modal = yield this.modalCtrl.create({
-                component: _components_legend_legend_component__WEBPACK_IMPORTED_MODULE_7__["LegendComponent"],
+                component: _components_legend_legend_component__WEBPACK_IMPORTED_MODULE_9__["LegendComponent"],
                 // backdropDismiss:false,
                 swipeToClose: true,
                 cssClass: 'legend'
@@ -543,21 +542,34 @@ let GuidePage = class GuidePage {
     }
 };
 GuidePage.ctorParameters = () => [
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ModalController"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["Platform"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["AlertController"] },
-    { type: _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_5__["QRScanner"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ModalController"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["Platform"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["AlertController"] },
+    { type: _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_7__["QRScanner"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] }
 ];
 GuidePage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
         selector: 'app-guide',
-        template: Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(/*! raw-loader!./guide.page.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/guide/guide.page.html")).default,
-        styles: [Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(/*! ./guide.page.scss */ "./src/app/guide/guide.page.scss")).default]
+        template: _raw_loader_guide_page_html__WEBPACK_IMPORTED_MODULE_1__["default"],
+        styles: [_guide_page_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
     })
 ], GuidePage);
 
 
+
+/***/ }),
+
+/***/ "tF3b":
+/*!***************************************************************************!*\
+  !*** ./src/app/components/article-preview/article-preview.component.scss ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcnRpY2xlLXByZXZpZXcuY29tcG9uZW50LnNjc3MifQ== */");
 
 /***/ })
 
