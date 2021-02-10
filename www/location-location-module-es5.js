@@ -1,71 +1,11 @@
 (function () {
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
   function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
   function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-  (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["guide-guide-module"], {
-    /***/
-    "5H4I":
-    /*!***********************************************!*\
-      !*** ./src/app/guide/guide-routing.module.ts ***!
-      \***********************************************/
-
-    /*! exports provided: GuidePageRoutingModule */
-
-    /***/
-    function H4I(module, __webpack_exports__, __webpack_require__) {
-      "use strict";
-
-      __webpack_require__.r(__webpack_exports__);
-      /* harmony export (binding) */
-
-
-      __webpack_require__.d(__webpack_exports__, "GuidePageRoutingModule", function () {
-        return GuidePageRoutingModule;
-      });
-      /* harmony import */
-
-
-      var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-      /*! tslib */
-      "mrSG");
-      /* harmony import */
-
-
-      var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-      /*! @angular/core */
-      "fXoL");
-      /* harmony import */
-
-
-      var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-      /*! @angular/router */
-      "tyNb");
-      /* harmony import */
-
-
-      var _guide_page__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-      /*! ./guide.page */
-      "qlbM");
-
-      var routes = [{
-        path: '',
-        component: _guide_page__WEBPACK_IMPORTED_MODULE_3__["GuidePage"]
-      }];
-
-      var GuidePageRoutingModule = function GuidePageRoutingModule() {
-        _classCallCheck(this, GuidePageRoutingModule);
-      };
-
-      GuidePageRoutingModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-        imports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forChild(routes)],
-        exports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"]]
-      })], GuidePageRoutingModule);
-      /***/
-    },
-
+  (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["location-location-module"], {
     /***/
     "8AGy":
     /*!*********************************************************!*\
@@ -183,46 +123,6 @@
     },
 
     /***/
-    "CvWb":
-    /*!***************************************!*\
-      !*** ./src/app/guide/guide.page.scss ***!
-      \***************************************/
-
-    /*! exports provided: default */
-
-    /***/
-    function CvWb(module, __webpack_exports__, __webpack_require__) {
-      "use strict";
-
-      __webpack_require__.r(__webpack_exports__);
-      /* harmony default export */
-
-
-      __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJndWlkZS5wYWdlLnNjc3MifQ== */";
-      /***/
-    },
-
-    /***/
-    "DRm0":
-    /*!*****************************************************************************!*\
-      !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/guide/guide.page.html ***!
-      \*****************************************************************************/
-
-    /*! exports provided: default */
-
-    /***/
-    function DRm0(module, __webpack_exports__, __webpack_require__) {
-      "use strict";
-
-      __webpack_require__.r(__webpack_exports__);
-      /* harmony default export */
-
-
-      __webpack_exports__["default"] = "<ion-header class=\"ion-no-border\">\n  <ion-toolbar class=\"solid-primary\">\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"home\" color=\"light\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title>\n      Digitaler Guide\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-menu-button color=\"light\"></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class=\"solid-primary\" [fullscreen]=\"true\">\n  <div class=\"map-wrapper\">\n    <div class=\"coord\"\n      style=\"{{ setObjectLocation(item.coords) }}\"\n      *ngFor=\"let item of data; let i = index\"\n      (click)=\"showModal(i)\"\n    >\n      <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 39.62 34.31\"><defs><style>.cls-1{fill:#006c66;stroke-width:4px;}.cls-1,.cls-2{stroke:#eee;stroke-miterlimit:10;}.cls-2{fill:#eee;}</style></defs><g id=\"Layer_2\" data-name=\"Layer 2\"><g id=\"Hintergrund\"><polygon class=\"cls-1\" points=\"28.56 2 11.06 2 2.31 17.16 11.06 32.31 28.56 32.31 37.31 17.16 28.56 2\"/><path class=\"cls-2\" d=\"M18.32,24.24a1.47,1.47,0,0,1,1.49-1.56,1.45,1.45,0,0,1,1.49,1.56,1.49,1.49,0,1,1-3,0ZM19,20.63,18.6,8.5H21l-.35,12.13Z\"/></g></g></svg>\n    </div>\n\n    <div class=\"location\" style=\"right: {{wp}}%; top: {{hp}}%\"></div>\n\n    <img src=\"../assets/map.png\" />\n\n  </div>\n\n  <div class=\"info\" (click)=\"legend()\">i</div>\n  <div id=\"qropen\" class=\"info\" (click)=\"startScanning()\"><img src=\"../assets/qr-icon.png\" /></div>\n\n</ion-content>\n\n<div id=\"qrclose\" (click)=\"stopScanning()\">X</div>\n";
-      /***/
-    },
-
-    /***/
     "JGET":
     /*!*****************************************************************************************************************!*\
       !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/components/article-preview/article-preview.component.html ***!
@@ -279,79 +179,6 @@
 
 
       __webpack_exports__["default"] = "<div class=\"content\">\n    <div class=\"text\">\n      <div class=\"close\" (click)=\"close()\">X</div>\n\n      <p><b>Legende:</b></p>\n\n      <div class=\"leg\">\n        <div class=\"location\"></div>\n        <p>Aktueller Standort</p>\n      </div>\n\n      <div class=\"leg\">\n        <div class=\"station\">\n          <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 39.62 34.31\"><defs><style>.cls-1{fill:#006c66;stroke-width:4px;}.cls-1,.cls-2{stroke:#eee;stroke-miterlimit:10;}.cls-2{fill:#eee;}</style></defs><g id=\"Layer_2\" data-name=\"Layer 2\"><g id=\"Hintergrund\"><polygon class=\"cls-1\" points=\"28.56 2 11.06 2 2.31 17.16 11.06 32.31 28.56 32.31 37.31 17.16 28.56 2\"/><path class=\"cls-2\" d=\"M18.32,24.24a1.47,1.47,0,0,1,1.49-1.56,1.45,1.45,0,0,1,1.49,1.56,1.49,1.49,0,1,1-3,0ZM19,20.63,18.6,8.5H21l-.35,12.13Z\"/></g></g></svg>\n        </div>\n        <p>Station</p>\n      </div>\n\n      <div class=\"leg\">\n        <div class=\"park\">P</div>\n        <p>Parkplatz</p>\n      </div>\n\n      <div class=\"leg\">\n        <div class=\"qr\"><img src=\"../assets/qr-icon.png\" /></div>\n        <p>QR-Code Scanner</p>\n      </div>\n    </div>\n</div>\n";
-      /***/
-    },
-
-    /***/
-    "UDB2":
-    /*!***************************************!*\
-      !*** ./src/app/guide/guide.module.ts ***!
-      \***************************************/
-
-    /*! exports provided: GuidePageModule */
-
-    /***/
-    function UDB2(module, __webpack_exports__, __webpack_require__) {
-      "use strict";
-
-      __webpack_require__.r(__webpack_exports__);
-      /* harmony export (binding) */
-
-
-      __webpack_require__.d(__webpack_exports__, "GuidePageModule", function () {
-        return GuidePageModule;
-      });
-      /* harmony import */
-
-
-      var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-      /*! tslib */
-      "mrSG");
-      /* harmony import */
-
-
-      var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-      /*! @angular/core */
-      "fXoL");
-      /* harmony import */
-
-
-      var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-      /*! @angular/common */
-      "ofXK");
-      /* harmony import */
-
-
-      var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-      /*! @angular/forms */
-      "3Pt+");
-      /* harmony import */
-
-
-      var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
-      /*! @ionic/angular */
-      "TEn/");
-      /* harmony import */
-
-
-      var _guide_routing_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
-      /*! ./guide-routing.module */
-      "5H4I");
-      /* harmony import */
-
-
-      var _guide_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
-      /*! ./guide.page */
-      "qlbM");
-
-      var GuidePageModule = function GuidePageModule() {
-        _classCallCheck(this, GuidePageModule);
-      };
-
-      GuidePageModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-        imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"], _guide_routing_module__WEBPACK_IMPORTED_MODULE_5__["GuidePageRoutingModule"]],
-        declarations: [_guide_page__WEBPACK_IMPORTED_MODULE_6__["GuidePage"]]
-      })], GuidePageModule);
       /***/
     },
 
@@ -572,23 +399,23 @@
     },
 
     /***/
-    "qlbM":
-    /*!*************************************!*\
-      !*** ./src/app/guide/guide.page.ts ***!
-      \*************************************/
+    "cf3W":
+    /*!*********************************************!*\
+      !*** ./src/app/location/location.module.ts ***!
+      \*********************************************/
 
-    /*! exports provided: GuidePage */
+    /*! exports provided: LocationPageModule */
 
     /***/
-    function qlbM(module, __webpack_exports__, __webpack_require__) {
+    function cf3W(module, __webpack_exports__, __webpack_require__) {
       "use strict";
 
       __webpack_require__.r(__webpack_exports__);
       /* harmony export (binding) */
 
 
-      __webpack_require__.d(__webpack_exports__, "GuidePage", function () {
-        return GuidePage;
+      __webpack_require__.d(__webpack_exports__, "LocationPageModule", function () {
+        return LocationPageModule;
       });
       /* harmony import */
 
@@ -599,15 +426,208 @@
       /* harmony import */
 
 
-      var _raw_loader_guide_page_html__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-      /*! raw-loader!./guide.page.html */
-      "DRm0");
+      var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! @angular/core */
+      "fXoL");
       /* harmony import */
 
 
-      var _guide_page_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-      /*! ./guide.page.scss */
-      "CvWb");
+      var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! @angular/common */
+      "ofXK");
+      /* harmony import */
+
+
+      var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! @angular/forms */
+      "3Pt+");
+      /* harmony import */
+
+
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      /*! @ionic/angular */
+      "TEn/");
+      /* harmony import */
+
+
+      var _location_routing_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      /*! ./location-routing.module */
+      "pMSE");
+      /* harmony import */
+
+
+      var _location_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      /*! ./location.page */
+      "xNjN");
+
+      var LocationPageModule = function LocationPageModule() {
+        _classCallCheck(this, LocationPageModule);
+      };
+
+      LocationPageModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+        imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"], _location_routing_module__WEBPACK_IMPORTED_MODULE_5__["LocationPageRoutingModule"]],
+        declarations: [_location_page__WEBPACK_IMPORTED_MODULE_6__["LocationPage"]]
+      })], LocationPageModule);
+      /***/
+    },
+
+    /***/
+    "eeDV":
+    /*!***********************************************************************************!*\
+      !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/location/location.page.html ***!
+      \***********************************************************************************/
+
+    /*! exports provided: default */
+
+    /***/
+    function eeDV(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony default export */
+
+
+      __webpack_exports__["default"] = "<ion-header class=\"ion-no-border\">\n  <ion-toolbar class=\"solid-primary\">\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"home\" color=\"light\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title>\n      Digitaler Location\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-menu-button color=\"light\"></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class=\"solid-primary\" [fullscreen]=\"true\">\n  <div class=\"map-wrapper\">\n    <div class=\"coord\"\n      style=\"{{ setObjectLocation(item.coords) }}\"\n      *ngFor=\"let item of data; let i = index\"\n      (click)=\"showModal(i)\"\n    >\n      <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 39.62 34.31\"><defs><style>.cls-1{fill:#006c66;stroke-width:4px;}.cls-1,.cls-2{stroke:#eee;stroke-miterlimit:10;}.cls-2{fill:#eee;}</style></defs><g id=\"Layer_2\" data-name=\"Layer 2\"><g id=\"Hintergrund\"><polygon class=\"cls-1\" points=\"28.56 2 11.06 2 2.31 17.16 11.06 32.31 28.56 32.31 37.31 17.16 28.56 2\"/><path class=\"cls-2\" d=\"M18.32,24.24a1.47,1.47,0,0,1,1.49-1.56,1.45,1.45,0,0,1,1.49,1.56,1.49,1.49,0,1,1-3,0ZM19,20.63,18.6,8.5H21l-.35,12.13Z\"/></g></g></svg>\n    </div>\n\n    <div class=\"location\" style=\"right: {{wp}}%; top: {{hp}}%\"></div>\n\n    <img src=\"../assets/map.png\" />\n\n  </div>\n\n  <div class=\"info\" (click)=\"legend()\">i</div>\n  <div id=\"qropen\" class=\"info\" (click)=\"startScanning()\"><img src=\"../assets/qr-icon.png\" /></div>\n\n</ion-content>\n\n<div id=\"qrclose\" (click)=\"stopScanning()\">X</div>\n";
+      /***/
+    },
+
+    /***/
+    "jluf":
+    /*!*********************************************!*\
+      !*** ./src/app/location/location.page.scss ***!
+      \*********************************************/
+
+    /*! exports provided: default */
+
+    /***/
+    function jluf(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony default export */
+
+
+      __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJsb2NhdGlvbi5wYWdlLnNjc3MifQ== */";
+      /***/
+    },
+
+    /***/
+    "pMSE":
+    /*!*****************************************************!*\
+      !*** ./src/app/location/location-routing.module.ts ***!
+      \*****************************************************/
+
+    /*! exports provided: LocationPageRoutingModule */
+
+    /***/
+    function pMSE(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "LocationPageRoutingModule", function () {
+        return LocationPageRoutingModule;
+      });
+      /* harmony import */
+
+
+      var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! tslib */
+      "mrSG");
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! @angular/core */
+      "fXoL");
+      /* harmony import */
+
+
+      var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! @angular/router */
+      "tyNb");
+      /* harmony import */
+
+
+      var _location_page__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! ./location.page */
+      "xNjN");
+
+      var routes = [{
+        path: '',
+        component: _location_page__WEBPACK_IMPORTED_MODULE_3__["LocationPage"]
+      }];
+
+      var LocationPageRoutingModule = function LocationPageRoutingModule() {
+        _classCallCheck(this, LocationPageRoutingModule);
+      };
+
+      LocationPageRoutingModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+        imports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forChild(routes)],
+        exports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"]]
+      })], LocationPageRoutingModule);
+      /***/
+    },
+
+    /***/
+    "tF3b":
+    /*!***************************************************************************!*\
+      !*** ./src/app/components/article-preview/article-preview.component.scss ***!
+      \***************************************************************************/
+
+    /*! exports provided: default */
+
+    /***/
+    function tF3b(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony default export */
+
+
+      __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcnRpY2xlLXByZXZpZXcuY29tcG9uZW50LnNjc3MifQ== */";
+      /***/
+    },
+
+    /***/
+    "xNjN":
+    /*!*******************************************!*\
+      !*** ./src/app/location/location.page.ts ***!
+      \*******************************************/
+
+    /*! exports provided: LocationPage */
+
+    /***/
+    function xNjN(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "LocationPage", function () {
+        return LocationPage;
+      });
+      /* harmony import */
+
+
+      var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! tslib */
+      "mrSG");
+      /* harmony import */
+
+
+      var _raw_loader_location_page_html__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! raw-loader!./location.page.html */
+      "eeDV");
+      /* harmony import */
+
+
+      var _location_page_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! ./location.page.scss */
+      "jluf");
       /* harmony import */
 
 
@@ -652,12 +672,12 @@
       "Z0OH"); // Import Components
 
 
-      var GuidePage = /*#__PURE__*/function () {
+      var LocationPage = /*#__PURE__*/function () {
         // route: Router;
-        function GuidePage(modalCtrl, platform, alertController, qrScanner, route) {
+        function LocationPage(modalCtrl, platform, alertController, qrScanner, route) {
           var _this = this;
 
-          _classCallCheck(this, GuidePage);
+          _classCallCheck(this, LocationPage);
 
           this.modalCtrl = modalCtrl;
           this.platform = platform;
@@ -681,12 +701,12 @@
         } // fetch data
 
 
-        _createClass(GuidePage, [{
+        _createClass(LocationPage, [{
           key: "ngOnInit",
           value: function ngOnInit() {
             var _this2 = this;
 
-            fetch('./assets/data/guide.json').then(function (res) {
+            fetch('./assets/data/location.json').then(function (res) {
               return res.json();
             }).then(function (json) {
               _this2.data = json;
@@ -958,10 +978,10 @@
           }
         }]);
 
-        return GuidePage;
+        return LocationPage;
       }();
 
-      GuidePage.ctorParameters = function () {
+      LocationPage.ctorParameters = function () {
         return [{
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ModalController"]
         }, {
@@ -975,33 +995,13 @@
         }];
       };
 
-      GuidePage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
-        selector: 'app-guide',
-        template: _raw_loader_guide_page_html__WEBPACK_IMPORTED_MODULE_1__["default"],
-        styles: [_guide_page_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
-      })], GuidePage);
-      /***/
-    },
-
-    /***/
-    "tF3b":
-    /*!***************************************************************************!*\
-      !*** ./src/app/components/article-preview/article-preview.component.scss ***!
-      \***************************************************************************/
-
-    /*! exports provided: default */
-
-    /***/
-    function tF3b(module, __webpack_exports__, __webpack_require__) {
-      "use strict";
-
-      __webpack_require__.r(__webpack_exports__);
-      /* harmony default export */
-
-
-      __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcnRpY2xlLXByZXZpZXcuY29tcG9uZW50LnNjc3MifQ== */";
+      LocationPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
+        selector: 'app-location',
+        template: _raw_loader_location_page_html__WEBPACK_IMPORTED_MODULE_1__["default"],
+        styles: [_location_page_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
+      })], LocationPage);
       /***/
     }
   }]);
 })();
-//# sourceMappingURL=guide-guide-module-es5.js.map
+//# sourceMappingURL=location-location-module-es5.js.map

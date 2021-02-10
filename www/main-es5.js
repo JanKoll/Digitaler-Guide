@@ -155,7 +155,7 @@
           value: function ngOnInit() {
             var _this2 = this;
 
-            fetch('./assets/data/guide.json').then(function (res) {
+            fetch('./assets/data/location.json').then(function (res) {
               return res.json();
             }).then(function (json) {
               _this2.data = json;
@@ -202,7 +202,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-app>\n  <ion-split-pane contentId=\"guide-content\">\n    <ion-menu contentId=\"guide-content\" type=\"overlay\" side=\"end\">\n      <ion-content color=\"primary\">\n\n        <ion-header class=\"ion-no-border\">\n          <ion-toolbar color=\"none\">\n            <ion-buttons slot=\"start\">\n              <ion-menu-button color=\"light\"></ion-menu-button>\n            </ion-buttons>\n          </ion-toolbar>\n        </ion-header>\n\n        <ion-list id=\"inbox-list\">\n          <ion-menu-toggle auto-hide=\"false\">\n            <ion-list-header [routerLink]=\"['/guide/']\">Digitaler Guide</ion-list-header>\n          </ion-menu-toggle>\n          <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let item of data; let i = index\">\n            <ion-item routerDirection=\"forward\" [routerLink]=\"['/article/', item.name]\" lines=\"none\" detail=\"false\">\n              <ion-label>{{ item.name }}</ion-label>\n            </ion-item>\n          </ion-menu-toggle>\n        </ion-list>\n\n      </ion-content>\n    </ion-menu>\n    <ion-router-outlet id=\"guide-content\"></ion-router-outlet>\n  </ion-split-pane>\n</ion-app>\n";
+      __webpack_exports__["default"] = "<ion-app>\n  <ion-split-pane contentId=\"location-content\">\n    <ion-menu contentId=\"location-content\" type=\"overlay\" side=\"end\">\n      <ion-content color=\"primary\">\n\n        <ion-header class=\"ion-no-border\">\n          <ion-toolbar color=\"none\">\n            <ion-buttons slot=\"start\">\n              <ion-menu-button color=\"light\"></ion-menu-button>\n            </ion-buttons>\n          </ion-toolbar>\n        </ion-header>\n\n        <ion-list id=\"inbox-list\">\n          <ion-menu-toggle auto-hide=\"false\">\n            <ion-list-header [routerLink]=\"['/location/']\">Digitaler Location</ion-list-header>\n          </ion-menu-toggle>\n          <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let item of data; let i = index\">\n            <ion-item routerDirection=\"forward\" [routerLink]=\"['/article/', item.name]\" lines=\"none\" detail=\"false\">\n              <ion-label>{{ item.name }}</ion-label>\n            </ion-item>\n          </ion-menu-toggle>\n        </ion-list>\n\n      </ion-content>\n    </ion-menu>\n    <ion-router-outlet id=\"location-content\"></ion-router-outlet>\n  </ion-split-pane>\n</ion-app>\n";
       /***/
     },
 
@@ -458,14 +458,14 @@
         redirectTo: 'home',
         pathMatch: 'full'
       }, {
-        path: 'guide',
+        path: 'location',
         loadChildren: function loadChildren() {
           return __webpack_require__.e(
-          /*! import() | guide-guide-module */
-          "guide-guide-module").then(__webpack_require__.bind(null,
-          /*! ./guide/guide.module */
-          "UDB2")).then(function (m) {
-            return m.GuidePageModule;
+          /*! import() | location-location-module */
+          "location-location-module").then(__webpack_require__.bind(null,
+          /*! ./location/location.module */
+          "cf3W")).then(function (m) {
+            return m.LocationPageModule;
           });
         }
       }, {

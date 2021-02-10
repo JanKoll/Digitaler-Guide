@@ -12,57 +12,46 @@
 
 <ion-content>
   <div id="container" class="ion-padding-horizontal">
-  
-
     <div *ngIf="content">
       <div *ngFor="let item of content; index as i;">
-        <ion-card class="ion-no-padding" routerLink="/{{ item.type[0].name }}">
-          <ion-card-header>
-            <ion-card-title color=light>{{ item.title }}</ion-card-title>
-          </ion-card-header>
+        <div [ngSwitch]="item.type[0].name" class="section-wrap">
+          <!-- START Switch "Locaiton" -->
+          <ion-card *ngSwitchCase="'location'" class="ion-no-padding" routerLink="/{{ item.type[0].name }}">
+            <ion-card-header>
+              <ion-card-title color=light>{{ item.title }}</ion-card-title>
+            </ion-card-header>
 
-          <ion-card-content>
-            {{ item.teasertext }}
-          </ion-card-content>
-        </ion-card>
+            <ion-card-content>
+              {{ item.teasertext }}
+            </ion-card-content>
+          </ion-card>
+          <!-- END Switch "Locaiton" -->
+
+          <!-- START Switch "webview" -->
+          <ion-card *ngSwitchCase="'webview'" class="ion-no-padding" (click)="createInAppBrowser( item.link.value )">
+            <ion-card-header>
+              <ion-card-title color=light>{{ item.title }}</ion-card-title>
+            </ion-card-header>
+
+            <ion-card-content>
+              {{ item.teasertext }}
+            </ion-card-content>
+          </ion-card>
+          <!-- END Switch "webview" -->
+ 
+          <!-- START Switch defautl / article -->
+          <ion-card *ngSwitchDefault class="ion-no-padding" routerLink="/article/{{ item.id }}">
+            <ion-card-header>
+              <ion-card-title color=light>{{ item.title }}</ion-card-title>
+            </ion-card-header>
+
+            <ion-card-content>
+              {{ item.teasertext }}
+            </ion-card-content>
+          </ion-card>
+          <!-- END Switch "webview" -->
+        </div>
       </div>
     </div>
-
-
-    <!-- <ion-card class="ion-no-padding" routerLink="/location">
-      <ion-card-header>
-        <ion-card-title color=light>Digitaler Location</ion-card-title>
-      </ion-card-header>
-
-      <ion-card-content>
-        Hier kannst du dich selbst <br>
-        über das Institutsgelände <br>
-        und die Arbeit informieren.
-      </ion-card-content>
-    </ion-card>
-
-    <ion-card class="ion-no-padding" disabled="true">
-      <ion-card-header>
-        <ion-card-title color=light>360° Führung</ion-card-title>
-      </ion-card-header>
-
-      <ion-card-content>
-        Mitten drin: auch von <br>
-        Zuhause aus das Insititut <br>
-        kennelernen.
-      </ion-card-content>
-    </ion-card>
-
-    <ion-card class="ion-no-padding" disabled="true">
-      <ion-card-header>
-        <ion-card-title color=light>Quiz</ion-card-title>
-      </ion-card-header>
-
-      <ion-card-content>
-        Du kennst dich schon in der <br>
-        Welt der Verhaltensbiologie <br>
-        aus? Teste dein Wissen!
-      </ion-card-content>
-    </ion-card> -->
   </div>
 </ion-content>
