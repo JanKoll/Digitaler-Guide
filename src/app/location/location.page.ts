@@ -9,11 +9,11 @@ import { ArticlePreviewComponent } from '../components/article-preview/article-p
 import { LegendComponent } from '../components/legend/legend.component';
 
 @Component({
-  selector: 'app-guide',
-  templateUrl: './guide.page.html',
-  styleUrls: ['./guide.page.scss'],
+  selector: 'app-location',
+  templateUrl: './location.page.html',
+  styleUrls: ['./location.page.scss'],
 })
-export class GuidePage implements OnInit {
+export class LocationPage implements OnInit {
   // Coords
   latitude: number;
   longitude: number;
@@ -56,7 +56,7 @@ export class GuidePage implements OnInit {
 
   // fetch data
   ngOnInit() {
-    fetch('./assets/data/guide.json').then(res => res.json())
+    fetch('./assets/data/location.json').then(res => res.json())
     .then(json => {
       this.data = json;
     });

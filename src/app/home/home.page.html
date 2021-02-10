@@ -12,11 +12,11 @@
 
 <ion-content>
   <div id="container" class="ion-padding-horizontal">
-
+  
 
     <div *ngIf="content">
       <div *ngFor="let item of content; index as i;">
-        <ion-card class="ion-no-padding" routerLink="/{{ item.type.name }}">
+        <ion-card class="ion-no-padding" routerLink="/{{ item.type[0].name }}">
           <ion-card-header>
             <ion-card-title color=light>{{ item.title }}</ion-card-title>
           </ion-card-header>
@@ -29,9 +29,9 @@
     </div>
 
 
-    <!-- <ion-card class="ion-no-padding" routerLink="/guide">
+    <!-- <ion-card class="ion-no-padding" routerLink="/location">
       <ion-card-header>
-        <ion-card-title color=light>Digitaler Guide</ion-card-title>
+        <ion-card-title color=light>Digitaler Location</ion-card-title>
       </ion-card-header>
 
       <ion-card-content>

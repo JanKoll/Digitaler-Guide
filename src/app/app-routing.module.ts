@@ -12,8 +12,8 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'guide',
-    loadChildren: () => import('./guide/guide.module').then( m => m.GuidePageModule)
+    path: 'location',
+    loadChildren: () => import('./location/location.module').then( m => m.LocationPageModule)
   },
   {
     path: 'article/:articleId',

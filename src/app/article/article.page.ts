@@ -26,7 +26,7 @@ export class ArticlePage implements OnInit {
          this.articleId = params['articleId'];
     });
 
-    fetch('./assets/data/guide.json').then(res => res.json())
+    fetch('./assets/data/location.json').then(res => res.json())
     .then(json => {
       let data = json;
       this.result = data.find(data => data.name === this.articleId);

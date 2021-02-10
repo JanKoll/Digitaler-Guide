@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    fetch('./assets/data/guide.json').then(res => res.json())
+    fetch('./assets/data/location.json').then(res => res.json())
     .then(json => {
       this.data = json;
     });

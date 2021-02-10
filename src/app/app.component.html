@@ -1,6 +1,6 @@
 <ion-app>
-  <ion-split-pane contentId="guide-content">
-    <ion-menu contentId="guide-content" type="overlay" side="end">
+  <ion-split-pane contentId="location-content">
+    <ion-menu contentId="location-content" type="overlay" side="end">
       <ion-content color="primary">
 
         <ion-header class="ion-no-border">
@@ -13,7 +13,7 @@
 
         <ion-list id="inbox-list">
           <ion-menu-toggle auto-hide="false">
-            <ion-list-header [routerLink]="['/guide/']">Digitaler Guide</ion-list-header>
+            <ion-list-header [routerLink]="['/location/']">Digitaler Location</ion-list-header>
           </ion-menu-toggle>
           <ion-menu-toggle auto-hide="false" *ngFor="let item of data; let i = index">
             <ion-item routerDirection="forward" [routerLink]="['/article/', item.name]" lines="none" detail="false">
@@ -24,6 +24,6 @@
 
       </ion-content>
     </ion-menu>
-    <ion-router-outlet id="guide-content"></ion-router-outlet>
+    <ion-router-outlet id="location-content"></ion-router-outlet>
   </ion-split-pane>
 </ion-app>

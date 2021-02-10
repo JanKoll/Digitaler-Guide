@@ -10,7 +10,7 @@ import { HTTP } from '@ionic-native/http/ngx';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage { 
   route: Router;
 
   content: [];
