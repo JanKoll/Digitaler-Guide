@@ -15,6 +15,9 @@ import { environment } from '../environments/environment';
 
 import { HTTP } from '@ionic-native/http/ngx';
 
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -28,7 +31,8 @@ import { HTTP } from '@ionic-native/http/ngx';
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     QRScanner,
-    HTTP
+    HTTP,
+    InAppBrowser
   ],
   bootstrap: [AppComponent]
 })

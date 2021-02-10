@@ -81,7 +81,7 @@ let AppComponent = class AppComponent {
         });
     }
     ngOnInit() {
-        fetch('./assets/data/guide.json').then(res => res.json())
+        fetch('./assets/data/location.json').then(res => res.json())
             .then(json => {
             this.data = json;
         });
@@ -114,7 +114,7 @@ AppComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-app>\n  <ion-split-pane contentId=\"guide-content\">\n    <ion-menu contentId=\"guide-content\" type=\"overlay\" side=\"end\">\n      <ion-content color=\"primary\">\n\n        <ion-header class=\"ion-no-border\">\n          <ion-toolbar color=\"none\">\n            <ion-buttons slot=\"start\">\n              <ion-menu-button color=\"light\"></ion-menu-button>\n            </ion-buttons>\n          </ion-toolbar>\n        </ion-header>\n\n        <ion-list id=\"inbox-list\">\n          <ion-menu-toggle auto-hide=\"false\">\n            <ion-list-header [routerLink]=\"['/guide/']\">Digitaler Guide</ion-list-header>\n          </ion-menu-toggle>\n          <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let item of data; let i = index\">\n            <ion-item routerDirection=\"forward\" [routerLink]=\"['/article/', item.name]\" lines=\"none\" detail=\"false\">\n              <ion-label>{{ item.name }}</ion-label>\n            </ion-item>\n          </ion-menu-toggle>\n        </ion-list>\n\n      </ion-content>\n    </ion-menu>\n    <ion-router-outlet id=\"guide-content\"></ion-router-outlet>\n  </ion-split-pane>\n</ion-app>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-app>\n  <ion-split-pane contentId=\"location-content\">\n    <ion-menu contentId=\"location-content\" type=\"overlay\" side=\"end\">\n      <ion-content color=\"primary\">\n\n        <ion-header class=\"ion-no-border\">\n          <ion-toolbar color=\"none\">\n            <ion-buttons slot=\"start\">\n              <ion-menu-button color=\"light\"></ion-menu-button>\n            </ion-buttons>\n          </ion-toolbar>\n        </ion-header>\n\n        <ion-list id=\"inbox-list\">\n          <ion-menu-toggle auto-hide=\"false\">\n            <ion-list-header [routerLink]=\"['/location/']\">Digitaler Location</ion-list-header>\n          </ion-menu-toggle>\n          <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let item of data; let i = index\">\n            <ion-item routerDirection=\"forward\" [routerLink]=\"['/article/', item.name]\" lines=\"none\" detail=\"false\">\n              <ion-label>{{ item.name }}</ion-label>\n            </ion-item>\n          </ion-menu-toggle>\n        </ion-list>\n\n      </ion-content>\n    </ion-menu>\n    <ion-router-outlet id=\"location-content\"></ion-router-outlet>\n  </ion-split-pane>\n</ion-app>\n");
 
 /***/ }),
 
@@ -446,8 +446,8 @@ const routes = [
         pathMatch: 'full'
     },
     {
-        path: 'guide',
-        loadChildren: () => __webpack_require__.e(/*! import() | guide-guide-module */ "guide-guide-module").then(__webpack_require__.bind(null, /*! ./guide/guide.module */ "UDB2")).then(m => m.GuidePageModule)
+        path: 'location',
+        loadChildren: () => __webpack_require__.e(/*! import() | location-location-module */ "location-location-module").then(__webpack_require__.bind(null, /*! ./location/location.module */ "cf3W")).then(m => m.LocationPageModule)
     },
     {
         path: 'article/:articleId',
