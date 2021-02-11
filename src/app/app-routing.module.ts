@@ -12,13 +12,13 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'location',
+    path: 'location/:locationId',
     loadChildren: () => import('./location/location.module').then( m => m.LocationPageModule)
   },
   {
     path: 'article/:articleId',
     loadChildren: () => import('./article/article.module').then( m => m.ArticlePageModule)
-  },
+  }
 ];
 
 @NgModule({

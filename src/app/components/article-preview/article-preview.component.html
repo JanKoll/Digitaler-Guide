@@ -1,20 +1,22 @@
 <div class="content">
     <div class="icon-header">
       <div class="icon">
-        <img src="../assets/icon/{{ data.icon }}" alt="{{ data.name }} Icon">
+        <img src="{{ data.icon }}" alt="{{ data.title }} Icon">
       </div>
 
-      <h2>{{ data.name }}</h2>
+      <h2>{{ data.title }}</h2>
     </div>
 
     <div class="text">
       <div class="close" (click)="close()">X</div>
-      <p>{{ data.intro }}</p>
+      <p>{{ data.teasertext }}</p>
 
-      <ion-img src="../assets/data/media/{{ data.name }}/{{ data.previmg }}" alt="{{ data.name }} Vorschaubild"></ion-img>
+      <ion-img src="{{ data.teaserimg }}" alt="{{ data.title }} Vorschaubild"></ion-img>
+
+      <div [innerHTML]="data.time"></div>
 
       <div class="routerbtn">
-        <ion-button (click)="route(data.name)">
+        <ion-button (click)="route(data.id)">
           Mehr erfahren
         </ion-button>
       </div>

@@ -5,7 +5,7 @@
     </ion-buttons>
 
     <ion-title>
-      {{ articleId }}
+      {{ title }}
     </ion-title>
 
     <ion-buttons slot="end">
@@ -15,68 +15,71 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
-  <div class="article" *ngIf="result">
-
-
+  <div class="article" *ngIf="content">
+ 
     <!-- intro section -->
 
-    <div class="icon-header">
+    <div class="icon-header" *ngIf="template !== 'default'">
       <div class="icon">
-        <img src="../assets/icon/{{ result.icon }}" alt="{{ result.name }} Icon">
+        <img src="{{ content.icon[0].icon.url }}" alt="{{ content.title }} Icon">
       </div>
 
       <p>Mehr erleben im</p>
-      <h2>{{ result.name }}</h2>
+      <h2>{{ content.title }}</h2>
     </div>
 
-    <ion-text color="light">
-      <p>{{ result.intro }}</p>
+    <ion-text color="light" *ngIf="template !== 'default'">
+      <p>{{ content.teasertext }}</p>
     </ion-text>
 
 
     <!-- content section -->
 
-    <div *ngFor="let item of result.body; index as i;">
-
+    <div *ngFor="let item of content.content; index as i;">
       <div [ngSwitch]="item.type" class="section-wrap">
 
-        <!-- Text -->
-        <div *ngSwitchCase="'text'">
-          <h4 *ngIf="item.hedding">{{ item.hedding }}</h4>
-          <p>{{ item.content }}</p>
+        <!-- Heading -->
+        <div *ngSwitchCase="'heading'">
+          <div [ngSwitch]="item.content.level">
+            <h1 *ngSwitchCase="'h1'">{{ item.content.text }}</h1>
+            <h2 *ngSwitchCase="'h2'">{{ item.content.text }}</h2>
+            <h3 *ngSwitchCase="'h3'">{{ item.content.text }}</h3>
+            <h4 *ngSwitchCase="'h4'">{{ item.content.text }}</h4>
+            <h5 *ngSwitchCase="'h5'">{{ item.content.text }}</h5>
+            <h6 *ngSwitchCase="'h6'">{{ item.content.text }}</h6>
+          </div>
         </div>
+
+        <!-- Text -->
+        <div *ngSwitchCase="'text'" [innerHTML]="item.content.text"></div>
+
+        <!-- List -->
+        <div *ngSwitchCase="'list'" [innerHTML]="item.content.text"></div>
 
         <!-- img -->
         <div *ngSwitchCase="'img'">
-          <h4 *ngIf="item.hedding">{{ item.hedding }}</h4>
-          <ion-img src="../assets/data/media/{{ result.name }}/{{ item.content }}" alt="{{ result.name }} Artikel Bild"></ion-img>
+          <ion-img src="{{ item.content.image[0].icon.url }}" alt="{{ item.content.image[0].alt }}"></ion-img>
         </div>
 
         <!-- slider -->
         <div *ngSwitchCase="'img-slider'">
-          <h4 *ngIf="item.hedding">{{ item.hedding }}</h4>
-         <!-- <p>{{ item.content }}</p> -->
-
-         <ion-slides pager="true" [options]="slideOpts">
-            <ion-slide *ngFor="let img of item.content">
-              <ion-img src="../assets/data/media/{{ result.name }}/{{ img }}" alt="{{ result.name }} Artikel Bild"></ion-img>
+         <ion-slides pager="true">
+            <ion-slide *ngFor="let img of item.content.images">
+              <ion-img src="{{ img.icon.url }}" alt="{{ content.title }} Artikel Bild"></ion-img>
             </ion-slide>
           </ion-slides>
         </div>
 
         <!-- video -->
-        <div *ngSwitchCase="'video'">
-          <h4 *ngIf="item.hedding">{{ item.hedding }}</h4>
-          <iframe [src]="updateVideoUrl(item.content)" allowfullscreen>Ups, da ist etwas schief gelaufen!</iframe>
+        <div *ngSwitchCase="'youtube'">
+          <iframe [src]="updateVideoUrl(item.content.url)" allowfullscreen>Ups, da ist etwas schief gelaufen!</iframe>
         </div>
 
         <!-- audio -->
         <div *ngSwitchCase="'audio'">
-          <h4 *ngIf="item.hedding">{{ item.hedding }}</h4>
-
-          <audio controls>
-            <source src="../assets/data/media/{{ result.name }}/{{ item.content }}" srcset="../assets/data/media/Hennhouse/hennhouse.png" type="audio/mpeg">
+          <audio controls preload autobuffer>
+            {{ item.content.audio[0].url }}
+            <source src="{{ item.content.audio[0].url }}">
             Ups, da ist etwas schief gelaufen!
           </audio>
         </div>
@@ -84,7 +87,6 @@
         <!-- default -->
         <div *ngSwitchDefault>
           <p>Error!</p>
-          <h4 *ngIf="item.hedding">{{ item.hedding }}</h4>
           <p>{{ item.content }}</p>
         </div>
 

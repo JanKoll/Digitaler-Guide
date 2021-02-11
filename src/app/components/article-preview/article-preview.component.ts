@@ -17,7 +17,9 @@ export class ArticlePreviewComponent implements OnInit {
     await this.modalCtrl.dismiss();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.data.id);
+  }
 
   route(id) {
     this.router.navigate(['/article/', id]);

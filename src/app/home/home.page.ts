@@ -39,30 +39,6 @@ export class HomePage {
   }
 
   createInAppBrowser(url) {
-
-    var options = {
-     location: 'yes',
-     clearcache: 'yes',
-     toolbar: 'yes',
-     closebuttoncaption: 'DONE?'
-   };
-
     const browser = this.iab.create(url, '_blank', 'toolbarposition=top,hideurlbar=yes');
-
-    // zoom=no, footer=no, toolbarposition=top, fullscreen=yes,
-
-    // browser.executeScript(...);
-    //
-    // browser.insertCSS(...);
-    // browser.on('loadstop').subscribe(event => {
-    //    browser.insertCSS({ code: "body{color: red;" });
-    // });
-
-    // browser.close();
   }
-
-
-
-
-
 }

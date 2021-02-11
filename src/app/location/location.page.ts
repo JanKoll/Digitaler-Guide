@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ModalController, Platform, AlertController } from '@ionic/angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
@@ -7,6 +7,8 @@ import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 // Import Components
 import { ArticlePreviewComponent } from '../components/article-preview/article-preview.component';
 import { LegendComponent } from '../components/legend/legend.component';
+
+import { HTTP } from '@ionic-native/http/ngx';
 
 @Component({
   selector: 'app-location',
@@ -20,20 +22,18 @@ export class LocationPage implements OnInit {
   hp: number;
   wp: number;
 
-  //QR-Code Data
-  // scanSub: any;
-  // qrText: string;
-
   // General Data
-  data: any;
-  // route: Router;
+  locationId: any;
+  content: any;
 
   constructor(
     private modalCtrl: ModalController,
     public platform: Platform,
     public alertController: AlertController,
     private qrScanner: QRScanner,
-    private route: Router
+    private route: Router,
+    private activatedRoute: ActivatedRoute,
+    private http: HTTP
   )  {
     // Call and Update geo Location
     this.getCurrentLocation()
@@ -52,65 +52,66 @@ export class LocationPage implements OnInit {
       this.qrScanner.destroy();
 
     });
-  }
 
-  // fetch data
-  ngOnInit() {
-    fetch('./assets/data/location.json').then(res => res.json())
-    .then(json => {
-      this.data = json;
+    // GET Route and poll data
+    this.activatedRoute.params.subscribe(params => {
+
+         // REST Authentication
+         this.http.useBasicAuth('mail@example.de', 'Raute123');
+
+         //HTTP GET
+         this.http.get(`http://localhost:8000/rest/map/${params['locationId']}`, {}, {})
+         .then(data => {
+           this.content = JSON.parse(data.data); // data received by server
+         })
+         .catch(error => {
+           console.log(error.status);
+           console.log(error.error); // error message as string
+           console.log(error.headers);
+         });
     });
 
+
+
+  }
+
+  ngOnInit() {
     this.getCurrentLocation()
   }
 
   // Call and set current geo location
   async getCurrentLocation() {
-    let coords = {
-      "leftTop" : {
-        "lat": 47.769027,
-        "lon": 8.994262
-      },
-      "rightBot" : {
-        "lat": 47.763431,
-        "lon": 8.999337
-      }
-    }
+    // let coords = {
+    //   "leftTop" : {
+    //     "lat": 47.769027,
+    //     "lon": 8.994262
+    //   },
+    //   "rightBot" : {
+    //     "lat": 47.763431,
+    //     "lon": 8.999337
+    //   }
+    // }
 
     let position = await Geolocation.getCurrentPosition();
     this.latitude = position.coords.latitude;
     this.longitude = position.coords.longitude;
-    // this.latitude = 47.767574;
-    // this.longitude = 8.996252;
 
-    let height = coords.leftTop.lat - coords.rightBot.lat;
-    let width = coords.rightBot.lon - coords.leftTop.lon;
+    let height = this.content.body.coords.leftTop.lat - this.content.body.coords.rightBot.lat;
+    let width = this.content.body.coords.rightBot.lon - this.content.body.coords.leftTop.lon;
 
-    this.hp = ((coords.leftTop.lat - this.latitude) * 100) / height;
-    this.wp = ((coords.rightBot.lon - this.longitude) * 100) / width;
+    this.hp = ((this.content.body.coords.leftTop.lat - this.latitude) * 100) / height;
+    this.wp = ((this.content.body.coords.rightBot.lon - this.longitude) * 100) / width;
   }
 
   // Set artefact geo location
-  setObjectLocation(data) {
-    let coords = {
-      "leftTop" : {
-        "lat": 47.769027,
-        "lon": 8.994262
-      },
-      "rightBot" : {
-        "lat": 47.763431,
-        "lon": 8.999337
-      }
-    }
+  setObjectLocation(geoData, test) {
+    let height = this.content.body.coords.leftTop.lat - this.content.body.coords.rightBot.lat;
+    let width = this.content.body.coords.rightBot.lon - this.content.body.coords.leftTop.lon;
 
-    let height = coords.leftTop.lat - coords.rightBot.lat;
-    let width = coords.rightBot.lon - coords.leftTop.lon;
-
-    let ycoord = ((coords.leftTop.lat - data.x) * 100) / height;
-    let xcoord = ((coords.rightBot.lon - data.y) * 100) / width;
+    let ycoord = ((this.content.body.coords.leftTop.lat - geoData.lat) * 100) / height;
+    let xcoord = ((this.content.body.coords.rightBot.lon - geoData.lon) * 100) / width;
 
     return "right:" + xcoord + "%; top:" + ycoord + "%;";
-
   }
 
   // Modal controllers
@@ -118,7 +119,7 @@ export class LocationPage implements OnInit {
     const modal = await this.modalCtrl.create({
       component: ArticlePreviewComponent,
       componentProps: {
-        data: this.data[id]
+        data: this.content.children[id]
       },
       // backdropDismiss:false,
       swipeToClose: true,
@@ -200,7 +201,7 @@ export class LocationPage implements OnInit {
                 // });
 
                 // Check if QR-Code is valid
-                if (this.data.map(x => x.name).includes(textFound)) {
+                if (this.content.children.map(x => x.id).includes(textFound)) {
                   this.route.navigate(['/article/' + textFound]);
                   console.log(textFound);
 

@@ -51,7 +51,7 @@
     "icon": "hennhouse.png",
     "previmg": "hennhouse-1.webp",
     "coords": {"x":47.765940,"y":8.998495},
-    "intro": "Ein ehemaliger Hühnerstall wurde zum Multimediahaus. Groß und Klein können unsere aktuellen Forschungsprojekte in spannenden Filmen und Shows erleben.",
+    "intro": "Lorem ehemaliger Hühnerstall wurde zum Multimediahaus. Groß und Klein können unsere aktuellen Forschungsprojekte in spannenden Filmen und Shows erleben.",
     "body": [
       {
         "type": "text",

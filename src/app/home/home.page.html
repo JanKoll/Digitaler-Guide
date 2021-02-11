@@ -16,7 +16,7 @@
       <div *ngFor="let item of content; index as i;">
         <div [ngSwitch]="item.type[0].name" class="section-wrap">
           <!-- START Switch "Locaiton" -->
-          <ion-card *ngSwitchCase="'location'" class="ion-no-padding" routerLink="/{{ item.type[0].name }}">
+          <ion-card *ngSwitchCase="'location'" class="ion-no-padding" routerLink="/{{ item.type[0].name }}/{{ item.id }}">
             <ion-card-header>
               <ion-card-title color=light>{{ item.title }}</ion-card-title>
             </ion-card-header>
@@ -38,7 +38,7 @@
             </ion-card-content>
           </ion-card>
           <!-- END Switch "webview" -->
- 
+
           <!-- START Switch defautl / article -->
           <ion-card *ngSwitchDefault class="ion-no-padding" routerLink="/article/{{ item.id }}">
             <ion-card-header>
