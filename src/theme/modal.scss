@@ -56,7 +56,6 @@ ion-modal {
     position: relative;
     .close {
       position: absolute;
-      top: .5rem;
       right: .5rem;
       background: none;
       color: $dark;
@@ -180,6 +179,10 @@ ion-modal {
         background: $light;
         padding: 1rem;
         flex-grow: 1;
+        p {
+          margin-top: 0;
+          padding-right: .5rem;
+        }
         img {
           height: auto;
           width: 100%;
@@ -195,8 +198,8 @@ ion-modal {
         ion-button {
           --color: #006C66;
           --background: #EEEEEE;
-          --background-hover: #006C66;
-          --color-hover: #EEEEEE;
+          --background-hover: transparent;
+          --color-hover: #006C66;
 
           --border-radius: unset;
           --border-color: #006C66;

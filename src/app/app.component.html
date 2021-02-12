@@ -11,16 +11,44 @@
           </ion-toolbar>
         </ion-header>
 
-        <ion-list id="inbox-list">
-          <ion-menu-toggle auto-hide="false">
-            <ion-list-header [routerLink]="['/location/']">Digitaler Location</ion-list-header>
-          </ion-menu-toggle>
-          <ion-menu-toggle auto-hide="false" *ngFor="let item of data; let i = index">
-            <ion-item routerDirection="forward" [routerLink]="['/article/', item.name]" lines="none" detail="false">
-              <ion-label>{{ item.name }}</ion-label>
-            </ion-item>
-          </ion-menu-toggle>
+        <ion-list id="inbox-list" *ngIf="mainNav">
+          <div *ngFor="let item of mainNav"
+          [ngSwitch]="item.type[0].name" class="section-wrap">
+
+            <!-- Location -->
+            <div *ngSwitchCase="'location'">
+              <ion-menu-toggle auto-hide="false">
+                <ion-list-header routerLink="/{{ item.type[0].name }}/{{ item.id }}">{{ item.title }}</ion-list-header>
+              </ion-menu-toggle>
+
+              <ion-menu-toggle auto-hide="false" *ngFor="let child of item.children">
+                <ion-item routerDirection="forward" [routerLink]="['/article/', child.id]" lines="none" detail="false">
+                  <ion-label>{{ child.title }}</ion-label>
+                </ion-item>
+              </ion-menu-toggle>
+            </div>
+
+            <!-- WebView -->
+            <div *ngSwitchCase="'webview'">
+              <ion-menu-toggle auto-hide="false">
+                <ion-list-header (click)="createInAppBrowser( item.link.value )">{{ item.title }}</ion-list-header>
+              </ion-menu-toggle>
+            </div>
+
+            <!-- Defautl -->
+            <div *ngSwitchDefault>
+              <ion-menu-toggle auto-hide="false">
+                <ion-list-header routerLink="/article/{{ item.id }}">{{ item.title }}</ion-list-header>
+              </ion-menu-toggle>
+            </div>
+          </div>
         </ion-list>
+
+        <div class="meta">
+          <ion-menu-toggle auto-hide="false" *ngFor="let item of metaNav">
+            <div [routerLink]="['/article/', item.id]">{{ item.title }}</div>
+          </ion-menu-toggle>
+        </div>
 
       </ion-content>
     </ion-menu>

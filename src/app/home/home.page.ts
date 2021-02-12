@@ -24,7 +24,7 @@ export class HomePage {
     // REST Authentication
     this.http.useBasicAuth('mail@example.de', 'Raute123');
 
-    this.http.get('http://localhost:8000/rest/main', {}, {})
+    this.http.get('http://api.jankoll.de/rest/main', {}, {})
     .then(data => {
       // console.log(data.status);
       this.content = JSON.parse(data.data); // data received by server

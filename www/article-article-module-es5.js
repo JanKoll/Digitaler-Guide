@@ -67,31 +67,66 @@
       var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! @ionic/angular */
       "TEn/");
+      /* harmony import */
+
+
+      var _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! @ionic-native/http/ngx */
+      "XSEc");
 
       var ArticlePage = /*#__PURE__*/function () {
-        function ArticlePage(route, sanitizer, navCtrl) {
+        function ArticlePage(route, sanitizer, navCtrl, http) {
+          var _this = this;
+
           _classCallCheck(this, ArticlePage);
 
           this.route = route;
           this.sanitizer = sanitizer;
           this.navCtrl = navCtrl;
+          this.http = http;
+          this.route.params.subscribe(function (params) {
+            var path = params['articleId'].split("/");
+            var url = undefined;
+
+            if (path.length > 1) {
+              url = "http://api.jankoll.de/rest/pages/".concat(path[0], "+").concat(path[path.length - 1]);
+            } else {
+              url = "http://api.jankoll.de/rest/pages/".concat(path[path.length - 1]);
+            } // HTTP Request
+
+
+            _this.http.useBasicAuth('mail@example.de', 'Raute123');
+
+            _this.http.get(url, {}, {}).then(function (data) {
+              _this.content = JSON.parse(data.data).data.content; // data received by server
+
+              _this.title = _this.content.title;
+              _this.template = JSON.parse(data.data).data.template;
+            })["catch"](function (error) {
+              console.log(error.status);
+              console.log(error.error); // error message as string
+
+              console.log(error.headers);
+            });
+          });
         }
 
         _createClass(ArticlePage, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this = this;
+            var _this2 = this;
 
             this.route.params.subscribe(function (params) {
-              _this.articleId = params['articleId'];
-            });
-            fetch('./assets/data/location.json').then(function (res) {
-              return res.json();
-            }).then(function (json) {
-              var data = json;
-              _this.result = data.find(function (data) {
-                return data.name === _this.articleId;
-              });
+              var path = params['articleId'].split('/');
+              console.log(path);
+              _this2.articleId = path[path.length - 1];
+
+              if (path.length > 1) {
+                _this2.locationId = path[0];
+              }
+
+              console.log(_this2.articleId);
+              console.log(_this2.locationId);
             });
           }
         }, {
@@ -101,7 +136,7 @@
             // Always make sure to construct SafeValue objects as
             // close as possible to the input data, so
             // that it's easier to check if the value is safe.
-            var dangerousVideoUrl = 'https://www.youtube.com/embed/' + id + '?rel=0&showinfo=0';
+            var dangerousVideoUrl = 'https://www.youtube.com/embed/' + id.split('watch?v=')[id.split('watch?v=').length - 1] + '?rel=0&showinfo=0';
             return this.sanitizer.bypassSecurityTrustResourceUrl(dangerousVideoUrl);
           }
         }]);
@@ -116,6 +151,8 @@
           type: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_5__["DomSanitizer"]
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["NavController"]
+        }, {
+          type: _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_7__["HTTP"]
         }];
       };
 
@@ -296,7 +333,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header class=\"ion-no-border\">\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n        <ion-back-button defaultHref=\"location\" color=\"light\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title>\n      {{ articleId }}\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-menu-button color=\"light\"></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\">\n\n  <div class=\"article\" *ngIf=\"result\">\n\n\n    <!-- intro section -->\n\n    <div class=\"icon-header\">\n      <div class=\"icon\">\n        <img src=\"../assets/icon/{{ result.icon }}\" alt=\"{{ result.name }} Icon\">\n      </div>\n\n      <p>Mehr erleben im</p>\n      <h2>{{ result.name }}</h2>\n    </div>\n\n    <ion-text color=\"light\">\n      <p>{{ result.intro }}</p>\n    </ion-text>\n\n\n    <!-- content section -->\n\n    <div *ngFor=\"let item of result.body; index as i;\">\n\n      <div [ngSwitch]=\"item.type\" class=\"section-wrap\">\n\n        <!-- Text -->\n        <div *ngSwitchCase=\"'text'\">\n          <h4 *ngIf=\"item.hedding\">{{ item.hedding }}</h4>\n          <p>{{ item.content }}</p>\n        </div>\n\n        <!-- img -->\n        <div *ngSwitchCase=\"'img'\">\n          <h4 *ngIf=\"item.hedding\">{{ item.hedding }}</h4>\n          <ion-img src=\"../assets/data/media/{{ result.name }}/{{ item.content }}\" alt=\"{{ result.name }} Artikel Bild\"></ion-img>\n        </div>\n\n        <!-- slider -->\n        <div *ngSwitchCase=\"'img-slider'\">\n          <h4 *ngIf=\"item.hedding\">{{ item.hedding }}</h4>\n         <!-- <p>{{ item.content }}</p> -->\n\n         <ion-slides pager=\"true\" [options]=\"slideOpts\">\n            <ion-slide *ngFor=\"let img of item.content\">\n              <ion-img src=\"../assets/data/media/{{ result.name }}/{{ img }}\" alt=\"{{ result.name }} Artikel Bild\"></ion-img>\n            </ion-slide>\n          </ion-slides>\n        </div>\n\n        <!-- video -->\n        <div *ngSwitchCase=\"'video'\">\n          <h4 *ngIf=\"item.hedding\">{{ item.hedding }}</h4>\n          <iframe [src]=\"updateVideoUrl(item.content)\" allowfullscreen>Ups, da ist etwas schief gelaufen!</iframe>\n        </div>\n\n        <!-- audio -->\n        <div *ngSwitchCase=\"'audio'\">\n          <h4 *ngIf=\"item.hedding\">{{ item.hedding }}</h4>\n\n          <audio controls>\n            <source src=\"../assets/data/media/{{ result.name }}/{{ item.content }}\" srcset=\"../assets/data/media/Hennhouse/hennhouse.png\" type=\"audio/mpeg\">\n            Ups, da ist etwas schief gelaufen!\n          </audio>\n        </div>\n\n        <!-- default -->\n        <div *ngSwitchDefault>\n          <p>Error!</p>\n          <h4 *ngIf=\"item.hedding\">{{ item.hedding }}</h4>\n          <p>{{ item.content }}</p>\n        </div>\n\n      </div>\n    </div>\n\n    <!-- <div [ngSwitch]=\"switch_expression\">\n       <some-element *ngSwitchCase=\"match_expression_1\">...</some-element>\n\n       <some-element *ngSwitchDefault>...</some-element>\n    </div> -->\n\n\n  </div>\n</ion-content>\n";
+      __webpack_exports__["default"] = "<ion-header class=\"ion-no-border\">\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n        <ion-back-button defaultHref=\"location\" color=\"light\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title>\n      {{ title }}\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-menu-button color=\"light\"></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\">\n  <div class=\"article\" *ngIf=\"content\">\n\n    <!-- intro section -->\n\n    <div class=\"icon-header\" *ngIf=\"template !== 'default'\">\n      <div class=\"icon\">\n        <img src=\"{{ content.icon[0].icon.url }}\" alt=\"{{ content.title }} Icon\">\n      </div>\n\n      <p>Mehr erleben im</p>\n      <h2>{{ content.title }}</h2>\n    </div>\n\n    <ion-text color=\"light\" *ngIf=\"template !== 'default'\">\n      <p>{{ content.teasertext }}</p>\n    </ion-text>\n\n\n    <!-- content section -->\n\n    <div *ngFor=\"let item of content.content; index as i;\">\n      <div [ngSwitch]=\"item.type\" class=\"section-wrap\">\n\n        <!-- Heading -->\n        <div *ngSwitchCase=\"'heading'\">\n          <div [ngSwitch]=\"item.content.level\">\n            <h1 *ngSwitchCase=\"'h1'\">{{ item.content.text }}</h1>\n            <h2 *ngSwitchCase=\"'h2'\">{{ item.content.text }}</h2>\n            <h3 *ngSwitchCase=\"'h3'\">{{ item.content.text }}</h3>\n            <h4 *ngSwitchCase=\"'h4'\">{{ item.content.text }}</h4>\n            <h5 *ngSwitchCase=\"'h5'\">{{ item.content.text }}</h5>\n            <h6 *ngSwitchCase=\"'h6'\">{{ item.content.text }}</h6>\n          </div>\n        </div>\n\n        <!-- Text -->\n        <div *ngSwitchCase=\"'text'\" [innerHTML]=\"item.content.text\"></div>\n\n        <!-- List -->\n        <div *ngSwitchCase=\"'list'\" [innerHTML]=\"item.content.text\"></div>\n\n        <!-- img -->\n        <div *ngSwitchCase=\"'img'\">\n          <ion-img src=\"{{ item.content.image[0].icon.url }}\" alt=\"{{ item.content.image[0].alt }}\"></ion-img>\n        </div>\n\n        <!-- slider -->\n        <div *ngSwitchCase=\"'img-slider'\">\n         <ion-slides pager=\"true\">\n            <ion-slide *ngFor=\"let img of item.content.images\">\n              <ion-img src=\"{{ img.icon.url }}\" alt=\"{{ content.title }} Artikel Bild\"></ion-img>\n            </ion-slide>\n          </ion-slides>\n        </div>\n\n        <!-- video -->\n        <div *ngSwitchCase=\"'youtube'\">\n          <iframe [src]=\"updateVideoUrl(item.content.url)\" allowfullscreen>Ups, da ist etwas schief gelaufen!</iframe>\n        </div>\n\n        <!-- audio -->\n        <div *ngSwitchCase=\"'audio'\">\n          <audio controls preload autobuffer>\n            {{ item.content.audio[0].url }}\n            <source src=\"{{ item.content.audio[0].url }}\">\n            Ups, da ist etwas schief gelaufen!\n          </audio>\n        </div>\n\n        <!-- default -->\n        <div *ngSwitchDefault>\n          <p>Error!</p>\n          <p>{{ item.content }}</p>\n        </div>\n\n      </div>\n    </div>\n\n\n  </div>\n</ion-content>\n";
       /***/
     }
   }]);

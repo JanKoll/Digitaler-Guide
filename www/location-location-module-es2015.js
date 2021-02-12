@@ -81,7 +81,7 @@ var Geolocation = new GeolocationOriginal();
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"content\">\n    <div class=\"icon-header\">\n      <div class=\"icon\">\n        <img src=\"../assets/icon/{{ data.icon }}\" alt=\"{{ data.name }} Icon\">\n      </div>\n\n      <h2>{{ data.name }}</h2>\n    </div>\n\n    <div class=\"text\">\n      <div class=\"close\" (click)=\"close()\">X</div>\n      <p>{{ data.intro }}</p>\n\n      <ion-img src=\"../assets/data/media/{{ data.name }}/{{ data.previmg }}\" alt=\"{{ data.name }} Vorschaubild\"></ion-img>\n\n      <div class=\"routerbtn\">\n        <ion-button (click)=\"route(data.name)\">\n          Mehr erfahren\n        </ion-button>\n      </div>\n    </div>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"content\" *ngIf=\"data\">\n    <div class=\"icon-header\">\n      <div class=\"icon\">\n        <img src=\"{{ data.icon }}\" alt=\"{{ data.title }} Icon\">\n      </div>\n\n      <h2>{{ data.title }}</h2>\n    </div>\n\n    <div class=\"text\">\n      <div class=\"close\" (click)=\"close()\">\n        <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" style=\"height: .75rem; width: .75rem; overflow: hidden\">\n          <defs>\n            <style>\n              .closedark {\n                fill: #000000;\n              }\n            </style>\n          </defs>\n          <g id=\"Layer_2\" data-name=\"Layer 2\">\n            <g id=\"Layer_1-2\" data-name=\"Layer 1\"><polygon class=\"closedark\" points=\"100 9.83 90.17 0 50 40.17 9.83 0 0 9.83 40.17 50 0 90.17 9.83 100 50 59.83 90.17 100 100 90.17 59.83 50 100 9.83\"/></g>\n          </g>\n        </svg>\n      </div>\n      <p>{{ data.teasertext }}</p>\n\n      <ion-img src=\"{{ data.teaserimg }}\" alt=\"{{ data.title }} Vorschaubild\"></ion-img>\n\n      <div [innerHTML]=\"data.time\"></div>\n\n      <div class=\"routerbtn\">\n        <ion-button (click)=\"route(data.id)\">\n          Mehr erfahren\n        </ion-button>\n      </div>\n    </div>\n</div>\n");
 
 /***/ }),
 
@@ -107,7 +107,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"content\">\n    <div class=\"text\">\n      <div class=\"close\" (click)=\"close()\">X</div>\n\n      <p><b>Legende:</b></p>\n\n      <div class=\"leg\">\n        <div class=\"location\"></div>\n        <p>Aktueller Standort</p>\n      </div>\n\n      <div class=\"leg\">\n        <div class=\"station\">\n          <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 39.62 34.31\"><defs><style>.cls-1{fill:#006c66;stroke-width:4px;}.cls-1,.cls-2{stroke:#eee;stroke-miterlimit:10;}.cls-2{fill:#eee;}</style></defs><g id=\"Layer_2\" data-name=\"Layer 2\"><g id=\"Hintergrund\"><polygon class=\"cls-1\" points=\"28.56 2 11.06 2 2.31 17.16 11.06 32.31 28.56 32.31 37.31 17.16 28.56 2\"/><path class=\"cls-2\" d=\"M18.32,24.24a1.47,1.47,0,0,1,1.49-1.56,1.45,1.45,0,0,1,1.49,1.56,1.49,1.49,0,1,1-3,0ZM19,20.63,18.6,8.5H21l-.35,12.13Z\"/></g></g></svg>\n        </div>\n        <p>Station</p>\n      </div>\n\n      <div class=\"leg\">\n        <div class=\"park\">P</div>\n        <p>Parkplatz</p>\n      </div>\n\n      <div class=\"leg\">\n        <div class=\"qr\"><img src=\"../assets/qr-icon.png\" /></div>\n        <p>QR-Code Scanner</p>\n      </div>\n    </div>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"content\">\n    <div class=\"text\">\n      <div class=\"close\" (click)=\"close()\">\n        <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" style=\"height: .75rem; width: .75rem; overflow: hidden\">\n          <defs>\n            <style>\n              .closedark {\n                fill: #000000;\n              }\n            </style>\n          </defs>\n          <g id=\"Layer_2\" data-name=\"Layer 2\">\n            <g id=\"Layer_1-2\" data-name=\"Layer 1\"><polygon class=\"closedark\" points=\"100 9.83 90.17 0 50 40.17 9.83 0 0 9.83 40.17 50 0 90.17 9.83 100 50 59.83 90.17 100 100 90.17 59.83 50 100 9.83\"/></g>\n          </g>\n        </svg>\n      </div>\n\n      <p><b>Legende:</b></p>\n\n      <div class=\"leg\">\n        <div class=\"location\"></div>\n        <p>Aktueller Standort</p>\n      </div>\n\n      <div class=\"leg\">\n        <div class=\"station\">\n          <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 39.62 34.31\"><defs><style>.cls-1{fill:#006c66;stroke-width:4px;}.cls-1,.cls-2{stroke:#eee;stroke-miterlimit:10;}.cls-2{fill:#eee;}</style></defs><g id=\"Layer_2\" data-name=\"Layer 2\"><g id=\"Hintergrund\"><polygon class=\"cls-1\" points=\"28.56 2 11.06 2 2.31 17.16 11.06 32.31 28.56 32.31 37.31 17.16 28.56 2\"/><path class=\"cls-2\" d=\"M18.32,24.24a1.47,1.47,0,0,1,1.49-1.56,1.45,1.45,0,0,1,1.49,1.56,1.49,1.49,0,1,1-3,0ZM19,20.63,18.6,8.5H21l-.35,12.13Z\"/></g></g></svg>\n        </div>\n        <p>Station</p>\n      </div>\n\n      <div class=\"leg\">\n        <div class=\"park\">P</div>\n        <p>Parkplatz</p>\n      </div>\n\n      <div class=\"leg\">\n        <div class=\"qr\"><img src=\"../assets/qr-icon.png\" /></div>\n        <p>QR-Code Scanner</p>\n      </div>\n    </div>\n</div>\n");
 
 /***/ }),
 
@@ -183,13 +183,13 @@ let ArticlePreviewComponent = class ArticlePreviewComponent {
     constructor(modalCtrl, router) {
         this.modalCtrl = modalCtrl;
         this.router = router;
+        console.log(this.data);
     }
     close() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             yield this.modalCtrl.dismiss();
         });
     }
-    ngOnInit() { }
     route(id) {
         this.router.navigate(['/article/', id]);
         this.modalCtrl.dismiss();
@@ -265,7 +265,7 @@ LocationPageModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header class=\"ion-no-border\">\n  <ion-toolbar class=\"solid-primary\">\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"home\" color=\"light\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title>\n      Digitaler Location\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-menu-button color=\"light\"></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class=\"solid-primary\" [fullscreen]=\"true\">\n  <div class=\"map-wrapper\">\n    <div class=\"coord\"\n      style=\"{{ setObjectLocation(item.coords) }}\"\n      *ngFor=\"let item of data; let i = index\"\n      (click)=\"showModal(i)\"\n    >\n      <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 39.62 34.31\"><defs><style>.cls-1{fill:#006c66;stroke-width:4px;}.cls-1,.cls-2{stroke:#eee;stroke-miterlimit:10;}.cls-2{fill:#eee;}</style></defs><g id=\"Layer_2\" data-name=\"Layer 2\"><g id=\"Hintergrund\"><polygon class=\"cls-1\" points=\"28.56 2 11.06 2 2.31 17.16 11.06 32.31 28.56 32.31 37.31 17.16 28.56 2\"/><path class=\"cls-2\" d=\"M18.32,24.24a1.47,1.47,0,0,1,1.49-1.56,1.45,1.45,0,0,1,1.49,1.56,1.49,1.49,0,1,1-3,0ZM19,20.63,18.6,8.5H21l-.35,12.13Z\"/></g></g></svg>\n    </div>\n\n    <div class=\"location\" style=\"right: {{wp}}%; top: {{hp}}%\"></div>\n\n    <img src=\"../assets/map.png\" />\n\n  </div>\n\n  <div class=\"info\" (click)=\"legend()\">i</div>\n  <div id=\"qropen\" class=\"info\" (click)=\"startScanning()\"><img src=\"../assets/qr-icon.png\" /></div>\n\n</ion-content>\n\n<div id=\"qrclose\" (click)=\"stopScanning()\">X</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header class=\"ion-no-border\">\n  <ion-toolbar class=\"solid-primary\">\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"home\" color=\"light\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title>\n      Digitaler Guide\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-menu-button color=\"light\"></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class=\"solid-primary\" [fullscreen]=\"true\" *ngIf=\"content\">\n  <div class=\"map-wrapper\">\n    <div class=\"coord\"\n      style=\"{{ setObjectLocation(item.coords, i) }}\"\n      *ngFor=\"let item of content.children; let i = index\"\n      (click)=\"showModal(i)\"\n    >\n      <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 39.62 34.31\">\n        <defs>\n          <style>.mapmarker{fill:#006c66;stroke-width:4px;}.mapmarker,.cls-2{stroke:#eee;stroke-miterlimit:10;}.cls-2{fill:#eee;}</style>\n        </defs>\n        <g id=\"Layer_2\" data-name=\"Layer 2\">\n          <g id=\"Hintergrund\"><polygon class=\"mapmarker\" points=\"28.56 2 11.06 2 2.31 17.16 11.06 32.31 28.56 32.31 37.31 17.16 28.56 2\"/>\n            <path class=\"cls-2\" d=\"M18.32,24.24a1.47,1.47,0,0,1,1.49-1.56,1.45,1.45,0,0,1,1.49,1.56,1.49,1.49,0,1,1-3,0ZM19,20.63,18.6,8.5H21l-.35,12.13Z\"/>\n          </g>\n        </g>\n      </svg>\n    </div>\n\n    <div class=\"location\" style=\"right: {{wp}}%; top: {{hp}}%\"></div>\n\n    <img src=\"{{ content.body.map }}\" />\n\n  </div>\n\n  <div class=\"info\" (click)=\"legend()\">i</div>\n  <div id=\"qropen\" class=\"info\" (click)=\"startScanning()\"><img src=\"../assets/qr-icon.png\" /></div>\n\n</ion-content>\n\n<div id=\"qrclose\" (click)=\"stopScanning()\">\n  <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" style=\"height: 4rem; width: 4rem; overflow: hidden\">\n    <defs>\n      <style>\n        .closedark {\n          fill: #006C66;\n        }\n      </style>\n    </defs>\n    <g id=\"Layer_2\" data-name=\"Layer 2\">\n      <g id=\"Layer_1-2\" data-name=\"Layer 1\"><polygon class=\"closedark\" points=\"100 9.83 90.17 0 50 40.17 9.83 0 0 9.83 40.17 50 0 90.17 9.83 100 50 59.83 90.17 100 100 90.17 59.83 50 100 9.83\"/></g>\n    </g>\n  </svg>\n</div>\n");
 
 /***/ }),
 
@@ -352,6 +352,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/qr-scanner/ngx */ "BLr9");
 /* harmony import */ var _components_article_preview_article_preview_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/article-preview/article-preview.component */ "bW9M");
 /* harmony import */ var _components_legend_legend_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/legend/legend.component */ "Z0OH");
+/* harmony import */ var _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ionic-native/http/ngx */ "XSEc");
 
 
 
@@ -363,14 +364,16 @@ __webpack_require__.r(__webpack_exports__);
 // Import Components
 
 
+
 let LocationPage = class LocationPage {
-    // route: Router;
-    constructor(modalCtrl, platform, alertController, qrScanner, route) {
+    constructor(modalCtrl, platform, alertController, qrScanner, route, activatedRoute, http) {
         this.modalCtrl = modalCtrl;
         this.platform = platform;
         this.alertController = alertController;
         this.qrScanner = qrScanner;
         this.route = route;
+        this.activatedRoute = activatedRoute;
+        this.http = http;
         // Call and Update geo Location
         this.getCurrentLocation();
         // setInterval(() =>
@@ -384,55 +387,53 @@ let LocationPage = class LocationPage {
             document.getElementsByTagName('body')[0].classList.toggle("qractive");
             this.qrScanner.destroy();
         });
-    }
-    // fetch data
-    ngOnInit() {
-        fetch('./assets/data/location.json').then(res => res.json())
-            .then(json => {
-            this.data = json;
+        // GET Route and poll data
+        this.activatedRoute.params.subscribe(params => {
+            // REST Authentication
+            this.http.useBasicAuth('mail@example.de', 'Raute123');
+            //HTTP GET
+            this.http.get(`http://api.jankoll.de/rest/map/${params['locationId']}`, {}, {})
+                .then(data => {
+                this.content = JSON.parse(data.data); // data received by server
+            })
+                .catch(error => {
+                console.log(error.status);
+                console.log(error.error); // error message as string
+                console.log(error.headers);
+            });
         });
+    }
+    ngOnInit() {
         this.getCurrentLocation();
     }
     // Call and set current geo location
     getCurrentLocation() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-            let coords = {
-                "leftTop": {
-                    "lat": 47.769027,
-                    "lon": 8.994262
-                },
-                "rightBot": {
-                    "lat": 47.763431,
-                    "lon": 8.999337
-                }
-            };
+            // let coords = {
+            //   "leftTop" : {
+            //     "lat": 47.769027,
+            //     "lon": 8.994262
+            //   },
+            //   "rightBot" : {
+            //     "lat": 47.763431,
+            //     "lon": 8.999337
+            //   }
+            // }
             let position = yield _ionic_native_geolocation__WEBPACK_IMPORTED_MODULE_6__["Geolocation"].getCurrentPosition();
             this.latitude = position.coords.latitude;
             this.longitude = position.coords.longitude;
-            // this.latitude = 47.767574;
-            // this.longitude = 8.996252;
-            let height = coords.leftTop.lat - coords.rightBot.lat;
-            let width = coords.rightBot.lon - coords.leftTop.lon;
-            this.hp = ((coords.leftTop.lat - this.latitude) * 100) / height;
-            this.wp = ((coords.rightBot.lon - this.longitude) * 100) / width;
+            let height = this.content.body.coords.leftTop.lat - this.content.body.coords.rightBot.lat;
+            let width = this.content.body.coords.rightBot.lon - this.content.body.coords.leftTop.lon;
+            this.hp = ((this.content.body.coords.leftTop.lat - this.latitude) * 100) / height;
+            this.wp = ((this.content.body.coords.rightBot.lon - this.longitude) * 100) / width;
         });
     }
     // Set artefact geo location
-    setObjectLocation(data) {
-        let coords = {
-            "leftTop": {
-                "lat": 47.769027,
-                "lon": 8.994262
-            },
-            "rightBot": {
-                "lat": 47.763431,
-                "lon": 8.999337
-            }
-        };
-        let height = coords.leftTop.lat - coords.rightBot.lat;
-        let width = coords.rightBot.lon - coords.leftTop.lon;
-        let ycoord = ((coords.leftTop.lat - data.x) * 100) / height;
-        let xcoord = ((coords.rightBot.lon - data.y) * 100) / width;
+    setObjectLocation(geoData, test) {
+        let height = this.content.body.coords.leftTop.lat - this.content.body.coords.rightBot.lat;
+        let width = this.content.body.coords.rightBot.lon - this.content.body.coords.leftTop.lon;
+        let ycoord = ((this.content.body.coords.leftTop.lat - geoData.lat) * 100) / height;
+        let xcoord = ((this.content.body.coords.rightBot.lon - geoData.lon) * 100) / width;
         return "right:" + xcoord + "%; top:" + ycoord + "%;";
     }
     // Modal controllers
@@ -441,7 +442,7 @@ let LocationPage = class LocationPage {
             const modal = yield this.modalCtrl.create({
                 component: _components_article_preview_article_preview_component__WEBPACK_IMPORTED_MODULE_8__["ArticlePreviewComponent"],
                 componentProps: {
-                    data: this.data[id]
+                    data: this.content.children[id]
                 },
                 // backdropDismiss:false,
                 swipeToClose: true,
@@ -517,7 +518,7 @@ let LocationPage = class LocationPage {
                     //   routs.push(elements.path)
                     // });
                     // Check if QR-Code is valid
-                    if (this.data.map(x => x.name).includes(textFound)) {
+                    if (this.content.children.map(x => x.id).includes(textFound)) {
                         this.route.navigate(['/article/' + textFound]);
                         console.log(textFound);
                         this.qrScanner.destroy();
@@ -559,7 +560,9 @@ LocationPage.ctorParameters = () => [
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["Platform"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["AlertController"] },
     { type: _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_7__["QRScanner"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] }
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"] },
+    { type: _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_10__["HTTP"] }
 ];
 LocationPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({

@@ -30,10 +30,10 @@ export class ArticlePage implements OnInit {
          let url = undefined;
 
          if (path.length > 1) {
-           url = `http://localhost:8000/rest/pages/${path[0]}+${path[path.length - 1]}`;
+           url = `http://api.jankoll.de/rest/pages/${path[0]}+${path[path.length - 1]}`;
 
          } else {
-           url = `http://localhost:8000/rest/pages/${path[path.length - 1]}`;
+           url = `http://api.jankoll.de/rest/pages/${path[path.length - 1]}`;
          }
 
          // HTTP Request

@@ -5,23 +5,57 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
+import { HTTP } from '@ionic-native/http/ngx';
+
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   articleId: any;
-  data: any;
+  // data: any;
   route: Router;
+  mainNav: any;
+  metaNav: any;
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private router: Router
+    private router: Router,
+    private http: HTTP,
+    private iab: InAppBrowser
   ) {
     this.initializeApp();
+
+    // HTTP Request Main
+    this.http.useBasicAuth('mail@example.de', 'Raute123');
+
+    this.http.get('http://api.jankoll.de/rest/main', {}, {})
+    .then(data => {
+      this.mainNav = JSON.parse(data.data); // data received by server
+    })
+    .catch(error => {
+      console.log(error.status);
+      console.log(error.error); // error message as string
+      console.log(error.headers);
+    });
+
+    // HTTP Request Meta
+    this.http.get('http://api.jankoll.de/rest/meta', {}, {})
+    .then(data => {
+      this.metaNav = JSON.parse(data.data); // data received by server
+      console.log(this.metaNav);
+
+    })
+    .catch(error => {
+      console.log(error.status);
+      console.log(error.error); // error message as string
+      console.log(error.headers);
+    });
   }
 
   initializeApp() {
@@ -31,10 +65,14 @@ export class AppComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    fetch('./assets/data/location.json').then(res => res.json())
-    .then(json => {
-      this.data = json;
-    });
+  createInAppBrowser(url) {
+    const browser = this.iab.create(url, '_blank', 'toolbarposition=top,hideurlbar=yes');
   }
+
+  // ngOnInit() {
+  //   fetch('./assets/data/location.json').then(res => res.json())
+  //   .then(json => {
+  //     this.data = json;
+  //   });
+  // }
 }

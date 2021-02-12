@@ -58,6 +58,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
 /* harmony import */ var _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/splash-screen/ngx */ "54vc");
 /* harmony import */ var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/status-bar/ngx */ "VYYF");
+/* harmony import */ var _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic-native/http/ngx */ "XSEc");
+/* harmony import */ var _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ionic-native/in-app-browser/ngx */ "m/P+");
+
+
 
 
 
@@ -67,12 +71,36 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let AppComponent = class AppComponent {
-    constructor(platform, splashScreen, statusBar, router) {
+    constructor(platform, splashScreen, statusBar, router, http, iab) {
         this.platform = platform;
         this.splashScreen = splashScreen;
         this.statusBar = statusBar;
         this.router = router;
+        this.http = http;
+        this.iab = iab;
         this.initializeApp();
+        // HTTP Request Main
+        this.http.useBasicAuth('mail@example.de', 'Raute123');
+        this.http.get('http://api.jankoll.de/rest/main', {}, {})
+            .then(data => {
+            this.mainNav = JSON.parse(data.data); // data received by server
+        })
+            .catch(error => {
+            console.log(error.status);
+            console.log(error.error); // error message as string
+            console.log(error.headers);
+        });
+        // HTTP Request Meta
+        this.http.get('http://api.jankoll.de/rest/meta', {}, {})
+            .then(data => {
+            this.metaNav = JSON.parse(data.data); // data received by server
+            console.log(this.metaNav);
+        })
+            .catch(error => {
+            console.log(error.status);
+            console.log(error.error); // error message as string
+            console.log(error.headers);
+        });
     }
     initializeApp() {
         this.platform.ready().then(() => {
@@ -80,18 +108,17 @@ let AppComponent = class AppComponent {
             this.splashScreen.hide();
         });
     }
-    ngOnInit() {
-        fetch('./assets/data/location.json').then(res => res.json())
-            .then(json => {
-            this.data = json;
-        });
+    createInAppBrowser(url) {
+        const browser = this.iab.create(url, '_blank', 'toolbarposition=top,hideurlbar=yes');
     }
 };
 AppComponent.ctorParameters = () => [
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["Platform"] },
     { type: _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_6__["SplashScreen"] },
     { type: _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_7__["StatusBar"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] }
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] },
+    { type: _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_8__["HTTP"] },
+    { type: _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_9__["InAppBrowser"] }
 ];
 AppComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
@@ -114,7 +141,7 @@ AppComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-app>\n  <ion-split-pane contentId=\"location-content\">\n    <ion-menu contentId=\"location-content\" type=\"overlay\" side=\"end\">\n      <ion-content color=\"primary\">\n\n        <ion-header class=\"ion-no-border\">\n          <ion-toolbar color=\"none\">\n            <ion-buttons slot=\"start\">\n              <ion-menu-button color=\"light\"></ion-menu-button>\n            </ion-buttons>\n          </ion-toolbar>\n        </ion-header>\n\n        <ion-list id=\"inbox-list\">\n          <ion-menu-toggle auto-hide=\"false\">\n            <ion-list-header [routerLink]=\"['/location/']\">Digitaler Location</ion-list-header>\n          </ion-menu-toggle>\n          <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let item of data; let i = index\">\n            <ion-item routerDirection=\"forward\" [routerLink]=\"['/article/', item.name]\" lines=\"none\" detail=\"false\">\n              <ion-label>{{ item.name }}</ion-label>\n            </ion-item>\n          </ion-menu-toggle>\n        </ion-list>\n\n      </ion-content>\n    </ion-menu>\n    <ion-router-outlet id=\"location-content\"></ion-router-outlet>\n  </ion-split-pane>\n</ion-app>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-app>\n  <ion-split-pane contentId=\"location-content\">\n    <ion-menu contentId=\"location-content\" type=\"overlay\" side=\"end\">\n      <ion-content color=\"primary\">\n\n        <ion-header class=\"ion-no-border\">\n          <ion-toolbar color=\"none\">\n            <ion-buttons slot=\"start\">\n              <ion-menu-button color=\"light\"></ion-menu-button>\n            </ion-buttons>\n          </ion-toolbar>\n        </ion-header>\n\n        <ion-list id=\"inbox-list\" *ngIf=\"mainNav\">\n          <div *ngFor=\"let item of mainNav\"\n          [ngSwitch]=\"item.type[0].name\" class=\"section-wrap\">\n\n            <!-- Location -->\n            <div *ngSwitchCase=\"'location'\">\n              <ion-menu-toggle auto-hide=\"false\">\n                <ion-list-header routerLink=\"/{{ item.type[0].name }}/{{ item.id }}\">{{ item.title }}</ion-list-header>\n              </ion-menu-toggle>\n\n              <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let child of item.children\">\n                <ion-item routerDirection=\"forward\" [routerLink]=\"['/article/', child.id]\" lines=\"none\" detail=\"false\">\n                  <ion-label>{{ child.title }}</ion-label>\n                </ion-item>\n              </ion-menu-toggle>\n            </div>\n\n            <!-- WebView -->\n            <div *ngSwitchCase=\"'webview'\">\n              <ion-menu-toggle auto-hide=\"false\">\n                <ion-list-header (click)=\"createInAppBrowser( item.link.value )\">{{ item.title }}</ion-list-header>\n              </ion-menu-toggle>\n            </div>\n\n            <!-- Defautl -->\n            <div *ngSwitchDefault>\n              <ion-menu-toggle auto-hide=\"false\">\n                <ion-list-header routerLink=\"/article/{{ item.id }}\">{{ item.title }}</ion-list-header>\n              </ion-menu-toggle>\n            </div>\n          </div>\n        </ion-list>\n\n        <div class=\"meta\">\n          <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let item of metaNav\">\n            <div [routerLink]=\"['/article/', item.id]\">{{ item.title }}</div>\n          </ion-menu-toggle>\n        </div>\n\n      </ion-content>\n    </ion-menu>\n    <ion-router-outlet id=\"location-content\"></ion-router-outlet>\n  </ion-split-pane>\n</ion-app>\n");
 
 /***/ }),
 
@@ -141,6 +168,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_service_worker__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/service-worker */ "Jho9");
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../environments/environment */ "AytR");
 /* harmony import */ var _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic-native/http/ngx */ "XSEc");
+/* harmony import */ var _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ionic-native/in-app-browser/ngx */ "m/P+");
+
 
 
 
@@ -171,7 +200,8 @@ AppModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
             _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"],
             { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"] },
             _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_9__["QRScanner"],
-            _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_12__["HTTP"]
+            _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_12__["HTTP"],
+            _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_13__["InAppBrowser"]
         ],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]]
     })
@@ -446,13 +476,13 @@ const routes = [
         pathMatch: 'full'
     },
     {
-        path: 'location',
+        path: 'location/:locationId',
         loadChildren: () => __webpack_require__.e(/*! import() | location-location-module */ "location-location-module").then(__webpack_require__.bind(null, /*! ./location/location.module */ "cf3W")).then(m => m.LocationPageModule)
     },
     {
         path: 'article/:articleId',
         loadChildren: () => __webpack_require__.e(/*! import() | article-article-module */ "article-article-module").then(__webpack_require__.bind(null, /*! ./article/article.module */ "rZHr")).then(m => m.ArticlePageModule)
-    },
+    }
 ];
 let AppRoutingModule = class AppRoutingModule {
 };
