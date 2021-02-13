@@ -1,7 +1,0 @@
-{
-  "name": "ionic-dynamic-data",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular"
-}

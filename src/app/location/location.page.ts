@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ModalController, Platform, AlertController } from '@ionic/angular';
 import { Geolocation } from '@ionic-native/geolocation';
@@ -15,12 +15,12 @@ import { HTTP } from '@ionic-native/http/ngx';
   templateUrl: './location.page.html',
   styleUrls: ['./location.page.scss'],
 })
-export class LocationPage implements OnInit {
+export class LocationPage {
   // Coords
   latitude: number;
   longitude: number;
-  hp: number;
-  wp: number;
+  pointcoord: any;
+  interval: any;
 
   // General Data
   locationId: any;
@@ -31,15 +31,15 @@ export class LocationPage implements OnInit {
     public platform: Platform,
     public alertController: AlertController,
     private qrScanner: QRScanner,
-    private route: Router,
+    private zone: NgZone,
+    private router: Router,
     private activatedRoute: ActivatedRoute,
     private http: HTTP
   )  {
     // Call and Update geo Location
-    this.getCurrentLocation()
-    // setInterval(() =>
-    //   this.getCurrentLocation()
-    // , 5000);
+    this.interval = setInterval(() =>
+      this.getCurrentLocation()
+    , 1000);
 
     // subscribe to cammera close
     this.platform.backButton.subscribeWithPriority(0, () => {
@@ -70,28 +70,14 @@ export class LocationPage implements OnInit {
            console.log(error.headers);
          });
     });
-
-
-
   }
 
-  ngOnInit() {
-    this.getCurrentLocation()
+  ionViewWillLeave() {
+    clearInterval(this.interval);
   }
 
   // Call and set current geo location
   async getCurrentLocation() {
-    // let coords = {
-    //   "leftTop" : {
-    //     "lat": 47.769027,
-    //     "lon": 8.994262
-    //   },
-    //   "rightBot" : {
-    //     "lat": 47.763431,
-    //     "lon": 8.999337
-    //   }
-    // }
-
     let position = await Geolocation.getCurrentPosition();
     this.latitude = position.coords.latitude;
     this.longitude = position.coords.longitude;
@@ -99,12 +85,21 @@ export class LocationPage implements OnInit {
     let height = this.content.body.coords.leftTop.lat - this.content.body.coords.rightBot.lat;
     let width = this.content.body.coords.rightBot.lon - this.content.body.coords.leftTop.lon;
 
-    this.hp = ((this.content.body.coords.leftTop.lat - this.latitude) * 100) / height;
-    this.wp = ((this.content.body.coords.rightBot.lon - this.longitude) * 100) / width;
+    this.pointcoord = 'top: ' + ((this.content.body.coords.leftTop.lat - this.latitude) * 100) / height + '%; right: ' + ((this.content.body.coords.rightBot.lon - this.longitude) * 100) / width + '%; opacity: 1;';
+
+    if (
+      (((this.content.body.coords.leftTop.lat - this.latitude) * 100) / height) > 100
+      || (((this.content.body.coords.leftTop.lat - this.latitude) * 100) / height) < 0
+    ) {
+      clearInterval(this.interval);
+      this.interval = setInterval(() =>
+        this.getCurrentLocation()
+      , 10000);
+    }
   }
 
   // Set artefact geo location
-  setObjectLocation(geoData, test) {
+  setObjectLocation(geoData) {
     let height = this.content.body.coords.leftTop.lat - this.content.body.coords.rightBot.lat;
     let width = this.content.body.coords.rightBot.lon - this.content.body.coords.leftTop.lon;
 
@@ -173,6 +168,10 @@ export class LocationPage implements OnInit {
   }
 
   startScanning() {
+
+
+    console.log("QR CODE START");
+
   // Optionally request the permission early
     this.qrScanner.prepare().
       then((status: QRScannerStatus) => {
@@ -183,49 +182,29 @@ export class LocationPage implements OnInit {
           document.getElementsByTagName('body')[0].classList.toggle("qractive");
           console.log("AUTHORIZED ");
 
+          // console.log(this.content.children);
+
+
           // debugger
           let scanSub = this.qrScanner.scan()
             .subscribe((textFound: string) => {
 
-              console.log(textFound);
-
               // Use Class to Toggle Backgound Visibility
               document.getElementsByTagName('body')[0].classList.toggle("qractive");
 
-              // Route to Page with textFound var
-
-                // Array contains all possible routings
-                // var routs = [];
-                // this.route.config.forEach(elements => {
-                //   routs.push(elements.path)
-                // });
-
-                // Check if QR-Code is valid
-                if (this.content.children.map(x => x.id).includes(textFound)) {
-                  this.route.navigate(['/article/' + textFound]);
-                  console.log(textFound);
-
-                  this.qrScanner.destroy();
-                } else {
-                  this.undefinedQrCode();
-                  this.qrScanner.destroy();
-                }
+              // Check if QR-Code is valid
+              if (this.content.children.map(x => x.id).includes(textFound)) {
+                this.zone.run(() => {
+                  this.router.navigate(['/article/', textFound]);
+                });
+                this.qrScanner.destroy();
+              } else {
+                this.undefinedQrCode();
+                this.qrScanner.destroy();
+              }
             }, (err) => {
               alert(JSON.stringify(err));
             });
-
-        } else if (status.denied) {
-          // The video preview will remain black, and scanning is disabled. We can
-          // try to ask the user to change their mind, but we'll have to send them
-          // to their device settings with `QRScanner.openSettings()`.
-          console.log("ELSE IF");
-
-        } else {
-          // we didn't get permission, but we didn't get permanently denied. (On
-          // Android, a denial isn't permanent unless the user checks the "Don't
-          // ask again" box.) We can ask again at the next relevant opportunity.
-          console.log("ELSE ");
-
         }
       })
       .catch((e: any) => {

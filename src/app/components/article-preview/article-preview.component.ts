@@ -17,9 +17,7 @@ export class ArticlePreviewComponent {
     private modalCtrl: ModalController,
     private router: Router
 
-  ) {
-    console.log(this.data);
-  }
+  ) {}
 
   async close() {
     await this.modalCtrl.dismiss();

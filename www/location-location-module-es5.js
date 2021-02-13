@@ -138,7 +138,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<div class=\"content\" *ngIf=\"data\">\n    <div class=\"icon-header\">\n      <div class=\"icon\">\n        <img src=\"{{ data.icon }}\" alt=\"{{ data.title }} Icon\">\n      </div>\n\n      <h2>{{ data.title }}</h2>\n    </div>\n\n    <div class=\"text\">\n      <div class=\"close\" (click)=\"close()\">\n        <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" style=\"height: .75rem; width: .75rem; overflow: hidden\">\n          <defs>\n            <style>\n              .closedark {\n                fill: #000000;\n              }\n            </style>\n          </defs>\n          <g id=\"Layer_2\" data-name=\"Layer 2\">\n            <g id=\"Layer_1-2\" data-name=\"Layer 1\"><polygon class=\"closedark\" points=\"100 9.83 90.17 0 50 40.17 9.83 0 0 9.83 40.17 50 0 90.17 9.83 100 50 59.83 90.17 100 100 90.17 59.83 50 100 9.83\"/></g>\n          </g>\n        </svg>\n      </div>\n      <p>{{ data.teasertext }}</p>\n\n      <ion-img src=\"{{ data.teaserimg }}\" alt=\"{{ data.title }} Vorschaubild\"></ion-img>\n\n      <div [innerHTML]=\"data.time\"></div>\n\n      <div class=\"routerbtn\">\n        <ion-button (click)=\"route(data.id)\">\n          Mehr erfahren\n        </ion-button>\n      </div>\n    </div>\n</div>\n";
+      __webpack_exports__["default"] = "<div class=\"content\">\n    <div class=\"icon-header\">\n      <div class=\"icon\">\n        <img src=\"{{ data.icon }}\" alt=\"{{ data.title }} Icon\">\n      </div>\n\n      <h2>{{ data.title }}</h2>\n    </div>\n\n    <div class=\"text\">\n      <div class=\"close\" (click)=\"close()\">\n        <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" style=\"height: .75rem; width: .75rem; overflow: hidden\">\n          <defs>\n            <style>\n              .closedark {\n                fill: #000000;\n              }\n            </style>\n          </defs>\n          <g id=\"Layer_2\" data-name=\"Layer 2\">\n            <g id=\"Layer_1-2\" data-name=\"Layer 1\"><polygon class=\"closedark\" points=\"100 9.83 90.17 0 50 40.17 9.83 0 0 9.83 40.17 50 0 90.17 9.83 100 50 59.83 90.17 100 100 90.17 59.83 50 100 9.83\"/></g>\n          </g>\n        </svg>\n      </div>\n      <p>{{ data.teasertext }}</p>\n\n      <ion-img src=\"{{ data.teaserimg }}\" alt=\"{{ data.title }} Vorschaubild\"></ion-img>\n\n      <div [innerHTML]=\"data.time\"></div>\n\n      <div class=\"routerbtn\">\n        <ion-button (click)=\"route(data.id)\">\n          Mehr erfahren\n        </ion-button>\n      </div>\n    </div>\n</div>\n";
       /***/
     },
 
@@ -342,7 +342,6 @@
 
           this.modalCtrl = modalCtrl;
           this.router = router;
-          console.log(this.data);
         }
 
         _createClass(ArticlePreviewComponent, [{
@@ -485,7 +484,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header class=\"ion-no-border\">\n  <ion-toolbar class=\"solid-primary\">\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"home\" color=\"light\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title>\n      Digitaler Guide\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-menu-button color=\"light\"></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class=\"solid-primary\" [fullscreen]=\"true\" *ngIf=\"content\">\n  <div class=\"map-wrapper\">\n    <div class=\"coord\"\n      style=\"{{ setObjectLocation(item.coords, i) }}\"\n      *ngFor=\"let item of content.children; let i = index\"\n      (click)=\"showModal(i)\"\n    >\n      <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 39.62 34.31\">\n        <defs>\n          <style>.mapmarker{fill:#006c66;stroke-width:4px;}.mapmarker,.cls-2{stroke:#eee;stroke-miterlimit:10;}.cls-2{fill:#eee;}</style>\n        </defs>\n        <g id=\"Layer_2\" data-name=\"Layer 2\">\n          <g id=\"Hintergrund\"><polygon class=\"mapmarker\" points=\"28.56 2 11.06 2 2.31 17.16 11.06 32.31 28.56 32.31 37.31 17.16 28.56 2\"/>\n            <path class=\"cls-2\" d=\"M18.32,24.24a1.47,1.47,0,0,1,1.49-1.56,1.45,1.45,0,0,1,1.49,1.56,1.49,1.49,0,1,1-3,0ZM19,20.63,18.6,8.5H21l-.35,12.13Z\"/>\n          </g>\n        </g>\n      </svg>\n    </div>\n\n    <div class=\"location\" style=\"right: {{wp}}%; top: {{hp}}%\"></div>\n\n    <img src=\"{{ content.body.map }}\" />\n\n  </div>\n\n  <div class=\"info\" (click)=\"legend()\">i</div>\n  <div id=\"qropen\" class=\"info\" (click)=\"startScanning()\"><img src=\"../assets/qr-icon.png\" /></div>\n\n</ion-content>\n\n<div id=\"qrclose\" (click)=\"stopScanning()\">\n  <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" style=\"height: 4rem; width: 4rem; overflow: hidden\">\n    <defs>\n      <style>\n        .closedark {\n          fill: #006C66;\n        }\n      </style>\n    </defs>\n    <g id=\"Layer_2\" data-name=\"Layer 2\">\n      <g id=\"Layer_1-2\" data-name=\"Layer 1\"><polygon class=\"closedark\" points=\"100 9.83 90.17 0 50 40.17 9.83 0 0 9.83 40.17 50 0 90.17 9.83 100 50 59.83 90.17 100 100 90.17 59.83 50 100 9.83\"/></g>\n    </g>\n  </svg>\n</div>\n";
+      __webpack_exports__["default"] = "<ion-header class=\"ion-no-border\">\n  <ion-toolbar class=\"solid-primary\">\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"home\" color=\"light\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title>\n      Digitaler Guide\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-menu-button color=\"light\"></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class=\"solid-primary\" [fullscreen]=\"true\" *ngIf=\"content\">\n  <div class=\"map-wrapper\">\n    <div class=\"coord\"\n      style=\"{{ setObjectLocation(item.coords) }}\"\n      *ngFor=\"let item of content.children; let i = index\"\n      (click)=\"showModal(i)\"\n    >\n      <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 39.62 34.31\">\n        <defs>\n          <style>.mapmarker{fill:#006c66;stroke-width:4px;}.mapmarker,.cls-2{stroke:#eee;stroke-miterlimit:10;}.cls-2{fill:#eee;}</style>\n        </defs>\n        <g id=\"Layer_2\" data-name=\"Layer 2\">\n          <g id=\"Hintergrund\"><polygon class=\"mapmarker\" points=\"28.56 2 11.06 2 2.31 17.16 11.06 32.31 28.56 32.31 37.31 17.16 28.56 2\"/>\n            <path class=\"cls-2\" d=\"M18.32,24.24a1.47,1.47,0,0,1,1.49-1.56,1.45,1.45,0,0,1,1.49,1.56,1.49,1.49,0,1,1-3,0ZM19,20.63,18.6,8.5H21l-.35,12.13Z\"/>\n          </g>\n        </g>\n      </svg>\n    </div>\n\n    <div class=\"location\" style=\"{{ pointcoord }}\"></div>\n\n    <img src=\"{{ content.body.map }}\" />\n\n  </div>\n\n  <div class=\"info\" (click)=\"legend()\">i</div>\n  <div id=\"qropen\" class=\"info\" (click)=\"startScanning()\"><img src=\"../assets/qr-icon.png\" /></div>\n\n</ion-content>\n\n<div id=\"qrclose\" (click)=\"stopScanning()\">\n  <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\">\n    <defs>\n      <style>\n        .closedark {\n          fill: #eeeeee;\n        }\n      </style>\n    </defs>\n    <g id=\"Layer_2\" data-name=\"Layer 2\">\n      <g id=\"Layer_1-2\" data-name=\"Layer 1\"><polygon class=\"closedark\" points=\"100 9.83 90.17 0 50 40.17 9.83 0 0 9.83 40.17 50 0 90.17 9.83 100 50 59.83 90.17 100 100 90.17 59.83 50 100 9.83\"/></g>\n    </g>\n  </svg>\n</div>\n";
       /***/
     },
 
@@ -677,7 +676,7 @@
 
 
       var LocationPage = /*#__PURE__*/function () {
-        function LocationPage(modalCtrl, platform, alertController, qrScanner, route, activatedRoute, http) {
+        function LocationPage(modalCtrl, platform, alertController, qrScanner, zone, router, activatedRoute, http) {
           var _this = this;
 
           _classCallCheck(this, LocationPage);
@@ -686,14 +685,14 @@
           this.platform = platform;
           this.alertController = alertController;
           this.qrScanner = qrScanner;
-          this.route = route;
+          this.zone = zone;
+          this.router = router;
           this.activatedRoute = activatedRoute;
           this.http = http; // Call and Update geo Location
 
-          this.getCurrentLocation(); // setInterval(() =>
-          //   this.getCurrentLocation()
-          // , 5000);
-          // subscribe to cammera close
+          this.interval = setInterval(function () {
+            return _this.getCurrentLocation();
+          }, 1000); // subscribe to cammera close
 
           this.platform.backButton.subscribeWithPriority(0, function () {
             // Android Physical Back Button???
@@ -721,15 +720,17 @@
         }
 
         _createClass(LocationPage, [{
-          key: "ngOnInit",
-          value: function ngOnInit() {
-            this.getCurrentLocation();
+          key: "ionViewWillLeave",
+          value: function ionViewWillLeave() {
+            clearInterval(this.interval);
           } // Call and set current geo location
 
         }, {
           key: "getCurrentLocation",
           value: function getCurrentLocation() {
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+              var _this2 = this;
+
               var position, height, width;
               return regeneratorRuntime.wrap(function _callee3$(_context3) {
                 while (1) {
@@ -744,8 +745,14 @@
                       this.longitude = position.coords.longitude;
                       height = this.content.body.coords.leftTop.lat - this.content.body.coords.rightBot.lat;
                       width = this.content.body.coords.rightBot.lon - this.content.body.coords.leftTop.lon;
-                      this.hp = (this.content.body.coords.leftTop.lat - this.latitude) * 100 / height;
-                      this.wp = (this.content.body.coords.rightBot.lon - this.longitude) * 100 / width;
+                      this.pointcoord = 'top: ' + (this.content.body.coords.leftTop.lat - this.latitude) * 100 / height + '%; right: ' + (this.content.body.coords.rightBot.lon - this.longitude) * 100 / width + '%; opacity: 1;';
+
+                      if ((this.content.body.coords.leftTop.lat - this.latitude) * 100 / height > 100 || (this.content.body.coords.leftTop.lat - this.latitude) * 100 / height < 0) {
+                        clearInterval(this.interval);
+                        this.interval = setInterval(function () {
+                          return _this2.getCurrentLocation();
+                        }, 10000);
+                      }
 
                     case 9:
                     case "end":
@@ -758,7 +765,7 @@
 
         }, {
           key: "setObjectLocation",
-          value: function setObjectLocation(geoData, test) {
+          value: function setObjectLocation(geoData) {
             var height = this.content.body.coords.leftTop.lat - this.content.body.coords.rightBot.lat;
             var width = this.content.body.coords.rightBot.lon - this.content.body.coords.leftTop.lon;
             var ycoord = (this.content.body.coords.leftTop.lat - geoData.lat) * 100 / height;
@@ -834,7 +841,7 @@
           key: "accessCamera",
           value: function accessCamera() {
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
-              var _this2 = this;
+              var _this3 = this;
 
               var alert;
               return regeneratorRuntime.wrap(function _callee6$(_context6) {
@@ -853,7 +860,7 @@
                         }, {
                           text: 'Einstellungen',
                           handler: function handler() {
-                            _this2.qrScanner.openSettings();
+                            _this3.qrScanner.openSettings();
                           }
                         }]
                       });
@@ -904,59 +911,44 @@
         }, {
           key: "startScanning",
           value: function startScanning() {
-            var _this3 = this;
+            var _this4 = this;
 
-            // Optionally request the permission early
+            console.log("QR CODE START"); // Optionally request the permission early
+
             this.qrScanner.prepare().then(function (status) {
               if (status.authorized) {
-                _this3.qrScanner.show(); // Use Class to Toggle Backgound Visibility
+                _this4.qrScanner.show(); // Use Class to Toggle Backgound Visibility
 
 
                 document.getElementsByTagName('body')[0].classList.toggle("qractive");
-                console.log("AUTHORIZED "); // debugger
+                console.log("AUTHORIZED "); // console.log(this.content.children);
+                // debugger
 
-                var scanSub = _this3.qrScanner.scan().subscribe(function (textFound) {
-                  console.log(textFound); // Use Class to Toggle Backgound Visibility
+                var scanSub = _this4.qrScanner.scan().subscribe(function (textFound) {
+                  // Use Class to Toggle Backgound Visibility
+                  document.getElementsByTagName('body')[0].classList.toggle("qractive"); // Check if QR-Code is valid
 
-                  document.getElementsByTagName('body')[0].classList.toggle("qractive"); // Route to Page with textFound var
-                  // Array contains all possible routings
-                  // var routs = [];
-                  // this.route.config.forEach(elements => {
-                  //   routs.push(elements.path)
-                  // });
-                  // Check if QR-Code is valid
-
-                  if (_this3.content.children.map(function (x) {
+                  if (_this4.content.children.map(function (x) {
                     return x.id;
                   }).includes(textFound)) {
-                    _this3.route.navigate(['/article/' + textFound]);
+                    _this4.zone.run(function () {
+                      _this4.router.navigate(['/article/', textFound]);
+                    });
 
-                    console.log(textFound);
-
-                    _this3.qrScanner.destroy();
+                    _this4.qrScanner.destroy();
                   } else {
-                    _this3.undefinedQrCode();
+                    _this4.undefinedQrCode();
 
-                    _this3.qrScanner.destroy();
+                    _this4.qrScanner.destroy();
                   }
                 }, function (err) {
                   alert(JSON.stringify(err));
                 });
-              } else if (status.denied) {
-                // The video preview will remain black, and scanning is disabled. We can
-                // try to ask the user to change their mind, but we'll have to send them
-                // to their device settings with `QRScanner.openSettings()`.
-                console.log("ELSE IF");
-              } else {
-                // we didn't get permission, but we didn't get permanently denied. (On
-                // Android, a denial isn't permanent unless the user checks the "Don't
-                // ask again" box.) We can ask again at the next relevant opportunity.
-                console.log("ELSE ");
               }
             })["catch"](function (e) {
               console.log('Error is', e);
 
-              _this3.accessCamera();
+              _this4.accessCamera();
             });
           }
         }, {
@@ -980,6 +972,8 @@
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["AlertController"]
         }, {
           type: _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_7__["QRScanner"]
+        }, {
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_3__["NgZone"]
         }, {
           type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]
         }, {

@@ -94,7 +94,6 @@ let AppComponent = class AppComponent {
         this.http.get('http://api.jankoll.de/rest/meta', {}, {})
             .then(data => {
             this.metaNav = JSON.parse(data.data); // data received by server
-            console.log(this.metaNav);
         })
             .catch(error => {
             console.log(error.status);

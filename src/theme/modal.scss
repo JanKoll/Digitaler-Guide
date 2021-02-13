@@ -56,6 +56,7 @@ ion-modal {
     position: relative;
     .close {
       position: absolute;
+      top: .5rem;
       right: .5rem;
       background: none;
       color: $dark;
@@ -82,6 +83,10 @@ ion-modal {
         color: $light;
         box-shadow: 0 .125rem .125rem rgba($dark, .15);
         border-radius: 100%;
+
+        &.location {
+          opacity: 1;
+        }
 
         &.station {
           box-shadow: unset;
@@ -181,18 +186,18 @@ ion-modal {
         flex-grow: 1;
         p {
           margin-top: 0;
-          padding-right: .5rem;
         }
-        img {
-          height: auto;
-          width: 100%;
-        }
+      }
+
+      ion-img {
+        height: auto;
+        width: 100%;
+        margin-bottom: 1rem;
       }
 
       .routerbtn {
         color: $primary;
         background: $light;
-        padding-top: 1rem;
         display: flex;
         justify-content: flex-end;
         ion-button {
@@ -200,6 +205,10 @@ ion-modal {
           --background: #EEEEEE;
           --background-hover: transparent;
           --color-hover: #006C66;
+          --background-active: transparent;
+          --color-active: #006C66;
+          --background-activated: transparent;
+          --color-activated: #006C66;
 
           --border-radius: unset;
           --border-color: #006C66;

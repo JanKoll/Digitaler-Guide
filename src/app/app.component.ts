@@ -48,8 +48,6 @@ export class AppComponent {
     this.http.get('http://api.jankoll.de/rest/meta', {}, {})
     .then(data => {
       this.metaNav = JSON.parse(data.data); // data received by server
-      console.log(this.metaNav);
-
     })
     .catch(error => {
       console.log(error.status);
@@ -68,11 +66,4 @@ export class AppComponent {
   createInAppBrowser(url) {
     const browser = this.iab.create(url, '_blank', 'toolbarposition=top,hideurlbar=yes');
   }
-
-  // ngOnInit() {
-  //   fetch('./assets/data/location.json').then(res => res.json())
-  //   .then(json => {
-  //     this.data = json;
-  //   });
-  // }
 }

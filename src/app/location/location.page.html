@@ -17,7 +17,7 @@
 <ion-content class="solid-primary" [fullscreen]="true" *ngIf="content">
   <div class="map-wrapper">
     <div class="coord"
-      style="{{ setObjectLocation(item.coords, i) }}"
+      style="{{ setObjectLocation(item.coords) }}"
       *ngFor="let item of content.children; let i = index"
       (click)="showModal(i)"
     >
@@ -33,7 +33,7 @@
       </svg>
     </div>
 
-    <div class="location" style="right: {{wp}}%; top: {{hp}}%"></div>
+    <div class="location" style="{{ pointcoord }}"></div>
 
     <img src="{{ content.body.map }}" />
 
@@ -45,11 +45,11 @@
 </ion-content>
 
 <div id="qrclose" (click)="stopScanning()">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" style="height: 4rem; width: 4rem; overflow: hidden">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
     <defs>
       <style>
         .closedark {
-          fill: #006C66;
+          fill: #eeeeee;
         }
       </style>
     </defs>

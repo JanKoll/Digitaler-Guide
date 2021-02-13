@@ -28,6 +28,12 @@ body {
       line-height: 4rem;
       font-size: 3rem;
       border-radius: 100%;
+
+      svg {
+        height: 2rem;
+        width: 2rem;
+        overflow: hidden;
+      }
     }
   }
 

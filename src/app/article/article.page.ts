@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 import { NavController } from '@ionic/angular';
@@ -10,7 +10,7 @@ import { HTTP } from '@ionic-native/http/ngx';
   templateUrl: './article.page.html',
   styleUrls: ['./article.page.scss'],
 })
-export class ArticlePage implements OnInit {
+export class ArticlePage {
   locationId: any;
   articleId: any;
   content: any;
@@ -23,8 +23,6 @@ export class ArticlePage implements OnInit {
     public navCtrl: NavController,
     private http: HTTP
   ) {
-
-
     this.route.params.subscribe(params => {
          let path = params['articleId'].split("/");
          let url = undefined;
@@ -41,33 +39,16 @@ export class ArticlePage implements OnInit {
 
          this.http.get(url, {}, {})
          .then(data => {
-           this.content = JSON.parse(data.data).data.content; // data received by server
-           this.title = this.content.title;
+            this.content = JSON.parse(data.data).data.content; // data received by server
+            this.title = this.content.title;
 
-           this.template = JSON.parse(data.data).data.template;
-
+            this.template = JSON.parse(data.data).data.template;
          })
          .catch(error => {
            console.log(error.status);
            console.log(error.error); // error message as string
            console.log(error.headers);
          });
-    });
-  }
-
-  ngOnInit() {
-    this.route.params.subscribe(params => {
-         let path = params['articleId'].split('/');
-         console.log(path);
-
-         this.articleId = path[path.length - 1];
-
-         if (path.length > 1) {
-           this.locationId = path[0];
-         }
-
-         console.log(this.articleId);
-         console.log(this.locationId);
     });
   }
 

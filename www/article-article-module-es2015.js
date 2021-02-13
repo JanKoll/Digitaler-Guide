@@ -56,18 +56,6 @@ let ArticlePage = class ArticlePage {
             });
         });
     }
-    ngOnInit() {
-        this.route.params.subscribe(params => {
-            let path = params['articleId'].split('/');
-            console.log(path);
-            this.articleId = path[path.length - 1];
-            if (path.length > 1) {
-                this.locationId = path[0];
-            }
-            console.log(this.articleId);
-            console.log(this.locationId);
-        });
-    }
     updateVideoUrl(id) {
         // Appending an ID to a YouTube URL is safe.
         // Always make sure to construct SafeValue objects as

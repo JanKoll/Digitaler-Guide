@@ -166,8 +166,6 @@
 
           this.http.get('http://api.jankoll.de/rest/meta', {}, {}).then(function (data) {
             _this.metaNav = JSON.parse(data.data); // data received by server
-
-            console.log(_this.metaNav);
           })["catch"](function (error) {
             console.log(error.status);
             console.log(error.error); // error message as string
