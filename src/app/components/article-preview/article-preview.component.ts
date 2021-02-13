@@ -1,23 +1,27 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
+
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-article-preview',
   templateUrl: './article-preview.component.html',
   styleUrls: ['./article-preview.component.scss'],
 })
-export class ArticlePreviewComponent implements OnInit {
+export class ArticlePreviewComponent {
   @Input() data: any;
 
+  constructor(
+    private modalCtrl: ModalController,
+    private router: Router
 
-  constructor(private modalCtrl: ModalController, private router: Router) {}
+  ) {}
 
   async close() {
     await this.modalCtrl.dismiss();
   }
-
-  ngOnInit() {}
 
   route(id) {
     this.router.navigate(['/article/', id]);

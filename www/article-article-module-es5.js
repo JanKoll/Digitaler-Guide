@@ -1,33 +1,153 @@
 (function () {
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
   function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
   function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
   (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["article-article-module"], {
     /***/
-    "./node_modules/raw-loader/dist/cjs.js!./src/app/article/article.page.html":
-    /*!*********************************************************************************!*\
-      !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/article/article.page.html ***!
-      \*********************************************************************************/
+    "7Hwp":
+    /*!*****************************************!*\
+      !*** ./src/app/article/article.page.ts ***!
+      \*****************************************/
 
-    /*! exports provided: default */
+    /*! exports provided: ArticlePage */
 
     /***/
-    function node_modulesRawLoaderDistCjsJsSrcAppArticleArticlePageHtml(module, __webpack_exports__, __webpack_require__) {
+    function Hwp(module, __webpack_exports__, __webpack_require__) {
       "use strict";
 
       __webpack_require__.r(__webpack_exports__);
-      /* harmony default export */
+      /* harmony export (binding) */
 
 
-      __webpack_exports__["default"] = "<ion-header class=\"ion-no-border\">\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n        <ion-back-button defaultHref=\"guide\" color=\"light\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title>\n      {{ articleId }}\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-menu-button color=\"light\"></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\">\n\n  <div class=\"article\" *ngIf=\"result\">\n\n\n    <!-- intro section -->\n\n    <div class=\"icon-header\">\n      <div class=\"icon\">\n        <img src=\"../assets/icon/{{ result.icon }}\" alt=\"{{ result.name }} Icon\">\n      </div>\n\n      <p>Mehr erleben im</p>\n      <h2>{{ result.name }}</h2>\n    </div>\n\n    <ion-text color=\"light\">\n      <p>{{ result.intro }}</p>\n    </ion-text>\n\n\n    <!-- content section -->\n\n    <div *ngFor=\"let item of result.body; index as i;\">\n\n      <div [ngSwitch]=\"item.type\" class=\"section-wrap\">\n\n        <!-- Text -->\n        <div *ngSwitchCase=\"'text'\">\n          <h4 *ngIf=\"item.hedding\">{{ item.hedding }}</h4>\n          <p>{{ item.content }}</p>\n        </div>\n\n        <!-- img -->\n        <div *ngSwitchCase=\"'img'\">\n          <h4 *ngIf=\"item.hedding\">{{ item.hedding }}</h4>\n          <ion-img src=\"../assets/data/media/{{ result.name }}/{{ item.content }}\" alt=\"{{ result.name }} Artikel Bild\"></ion-img>\n        </div>\n\n        <!-- slider -->\n        <div *ngSwitchCase=\"'img-slider'\">\n          <h4 *ngIf=\"item.hedding\">{{ item.hedding }}</h4>\n         <!-- <p>{{ item.content }}</p> -->\n\n         <ion-slides pager=\"true\" [options]=\"slideOpts\">\n            <ion-slide *ngFor=\"let img of item.content\">\n              <ion-img src=\"../assets/data/media/{{ result.name }}/{{ img }}\" alt=\"{{ result.name }} Artikel Bild\"></ion-img>\n            </ion-slide>\n          </ion-slides>\n        </div>\n\n        <!-- video -->\n        <div *ngSwitchCase=\"'video'\">\n          <h4 *ngIf=\"item.hedding\">{{ item.hedding }}</h4>\n          <iframe [src]=\"updateVideoUrl(item.content)\" allowfullscreen>Ups, da ist etwas schief gelaufen!</iframe>\n        </div>\n\n        <!-- audio -->\n        <div *ngSwitchCase=\"'audio'\">\n          <h4 *ngIf=\"item.hedding\">{{ item.hedding }}</h4>\n\n          <audio controls>\n            <source src=\"../assets/data/media/{{ result.name }}/{{ item.content }}\" srcset=\"../assets/data/media/Hennhouse/hennhouse.png\" type=\"audio/mpeg\">\n            Ups, da ist etwas schief gelaufen!\n          </audio>\n        </div>\n\n        <!-- default -->\n        <div *ngSwitchDefault>\n          <p>Error!</p>\n          <h4 *ngIf=\"item.hedding\">{{ item.hedding }}</h4>\n          <p>{{ item.content }}</p>\n        </div>\n\n      </div>\n    </div>\n\n    <!-- <div [ngSwitch]=\"switch_expression\">\n       <some-element *ngSwitchCase=\"match_expression_1\">...</some-element>\n\n       <some-element *ngSwitchDefault>...</some-element>\n    </div> -->\n\n\n  </div>\n</ion-content>\n";
+      __webpack_require__.d(__webpack_exports__, "ArticlePage", function () {
+        return ArticlePage;
+      });
+      /* harmony import */
+
+
+      var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! tslib */
+      "mrSG");
+      /* harmony import */
+
+
+      var _raw_loader_article_page_html__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! raw-loader!./article.page.html */
+      "vfyL");
+      /* harmony import */
+
+
+      var _article_page_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! ./article.page.scss */
+      "M5xG");
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! @angular/core */
+      "fXoL");
+      /* harmony import */
+
+
+      var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      /*! @angular/router */
+      "tyNb");
+      /* harmony import */
+
+
+      var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      /*! @angular/platform-browser */
+      "jhN1");
+      /* harmony import */
+
+
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      /*! @ionic/angular */
+      "TEn/");
+      /* harmony import */
+
+
+      var _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! @ionic-native/http/ngx */
+      "XSEc");
+
+      var ArticlePage = /*#__PURE__*/function () {
+        function ArticlePage(route, sanitizer, navCtrl, http) {
+          var _this = this;
+
+          _classCallCheck(this, ArticlePage);
+
+          this.route = route;
+          this.sanitizer = sanitizer;
+          this.navCtrl = navCtrl;
+          this.http = http;
+          this.route.params.subscribe(function (params) {
+            var path = params['articleId'].split("/");
+            var url = undefined;
+
+            if (path.length > 1) {
+              url = "http://api.jankoll.de/rest/pages/".concat(path[0], "+").concat(path[path.length - 1]);
+            } else {
+              url = "http://api.jankoll.de/rest/pages/".concat(path[path.length - 1]);
+            } // HTTP Request
+
+
+            _this.http.useBasicAuth('mail@example.de', 'Raute123');
+
+            _this.http.get(url, {}, {}).then(function (data) {
+              _this.content = JSON.parse(data.data).data.content; // data received by server
+
+              _this.title = _this.content.title;
+              _this.template = JSON.parse(data.data).data.template;
+            })["catch"](function (error) {
+              console.log(error.status);
+              console.log(error.error); // error message as string
+
+              console.log(error.headers);
+            });
+          });
+        }
+
+        _createClass(ArticlePage, [{
+          key: "updateVideoUrl",
+          value: function updateVideoUrl(id) {
+            // Appending an ID to a YouTube URL is safe.
+            // Always make sure to construct SafeValue objects as
+            // close as possible to the input data, so
+            // that it's easier to check if the value is safe.
+            var dangerousVideoUrl = 'https://www.youtube.com/embed/' + id.split('watch?v=')[id.split('watch?v=').length - 1] + '?rel=0&showinfo=0';
+            return this.sanitizer.bypassSecurityTrustResourceUrl(dangerousVideoUrl);
+          }
+        }]);
+
+        return ArticlePage;
+      }();
+
+      ArticlePage.ctorParameters = function () {
+        return [{
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"]
+        }, {
+          type: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_5__["DomSanitizer"]
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["NavController"]
+        }, {
+          type: _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_7__["HTTP"]
+        }];
+      };
+
+      ArticlePage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
+        selector: 'app-article',
+        template: _raw_loader_article_page_html__WEBPACK_IMPORTED_MODULE_1__["default"],
+        styles: [_article_page_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
+      })], ArticlePage);
       /***/
     },
 
     /***/
-    "./src/app/article/article-routing.module.ts":
+    "AT9Q":
     /*!***************************************************!*\
       !*** ./src/app/article/article-routing.module.ts ***!
       \***************************************************/
@@ -35,7 +155,7 @@
     /*! exports provided: ArticlePageRoutingModule */
 
     /***/
-    function srcAppArticleArticleRoutingModuleTs(module, __webpack_exports__, __webpack_require__) {
+    function AT9Q(module, __webpack_exports__, __webpack_require__) {
       "use strict";
 
       __webpack_require__.r(__webpack_exports__);
@@ -50,25 +170,25 @@
 
       var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! tslib */
-      "./node_modules/tslib/tslib.es6.js");
+      "mrSG");
       /* harmony import */
 
 
       var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
       /*! @angular/core */
-      "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+      "fXoL");
       /* harmony import */
 
 
       var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
       /*! @angular/router */
-      "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
+      "tyNb");
       /* harmony import */
 
 
       var _article_page__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
       /*! ./article.page */
-      "./src/app/article/article.page.ts");
+      "7Hwp");
 
       var routes = [{
         path: '',
@@ -87,7 +207,27 @@
     },
 
     /***/
-    "./src/app/article/article.module.ts":
+    "M5xG":
+    /*!*******************************************!*\
+      !*** ./src/app/article/article.page.scss ***!
+      \*******************************************/
+
+    /*! exports provided: default */
+
+    /***/
+    function M5xG(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony default export */
+
+
+      __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcnRpY2xlLnBhZ2Uuc2NzcyJ9 */";
+      /***/
+    },
+
+    /***/
+    "rZHr":
     /*!*******************************************!*\
       !*** ./src/app/article/article.module.ts ***!
       \*******************************************/
@@ -95,7 +235,7 @@
     /*! exports provided: ArticlePageModule */
 
     /***/
-    function srcAppArticleArticleModuleTs(module, __webpack_exports__, __webpack_require__) {
+    function rZHr(module, __webpack_exports__, __webpack_require__) {
       "use strict";
 
       __webpack_require__.r(__webpack_exports__);
@@ -110,43 +250,43 @@
 
       var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! tslib */
-      "./node_modules/tslib/tslib.es6.js");
+      "mrSG");
       /* harmony import */
 
 
       var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
       /*! @angular/core */
-      "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+      "fXoL");
       /* harmony import */
 
 
       var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
       /*! @angular/common */
-      "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
+      "ofXK");
       /* harmony import */
 
 
       var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
       /*! @angular/forms */
-      "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
+      "3Pt+");
       /* harmony import */
 
 
       var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
       /*! @ionic/angular */
-      "./node_modules/@ionic/angular/__ivy_ngcc__/fesm2015/ionic-angular.js");
+      "TEn/");
       /* harmony import */
 
 
       var _article_routing_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
       /*! ./article-routing.module */
-      "./src/app/article/article-routing.module.ts");
+      "AT9Q");
       /* harmony import */
 
 
       var _article_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! ./article.page */
-      "./src/app/article/article.page.ts");
+      "7Hwp");
 
       var ArticlePageModule = function ArticlePageModule() {
         _classCallCheck(this, ArticlePageModule);
@@ -160,135 +300,22 @@
     },
 
     /***/
-    "./src/app/article/article.page.scss":
-    /*!*******************************************!*\
-      !*** ./src/app/article/article.page.scss ***!
-      \*******************************************/
+    "vfyL":
+    /*!*********************************************************************************!*\
+      !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/article/article.page.html ***!
+      \*********************************************************************************/
 
     /*! exports provided: default */
 
     /***/
-    function srcAppArticleArticlePageScss(module, __webpack_exports__, __webpack_require__) {
+    function vfyL(module, __webpack_exports__, __webpack_require__) {
       "use strict";
 
       __webpack_require__.r(__webpack_exports__);
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2FydGljbGUvYXJ0aWNsZS5wYWdlLnNjc3MifQ== */";
-      /***/
-    },
-
-    /***/
-    "./src/app/article/article.page.ts":
-    /*!*****************************************!*\
-      !*** ./src/app/article/article.page.ts ***!
-      \*****************************************/
-
-    /*! exports provided: ArticlePage */
-
-    /***/
-    function srcAppArticleArticlePageTs(module, __webpack_exports__, __webpack_require__) {
-      "use strict";
-
-      __webpack_require__.r(__webpack_exports__);
-      /* harmony export (binding) */
-
-
-      __webpack_require__.d(__webpack_exports__, "ArticlePage", function () {
-        return ArticlePage;
-      });
-      /* harmony import */
-
-
-      var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-      /*! tslib */
-      "./node_modules/tslib/tslib.es6.js");
-      /* harmony import */
-
-
-      var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-      /*! @angular/core */
-      "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-      /* harmony import */
-
-
-      var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-      /*! @angular/router */
-      "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
-      /* harmony import */
-
-
-      var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-      /*! @angular/platform-browser */
-      "./node_modules/@angular/platform-browser/__ivy_ngcc__/fesm2015/platform-browser.js");
-      /* harmony import */
-
-
-      var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
-      /*! @ionic/angular */
-      "./node_modules/@ionic/angular/__ivy_ngcc__/fesm2015/ionic-angular.js");
-
-      var ArticlePage = /*#__PURE__*/function () {
-        function ArticlePage(route, sanitizer, navCtrl) {
-          _classCallCheck(this, ArticlePage);
-
-          this.route = route;
-          this.sanitizer = sanitizer;
-          this.navCtrl = navCtrl;
-        }
-
-        _createClass(ArticlePage, [{
-          key: "ngOnInit",
-          value: function ngOnInit() {
-            var _this = this;
-
-            this.route.params.subscribe(function (params) {
-              _this.articleId = params['articleId'];
-            });
-            fetch('./assets/data/guide.json').then(function (res) {
-              return res.json();
-            }).then(function (json) {
-              var data = json;
-              _this.result = data.find(function (data) {
-                return data.name === _this.articleId;
-              });
-            });
-          }
-        }, {
-          key: "updateVideoUrl",
-          value: function updateVideoUrl(id) {
-            // Appending an ID to a YouTube URL is safe.
-            // Always make sure to construct SafeValue objects as
-            // close as possible to the input data, so
-            // that it's easier to check if the value is safe.
-            var dangerousVideoUrl = 'https://www.youtube.com/embed/' + id + '?rel=0&showinfo=0';
-            return this.sanitizer.bypassSecurityTrustResourceUrl(dangerousVideoUrl);
-          }
-        }]);
-
-        return ArticlePage;
-      }();
-
-      ArticlePage.ctorParameters = function () {
-        return [{
-          type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]
-        }, {
-          type: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_3__["DomSanitizer"]
-        }, {
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["NavController"]
-        }];
-      };
-
-      ArticlePage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-        selector: 'app-article',
-        template: Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(
-        /*! raw-loader!./article.page.html */
-        "./node_modules/raw-loader/dist/cjs.js!./src/app/article/article.page.html"))["default"],
-        styles: [Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(
-        /*! ./article.page.scss */
-        "./src/app/article/article.page.scss"))["default"]]
-      })], ArticlePage);
+      __webpack_exports__["default"] = "<ion-header class=\"ion-no-border\">\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n        <ion-back-button defaultHref=\"location\" color=\"light\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title>\n      {{ title }}\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-menu-button color=\"light\"></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\">\n  <div class=\"article\" *ngIf=\"content\">\n\n    <!-- intro section -->\n\n    <div class=\"icon-header\" *ngIf=\"template !== 'default'\">\n      <div class=\"icon\">\n        <img src=\"{{ content.icon[0].icon.url }}\" alt=\"{{ content.title }} Icon\">\n      </div>\n\n      <p>Mehr erleben im</p>\n      <h2>{{ content.title }}</h2>\n    </div>\n\n    <ion-text color=\"light\" *ngIf=\"template !== 'default'\">\n      <p>{{ content.teasertext }}</p>\n    </ion-text>\n\n\n    <!-- content section -->\n\n    <div *ngFor=\"let item of content.content; index as i;\">\n      <div [ngSwitch]=\"item.type\" class=\"section-wrap\">\n\n        <!-- Heading -->\n        <div *ngSwitchCase=\"'heading'\">\n          <div [ngSwitch]=\"item.content.level\">\n            <h1 *ngSwitchCase=\"'h1'\">{{ item.content.text }}</h1>\n            <h2 *ngSwitchCase=\"'h2'\">{{ item.content.text }}</h2>\n            <h3 *ngSwitchCase=\"'h3'\">{{ item.content.text }}</h3>\n            <h4 *ngSwitchCase=\"'h4'\">{{ item.content.text }}</h4>\n            <h5 *ngSwitchCase=\"'h5'\">{{ item.content.text }}</h5>\n            <h6 *ngSwitchCase=\"'h6'\">{{ item.content.text }}</h6>\n          </div>\n        </div>\n\n        <!-- Text -->\n        <div *ngSwitchCase=\"'text'\" [innerHTML]=\"item.content.text\"></div>\n\n        <!-- List -->\n        <div *ngSwitchCase=\"'list'\" [innerHTML]=\"item.content.text\"></div>\n\n        <!-- img -->\n        <div *ngSwitchCase=\"'img'\">\n          <ion-img src=\"{{ item.content.image[0].icon.url }}\" alt=\"{{ item.content.image[0].alt }}\"></ion-img>\n        </div>\n\n        <!-- slider -->\n        <div *ngSwitchCase=\"'img-slider'\">\n         <ion-slides pager=\"true\">\n            <ion-slide *ngFor=\"let img of item.content.images\">\n              <ion-img src=\"{{ img.icon.url }}\" alt=\"{{ content.title }} Artikel Bild\"></ion-img>\n            </ion-slide>\n          </ion-slides>\n        </div>\n\n        <!-- video -->\n        <div *ngSwitchCase=\"'youtube'\">\n          <iframe [src]=\"updateVideoUrl(item.content.url)\" allowfullscreen>Ups, da ist etwas schief gelaufen!</iframe>\n        </div>\n\n        <!-- audio -->\n        <div *ngSwitchCase=\"'audio'\">\n          <audio controls preload autobuffer>\n            {{ item.content.audio[0].url }}\n            <source src=\"{{ item.content.audio[0].url }}\">\n            Ups, da ist etwas schief gelaufen!\n          </audio>\n        </div>\n\n        <!-- default -->\n        <div *ngSwitchDefault>\n          <p>Error!</p>\n          <p>{{ item.content }}</p>\n        </div>\n\n      </div>\n    </div>\n\n\n  </div>\n</ion-content>\n";
       /***/
     }
   }]);

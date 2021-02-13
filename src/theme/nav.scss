@@ -1,5 +1,6 @@
 ion-split-pane {
   ion-list {
+    margin-top: -.5rem;
     margin-bottom: 1rem;
 
     ion-list-header {
@@ -9,25 +10,13 @@ ion-split-pane {
       min-height: unset;
       font-weight: 700;
       padding: .25rem 0 .25rem 1rem;
+      margin-top: .5rem;
 
       font-size: 1.25rem;
 
       &:hover {
         cursor: pointer;
       }
-
-
-      // margin-bottom: .5rem;
-      // --background: rgba(#EEEEEE, .5);
-      // &:before {
-      //   content: "";
-      //   top: 35%;
-      //   bottom: -5%;
-      //   left: 0;
-      //   width: 5px;
-      //   background: $secondary;
-      //   position: absolute;
-      // }
     }
     ion-item {
       ion-label {
@@ -41,6 +30,23 @@ ion-split-pane {
         ion-label {
           --color: #a7d19c !important;
           font-weight: bold;
+        }
+      }
+    }
+  }
+
+  .meta {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+
+    ion-menu-toggle {
+      div {
+        display: inline;
+        padding-right: .75rem;
+        &:hover {
+          cursor: pointer;
         }
       }
     }
