@@ -10,6 +10,8 @@ import { LegendComponent } from '../components/legend/legend.component';
 
 import { HTTP } from '@ionic-native/http/ngx';
 
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
+
 @Component({
   selector: 'app-location',
   templateUrl: './location.page.html',
@@ -34,12 +36,13 @@ export class LocationPage {
     private zone: NgZone,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private http: HTTP
+    private http: HTTP,
+    private nativeStorage: NativeStorage
   )  {
     // Call and Update geo Location
-    this.interval = setInterval(() =>
-      this.getCurrentLocation()
-    , 1000);
+    // this.interval = setInterval(() =>
+    //   this.getCurrentLocation()
+    // , 1000);
 
     // subscribe to cammera close
     this.platform.backButton.subscribeWithPriority(0, () => {
@@ -53,7 +56,45 @@ export class LocationPage {
 
     });
 
-    // GET Route and poll data
+    // Check for Offline Mode
+    this.nativeStorage.getItem('isOffline')
+    .then(
+      data => {
+        this.localGET();
+      },
+      error => this.restGET()
+    );
+
+  }
+
+
+  // Get Local Data
+  localGET() {
+
+    this.activatedRoute.params.subscribe(params => {
+
+      console.log("Hallo welt");
+
+     let path = params['locationId'];
+
+     console.log(path);
+
+
+
+      this.nativeStorage.getItem(`location/${params['locationId']}`)
+      .then(
+        data => {
+          this.content = data
+        },
+        error => console.log(error)
+      );
+
+    });
+
+  }
+
+  // Get Rest Data
+  restGET() {
     this.activatedRoute.params.subscribe(params => {
 
          // REST Authentication
@@ -71,6 +112,7 @@ export class LocationPage {
          });
     });
   }
+
 
   ionViewWillLeave() {
     clearInterval(this.interval);
@@ -191,6 +233,10 @@ export class LocationPage {
 
               // Use Class to Toggle Backgound Visibility
               document.getElementsByTagName('body')[0].classList.toggle("qractive");
+
+              console.log(this.content.children);
+
+
 
               // Check if QR-Code is valid
               if (this.content.children.map(x => x.id).includes(textFound)) {
