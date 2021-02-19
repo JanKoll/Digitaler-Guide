@@ -9,6 +9,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
+import { Network } from '@ionic-native/network/ngx';
+
 
 @Component({
   selector: 'app-home',
@@ -18,6 +20,7 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
 export class HomePage {
   route: Router;
   offline: any;
+  network: any;
 
   content: [];
 
@@ -26,7 +29,8 @@ export class HomePage {
     private iab: InAppBrowser,
     private nativeStorage: NativeStorage,
     public alertController: AlertController,
-    public loadingController: LoadingController
+    public loadingController: LoadingController,
+    // private network: Network
   ) {
     this.nativeStorage.getItem('isOffline')
     .then(
@@ -36,6 +40,31 @@ export class HomePage {
       },
       error => this.restGET()
     );
+    //
+    // let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
+    //   console.log('network was disconnected :-(');
+    //   this.nativeStorage.setItem('network', {online: false})
+    //     .then(
+    //       (data) => {
+    //         console.log(data);
+    //         this.network = false;
+    //       },
+    //       error => console.error('Error storing item', error)
+    //   );
+    // });
+    //
+    // let connectSubscription = this.network.onConnect().subscribe(() => {
+    //   console.log('network connected!');
+    //   this.nativeStorage.setItem('network', {online: true})
+    //     .then(
+    //       (datadata) => {
+    //         console.log(data);
+    //         this.network = true;
+    //       },
+    //       error => console.error('Error storing item', error)
+    //   );
+    // });
+
   }
 
   localGET() {

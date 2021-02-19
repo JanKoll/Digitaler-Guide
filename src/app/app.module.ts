@@ -19,7 +19,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
-
+import { Network } from '@ionic-native/network/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -36,7 +36,8 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     QRScanner,
     HTTP,
-    InAppBrowser
+    InAppBrowser,
+    Network
   ],
   bootstrap: [AppComponent]
 })

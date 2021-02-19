@@ -387,6 +387,12 @@
       var _ionic_native_native_storage_ngx__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
       /*! @ionic-native/native-storage/ngx */
       "M2ZX");
+      /* harmony import */
+
+
+      var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(
+      /*! @ionic-native/network/ngx */
+      "kwrG");
 
       var AppModule = function AppModule() {
         _classCallCheck(this, AppModule);
@@ -401,7 +407,7 @@
         providers: [_ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"], _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"], _ionic_native_native_storage_ngx__WEBPACK_IMPORTED_MODULE_14__["NativeStorage"], {
           provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"],
           useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"]
-        }, _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_9__["QRScanner"], _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_12__["HTTP"], _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_13__["InAppBrowser"]],
+        }, _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_9__["QRScanner"], _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_12__["HTTP"], _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_13__["InAppBrowser"], _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_15__["Network"]],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]]
       })], AppModule);
       /***/

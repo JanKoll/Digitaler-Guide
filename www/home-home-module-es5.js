@@ -246,9 +246,15 @@
       var _ionic_native_native_storage_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! @ionic-native/native-storage/ngx */
       "M2ZX");
+      /* harmony import */
+
+
+      var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      /*! @ionic-native/network/ngx */
+      "kwrG");
 
       var HomePage = /*#__PURE__*/function () {
-        function HomePage(http, iab, nativeStorage, alertController, loadingController) {
+        function HomePage(http, iab, nativeStorage, alertController, loadingController, network) {
           var _this = this;
 
           _classCallCheck(this, HomePage);
@@ -258,12 +264,35 @@
           this.nativeStorage = nativeStorage;
           this.alertController = alertController;
           this.loadingController = loadingController;
+          this.network = network;
           this.nativeStorage.getItem('isOffline').then(function (data) {
             _this.offline = true;
 
             _this.localGET();
           }, function (error) {
             return _this.restGET();
+          });
+          var disconnectSubscription = this.network.onDisconnect().subscribe(function () {
+            console.log('network was disconnected :-(');
+
+            _this.nativeStorage.setItem('network', {
+              online: false
+            }).then(function (data) {
+              return console.log(data);
+            }, function (error) {
+              return console.error('Error storing item', error);
+            });
+          });
+          var connectSubscription = this.network.onConnect().subscribe(function () {
+            console.log('network connected!');
+
+            _this.nativeStorage.setItem('network', {
+              online: true
+            }).then(function (data) {
+              return console.log(data);
+            }, function (error) {
+              return console.error('Error storing item', error);
+            });
           });
         }
 
@@ -540,6 +569,8 @@
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"]
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"]
+        }, {
+          type: _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_8__["Network"]
         }];
       };
 

@@ -963,8 +963,7 @@
 
                 var scanSub = _this6.qrScanner.scan().subscribe(function (textFound) {
                   // Use Class to Toggle Backgound Visibility
-                  document.getElementsByTagName('body')[0].classList.toggle("qractive");
-                  console.log(_this6.content.children); // Check if QR-Code is valid
+                  document.getElementsByTagName('body')[0].classList.toggle("qractive"); // Check if QR-Code is valid
 
                   if (_this6.content.children.map(function (x) {
                     return x.id;

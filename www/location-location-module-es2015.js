@@ -527,7 +527,6 @@ let LocationPage = class LocationPage {
                     .subscribe((textFound) => {
                     // Use Class to Toggle Backgound Visibility
                     document.getElementsByTagName('body')[0].classList.toggle("qractive");
-                    console.log(this.content.children);
                     // Check if QR-Code is valid
                     if (this.content.children.map(x => x.id).includes(textFound)) {
                         this.zone.run(() => {

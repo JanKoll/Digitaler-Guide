@@ -123,6 +123,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/http/ngx */ "XSEc");
 /* harmony import */ var _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/in-app-browser/ngx */ "m/P+");
 /* harmony import */ var _ionic_native_native_storage_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/native-storage/ngx */ "M2ZX");
+/* harmony import */ var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic-native/network/ngx */ "kwrG");
+
 
 
 
@@ -132,17 +134,28 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let HomePage = class HomePage {
-    constructor(http, iab, nativeStorage, alertController, loadingController) {
+    constructor(http, iab, nativeStorage, alertController, loadingController, network) {
         this.http = http;
         this.iab = iab;
         this.nativeStorage = nativeStorage;
         this.alertController = alertController;
         this.loadingController = loadingController;
+        this.network = network;
         this.nativeStorage.getItem('isOffline')
             .then(data => {
             this.offline = true;
             this.localGET();
         }, error => this.restGET());
+        let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
+            console.log('network was disconnected :-(');
+            this.nativeStorage.setItem('network', { online: false })
+                .then((data) => console.log(data), error => console.error('Error storing item', error));
+        });
+        let connectSubscription = this.network.onConnect().subscribe(() => {
+            console.log('network connected!');
+            this.nativeStorage.setItem('network', { online: true })
+                .then((data) => console.log(data), error => console.error('Error storing item', error));
+        });
     }
     localGET() {
         this.nativeStorage.getItem('main')
@@ -337,7 +350,8 @@ HomePage.ctorParameters = () => [
     { type: _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_6__["InAppBrowser"] },
     { type: _ionic_native_native_storage_ngx__WEBPACK_IMPORTED_MODULE_7__["NativeStorage"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"] },
+    { type: _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_8__["Network"] }
 ];
 HomePage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
