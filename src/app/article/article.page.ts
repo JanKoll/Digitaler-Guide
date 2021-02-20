@@ -102,10 +102,10 @@ export class ArticlePage {
          let url = undefined;
 
          if (path.length > 1) {
-           url = `http://api.jankoll.de/rest/article/${path[0]}/${path[path.length - 1]}`;
+           url = `https://api.jankoll.de/rest/article/${path[0]}/${path[path.length - 1]}`;
            this.template = 'article';
          } else {
-           url = `http://api.jankoll.de/rest/article/${path[path.length - 1]}`;
+           url = `https://api.jankoll.de/rest/article/${path[path.length - 1]}`;
            this.template = 'default';
          }
 

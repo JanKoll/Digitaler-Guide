@@ -100,7 +100,7 @@ let AppComponent = class AppComponent {
     restGET() {
         // HTTP Request Main
         this.http.useBasicAuth('mail@example.de', 'Raute123');
-        this.http.get('http://api.jankoll.de/rest/main', {}, {})
+        this.http.get('https://api.jankoll.de/rest/main', {}, {})
             .then(data => {
             this.mainNav = JSON.parse(data.data); // data received by server
         })
@@ -110,7 +110,7 @@ let AppComponent = class AppComponent {
             console.log(error.headers);
         });
         // HTTP Request Meta
-        this.http.get('http://api.jankoll.de/rest/meta', {}, {})
+        this.http.get('https://api.jankoll.de/rest/meta', {}, {})
             .then(data => {
             this.metaNav = JSON.parse(data.data); // data received by server
         })
@@ -189,8 +189,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic-native/http/ngx */ "XSEc");
 /* harmony import */ var _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ionic-native/in-app-browser/ngx */ "m/P+");
 /* harmony import */ var _ionic_native_native_storage_ngx__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ionic-native/native-storage/ngx */ "M2ZX");
-/* harmony import */ var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ionic-native/network/ngx */ "kwrG");
-
 
 
 
@@ -225,8 +223,7 @@ AppModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
             { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"] },
             _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_9__["QRScanner"],
             _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_12__["HTTP"],
-            _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_13__["InAppBrowser"],
-            _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_15__["Network"]
+            _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_13__["InAppBrowser"]
         ],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]]
     })

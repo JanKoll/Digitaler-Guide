@@ -267,7 +267,7 @@
 
             _this.http.useBasicAuth('mail@example.de', 'Raute123');
 
-            _this.http.get('http://api.jankoll.de/rest/updated', {}, {}).then(function (data) {
+            _this.http.get('https://api.jankoll.de/rest/updated', {}, {}).then(function (data) {
               var storage = JSON.parse(data.data);
 
               _this.nativeStorage.getItem('lastupdated').then(function (data) {
@@ -314,7 +314,7 @@
 
             // REST Authentication
             this.http.useBasicAuth('mail@example.de', 'Raute123');
-            this.http.get('http://api.jankoll.de/rest/main', {}, {}).then(function (data) {
+            this.http.get('https://api.jankoll.de/rest/main', {}, {}).then(function (data) {
               // console.log(data.status);
               _this3.content = JSON.parse(data.data); // data received by server
               // console.log(data.headers);
@@ -405,7 +405,7 @@
             // REST Authentication
 
             this.http.useBasicAuth('mail@example.de', 'Raute123');
-            this.http.get('http://api.jankoll.de/rest/updated', {}, {}).then(function (data) {
+            this.http.get('https://api.jankoll.de/rest/updated', {}, {}).then(function (data) {
               _this5.nativeStorage.setItem('lastupdated', JSON.parse(data.data)).then(function (data) {
                 console.log(data);
               }, function (error) {
@@ -418,7 +418,7 @@
               console.log(error.headers);
             }); // save main
 
-            this.http.get('http://api.jankoll.de/rest/download', {}, {}).then(function (data) {
+            this.http.get('https://api.jankoll.de/rest/download', {}, {}).then(function (data) {
               _this5.nativeStorage.setItem('database', JSON.parse(data.data)).then(function (data) {
                 // console.log(data);
                 window.location.reload();

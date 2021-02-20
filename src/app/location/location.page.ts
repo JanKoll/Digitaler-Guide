@@ -100,7 +100,7 @@ export class LocationPage {
          this.http.useBasicAuth('mail@example.de', 'Raute123');
 
          //HTTP GET
-         this.http.get(`http://api.jankoll.de/rest/map/${params['locationId']}`, {}, {})
+         this.http.get(`https://api.jankoll.de/rest/map/${params['locationId']}`, {}, {})
          .then(data => {
            this.content = JSON.parse(data.data); // data received by server
            this.coords = this.content.coords;

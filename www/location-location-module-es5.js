@@ -756,7 +756,7 @@
               _this3.http.useBasicAuth('mail@example.de', 'Raute123'); //HTTP GET
 
 
-              _this3.http.get("http://api.jankoll.de/rest/map/".concat(params['locationId']), {}, {}).then(function (data) {
+              _this3.http.get("https://api.jankoll.de/rest/map/".concat(params['locationId']), {}, {}).then(function (data) {
                 _this3.content = JSON.parse(data.data); // data received by server
 
                 _this3.coords = _this3.content.coords;

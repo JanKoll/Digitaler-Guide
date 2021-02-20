@@ -160,10 +160,10 @@
               var url = undefined;
 
               if (path.length > 1) {
-                url = "http://api.jankoll.de/rest/article/".concat(path[0], "/").concat(path[path.length - 1]);
+                url = "https://api.jankoll.de/rest/article/".concat(path[0], "/").concat(path[path.length - 1]);
                 _this3.template = 'article';
               } else {
-                url = "http://api.jankoll.de/rest/article/".concat(path[path.length - 1]);
+                url = "https://api.jankoll.de/rest/article/".concat(path[path.length - 1]);
                 _this3.template = 'default';
               } // HTTP Request
 

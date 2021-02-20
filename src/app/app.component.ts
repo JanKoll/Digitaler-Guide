@@ -65,7 +65,7 @@ export class AppComponent {
       // HTTP Request Main
       this.http.useBasicAuth('mail@example.de', 'Raute123');
 
-      this.http.get('http://api.jankoll.de/rest/main', {}, {})
+      this.http.get('https://api.jankoll.de/rest/main', {}, {})
       .then(data => {
         this.mainNav = JSON.parse(data.data); // data received by server
       })
@@ -76,7 +76,7 @@ export class AppComponent {
       });
 
       // HTTP Request Meta
-      this.http.get('http://api.jankoll.de/rest/meta', {}, {})
+      this.http.get('https://api.jankoll.de/rest/meta', {}, {})
       .then(data => {
         this.metaNav = JSON.parse(data.data); // data received by server
       })

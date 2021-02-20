@@ -9,8 +9,6 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
-import { Network } from '@ionic-native/network/ngx';
-
 
 @Component({
   selector: 'app-home',
@@ -20,7 +18,6 @@ import { Network } from '@ionic-native/network/ngx';
 export class HomePage {
   route: Router;
   offline: any;
-  network: any;
 
   content: [];
 
@@ -45,7 +42,7 @@ export class HomePage {
 
         this.http.useBasicAuth('mail@example.de', 'Raute123');
 
-        this.http.get('http://api.jankoll.de/rest/updated', {}, {})
+        this.http.get('https://api.jankoll.de/rest/updated', {}, {})
         .then(data => {
           let storage = JSON.parse(data.data);
 
@@ -95,7 +92,7 @@ export class HomePage {
     // REST Authentication
     this.http.useBasicAuth('mail@example.de', 'Raute123');
 
-    this.http.get('http://api.jankoll.de/rest/main', {}, {})
+    this.http.get('https://api.jankoll.de/rest/main', {}, {})
     .then(data => {
       // console.log(data.status);
       this.content = JSON.parse(data.data); // data received by server
@@ -168,7 +165,7 @@ export class HomePage {
     this.http.useBasicAuth('mail@example.de', 'Raute123');
 
 
-    this.http.get('http://api.jankoll.de/rest/updated', {}, {})
+    this.http.get('https://api.jankoll.de/rest/updated', {}, {})
     .then(data => {
       this.nativeStorage.setItem('lastupdated', JSON.parse(data.data))
         .then(
@@ -185,7 +182,7 @@ export class HomePage {
     });
 
     // save main
-    this.http.get('http://api.jankoll.de/rest/download', {}, {})
+    this.http.get('https://api.jankoll.de/rest/download', {}, {})
     .then(data => {
       this.nativeStorage.setItem('database', JSON.parse(data.data))
         .then(
