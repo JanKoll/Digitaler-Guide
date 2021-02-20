@@ -264,7 +264,7 @@ LocationPageModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header class=\"ion-no-border\">\n  <ion-toolbar class=\"solid-primary\">\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"home\" color=\"light\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title>\n      Digitaler Guide\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-menu-button color=\"light\"></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class=\"solid-primary\" [fullscreen]=\"true\" *ngIf=\"content\">\n  <div class=\"map-wrapper\">\n    <div class=\"coord\"\n      style=\"{{ setObjectLocation(item.coords) }}\"\n      *ngFor=\"let item of content.children; let i = index\"\n      (click)=\"showModal(i)\"\n    >\n      <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 39.62 34.31\">\n        <defs>\n          <style>.mapmarker{fill:#006c66;stroke-width:4px;}.mapmarker,.cls-2{stroke:#eee;stroke-miterlimit:10;}.cls-2{fill:#eee;}</style>\n        </defs>\n        <g id=\"Layer_2\" data-name=\"Layer 2\">\n          <g id=\"Hintergrund\"><polygon class=\"mapmarker\" points=\"28.56 2 11.06 2 2.31 17.16 11.06 32.31 28.56 32.31 37.31 17.16 28.56 2\"/>\n            <path class=\"cls-2\" d=\"M18.32,24.24a1.47,1.47,0,0,1,1.49-1.56,1.45,1.45,0,0,1,1.49,1.56,1.49,1.49,0,1,1-3,0ZM19,20.63,18.6,8.5H21l-.35,12.13Z\"/>\n          </g>\n        </g>\n      </svg>\n    </div>\n\n    <div class=\"location\" style=\"{{ pointcoord }}\"></div>\n\n    <img src=\"data:image/png;base64,{{ content.body.map }}\" />\n\n  </div>\n\n  <div class=\"info\" (click)=\"legend()\">i</div>\n  <div id=\"qropen\" class=\"info\" (click)=\"startScanning()\"><img src=\"../assets/qr-icon.png\" /></div>\n\n</ion-content>\n\n<div id=\"qrclose\" (click)=\"stopScanning()\">\n  <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\">\n    <defs>\n      <style>\n        .closedark {\n          fill: #eeeeee;\n        }\n      </style>\n    </defs>\n    <g id=\"Layer_2\" data-name=\"Layer 2\">\n      <g id=\"Layer_1-2\" data-name=\"Layer 1\"><polygon class=\"closedark\" points=\"100 9.83 90.17 0 50 40.17 9.83 0 0 9.83 40.17 50 0 90.17 9.83 100 50 59.83 90.17 100 100 90.17 59.83 50 100 9.83\"/></g>\n    </g>\n  </svg>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header class=\"ion-no-border\">\n  <ion-toolbar class=\"solid-primary\">\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"home\" color=\"light\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title>\n      Digitaler Guide\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-menu-button color=\"light\"></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class=\"solid-primary\" [fullscreen]=\"true\" *ngIf=\"content\">\n  <div class=\"map-wrapper\">\n    <div class=\"coord\"\n      style=\"{{ setObjectLocation(item.coords) }}\"\n      *ngFor=\"let item of content.children; let i = index\"\n      (click)=\"showModal(i)\"\n    >\n      <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 39.62 34.31\">\n        <defs>\n          <style>.mapmarker{fill:#006c66;stroke-width:4px;}.mapmarker,.cls-2{stroke:#eee;stroke-miterlimit:10;}.cls-2{fill:#eee;}</style>\n        </defs>\n        <g id=\"Layer_2\" data-name=\"Layer 2\">\n          <g id=\"Hintergrund\"><polygon class=\"mapmarker\" points=\"28.56 2 11.06 2 2.31 17.16 11.06 32.31 28.56 32.31 37.31 17.16 28.56 2\"/>\n            <path class=\"cls-2\" d=\"M18.32,24.24a1.47,1.47,0,0,1,1.49-1.56,1.45,1.45,0,0,1,1.49,1.56,1.49,1.49,0,1,1-3,0ZM19,20.63,18.6,8.5H21l-.35,12.13Z\"/>\n          </g>\n        </g>\n      </svg>\n    </div>\n\n    <div class=\"location\" style=\"{{ pointcoord }}\"></div>\n\n    <img src=\"data:image/png;base64,{{ content.map }}\" />\n\n  </div>\n\n  <div class=\"info\" (click)=\"legend()\">i</div>\n  <div id=\"qropen\" class=\"info\" (click)=\"startScanning()\"><img src=\"../assets/qr-icon.png\" /></div>\n\n</ion-content>\n\n<div id=\"qrclose\" (click)=\"stopScanning()\">\n  <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\">\n    <defs>\n      <style>\n        .closedark {\n          fill: #eeeeee;\n        }\n      </style>\n    </defs>\n    <g id=\"Layer_2\" data-name=\"Layer 2\">\n      <g id=\"Layer_1-2\" data-name=\"Layer 1\"><polygon class=\"closedark\" points=\"100 9.83 90.17 0 50 40.17 9.83 0 0 9.83 40.17 50 0 90.17 9.83 100 50 59.83 90.17 100 100 90.17 59.83 50 100 9.83\"/></g>\n    </g>\n  </svg>\n</div>\n");
 
 /***/ }),
 
@@ -349,10 +349,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
 /* harmony import */ var _ionic_native_geolocation__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/geolocation */ "8AGy");
 /* harmony import */ var _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/qr-scanner/ngx */ "BLr9");
-/* harmony import */ var _components_article_preview_article_preview_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/article-preview/article-preview.component */ "bW9M");
-/* harmony import */ var _components_legend_legend_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/legend/legend.component */ "Z0OH");
-/* harmony import */ var _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ionic-native/http/ngx */ "XSEc");
-/* harmony import */ var _ionic_native_native_storage_ngx__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ionic-native/native-storage/ngx */ "M2ZX");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/platform-browser */ "jhN1");
+/* harmony import */ var _components_article_preview_article_preview_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/article-preview/article-preview.component */ "bW9M");
+/* harmony import */ var _components_legend_legend_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../components/legend/legend.component */ "Z0OH");
+/* harmony import */ var _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ionic-native/http/ngx */ "XSEc");
+/* harmony import */ var _ionic_native_native_storage_ngx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic-native/native-storage/ngx */ "M2ZX");
+
 
 
 
@@ -367,7 +369,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let LocationPage = class LocationPage {
-    constructor(modalCtrl, platform, alertController, qrScanner, zone, router, activatedRoute, http, nativeStorage) {
+    constructor(modalCtrl, platform, alertController, sanitizer, qrScanner, zone, router, activatedRoute, http, nativeStorage) {
         // Call and Update geo Location
         // this.interval = setInterval(() =>
         //   this.getCurrentLocation()
@@ -375,6 +377,7 @@ let LocationPage = class LocationPage {
         this.modalCtrl = modalCtrl;
         this.platform = platform;
         this.alertController = alertController;
+        this.sanitizer = sanitizer;
         this.qrScanner = qrScanner;
         this.zone = zone;
         this.router = router;
@@ -398,12 +401,15 @@ let LocationPage = class LocationPage {
     // Get Local Data
     localGET() {
         this.activatedRoute.params.subscribe(params => {
-            console.log("Hallo welt");
             let path = params['locationId'];
-            console.log(path);
-            this.nativeStorage.getItem(`location/${params['locationId']}`)
+            this.nativeStorage.getItem('database')
                 .then(data => {
-                this.content = data;
+                data.main.forEach(element => {
+                    if (element.id == path) {
+                        this.content = element;
+                        this.coords = element.coords;
+                    }
+                });
             }, error => console.log(error));
         });
     }
@@ -416,6 +422,7 @@ let LocationPage = class LocationPage {
             this.http.get(`http://api.jankoll.de/rest/map/${params['locationId']}`, {}, {})
                 .then(data => {
                 this.content = JSON.parse(data.data); // data received by server
+                this.coords = this.content.coords;
             })
                 .catch(error => {
                 console.log(error.status);
@@ -433,11 +440,11 @@ let LocationPage = class LocationPage {
             let position = yield _ionic_native_geolocation__WEBPACK_IMPORTED_MODULE_6__["Geolocation"].getCurrentPosition();
             this.latitude = position.coords.latitude;
             this.longitude = position.coords.longitude;
-            let height = this.content.body.coords.leftTop.lat - this.content.body.coords.rightBot.lat;
-            let width = this.content.body.coords.rightBot.lon - this.content.body.coords.leftTop.lon;
-            this.pointcoord = 'top: ' + ((this.content.body.coords.leftTop.lat - this.latitude) * 100) / height + '%; right: ' + ((this.content.body.coords.rightBot.lon - this.longitude) * 100) / width + '%; opacity: 1;';
-            if ((((this.content.body.coords.leftTop.lat - this.latitude) * 100) / height) > 100
-                || (((this.content.body.coords.leftTop.lat - this.latitude) * 100) / height) < 0) {
+            let height = this.coords.leftTop.lat - this.coords.rightBot.lat;
+            let width = this.coords.rightBot.lon - this.coords.leftTop.lon;
+            this.pointcoord = 'top: ' + ((this.coords.leftTop.lat - this.latitude) * 100) / height + '%; right: ' + ((this.coords.rightBot.lon - this.longitude) * 100) / width + '%; opacity: 1;';
+            if ((((this.coords.leftTop.lat - this.latitude) * 100) / height) > 100
+                || (((this.coords.leftTop.lat - this.latitude) * 100) / height) < 0) {
                 clearInterval(this.interval);
                 this.interval = setInterval(() => this.getCurrentLocation(), 10000);
             }
@@ -445,17 +452,17 @@ let LocationPage = class LocationPage {
     }
     // Set artefact geo location
     setObjectLocation(geoData) {
-        let height = this.content.body.coords.leftTop.lat - this.content.body.coords.rightBot.lat;
-        let width = this.content.body.coords.rightBot.lon - this.content.body.coords.leftTop.lon;
-        let ycoord = ((this.content.body.coords.leftTop.lat - geoData.lat) * 100) / height;
-        let xcoord = ((this.content.body.coords.rightBot.lon - geoData.lon) * 100) / width;
+        let height = this.coords.leftTop.lat - this.coords.rightBot.lat;
+        let width = this.coords.rightBot.lon - this.coords.leftTop.lon;
+        let ycoord = ((this.coords.leftTop.lat - geoData.lat) * 100) / height;
+        let xcoord = ((this.coords.rightBot.lon - geoData.lon) * 100) / width;
         return "right:" + xcoord + "%; top:" + ycoord + "%;";
     }
     // Modal controllers
     showModal(id) {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             const modal = yield this.modalCtrl.create({
-                component: _components_article_preview_article_preview_component__WEBPACK_IMPORTED_MODULE_8__["ArticlePreviewComponent"],
+                component: _components_article_preview_article_preview_component__WEBPACK_IMPORTED_MODULE_9__["ArticlePreviewComponent"],
                 componentProps: {
                     data: this.content.children[id]
                 },
@@ -469,7 +476,7 @@ let LocationPage = class LocationPage {
     legend() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             const modal = yield this.modalCtrl.create({
-                component: _components_legend_legend_component__WEBPACK_IMPORTED_MODULE_9__["LegendComponent"],
+                component: _components_legend_legend_component__WEBPACK_IMPORTED_MODULE_10__["LegendComponent"],
                 // backdropDismiss:false,
                 swipeToClose: true,
                 cssClass: 'legend'
@@ -512,7 +519,6 @@ let LocationPage = class LocationPage {
         });
     }
     startScanning() {
-        console.log("QR CODE START");
         // Optionally request the permission early
         this.qrScanner.prepare().
             then((status) => {
@@ -553,17 +559,23 @@ let LocationPage = class LocationPage {
         document.getElementsByTagName('body')[0].classList.toggle("qractive");
         this.qrScanner.destroy();
     }
+    saveURL(type, id) {
+        console.log(id);
+        let saveurl = 'data:' + type + ';base64,' + id;
+        return this.sanitizer.bypassSecurityTrustResourceUrl(saveurl);
+    }
 };
 LocationPage.ctorParameters = () => [
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ModalController"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["Platform"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["AlertController"] },
+    { type: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_8__["DomSanitizer"] },
     { type: _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_7__["QRScanner"] },
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_3__["NgZone"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"] },
-    { type: _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_10__["HTTP"] },
-    { type: _ionic_native_native_storage_ngx__WEBPACK_IMPORTED_MODULE_11__["NativeStorage"] }
+    { type: _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_11__["HTTP"] },
+    { type: _ionic_native_native_storage_ngx__WEBPACK_IMPORTED_MODULE_12__["NativeStorage"] }
 ];
 LocationPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({

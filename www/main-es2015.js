@@ -90,13 +90,10 @@ let AppComponent = class AppComponent {
     }
     // Get Local Data
     localGET() {
-        this.nativeStorage.getItem(`main`)
+        this.nativeStorage.getItem('database')
             .then(data => {
-            this.mainNav = data;
-        }, error => console.log(error));
-        this.nativeStorage.getItem(`meta`)
-            .then(data => {
-            this.metaNav = data;
+            this.mainNav = data.main;
+            this.metaNav = data.meta;
         }, error => console.log(error));
     }
     // Get Rest Data

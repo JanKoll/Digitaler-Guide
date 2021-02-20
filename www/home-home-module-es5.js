@@ -246,15 +246,9 @@
       var _ionic_native_native_storage_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! @ionic-native/native-storage/ngx */
       "M2ZX");
-      /* harmony import */
-
-
-      var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
-      /*! @ionic-native/network/ngx */
-      "kwrG");
 
       var HomePage = /*#__PURE__*/function () {
-        function HomePage(http, iab, nativeStorage, alertController, loadingController, network) {
+        function HomePage(http, iab, nativeStorage, alertController, loadingController) {
           var _this = this;
 
           _classCallCheck(this, HomePage);
@@ -264,35 +258,35 @@
           this.nativeStorage = nativeStorage;
           this.alertController = alertController;
           this.loadingController = loadingController;
-          this.network = network;
           this.nativeStorage.getItem('isOffline').then(function (data) {
             _this.offline = true;
 
-            _this.localGET();
+            _this.http.useBasicAuth('mail@example.de', 'Raute123');
+
+            _this.http.get('http://api.jankoll.de/rest/updated', {}, {}).then(function (data) {
+              var storage = JSON.parse(data.data);
+
+              _this.nativeStorage.getItem('lastupdated').then(function (data) {
+                if (data.date != storage.date) {
+                  _this.updateData();
+                } else {
+                  _this.localGET();
+                }
+              }, function (error) {
+                console.log(error);
+
+                _this.localGET();
+              });
+            })["catch"](function (error) {
+              console.log(error.status);
+              console.log(error.error); // error message as string
+
+              console.log(error.headers);
+
+              _this.localGET();
+            });
           }, function (error) {
             return _this.restGET();
-          });
-          var disconnectSubscription = this.network.onDisconnect().subscribe(function () {
-            console.log('network was disconnected :-(');
-
-            _this.nativeStorage.setItem('network', {
-              online: false
-            }).then(function (data) {
-              return console.log(data);
-            }, function (error) {
-              return console.error('Error storing item', error);
-            });
-          });
-          var connectSubscription = this.network.onConnect().subscribe(function () {
-            console.log('network connected!');
-
-            _this.nativeStorage.setItem('network', {
-              online: true
-            }).then(function (data) {
-              return console.log(data);
-            }, function (error) {
-              return console.error('Error storing item', error);
-            });
           });
         }
 
@@ -301,8 +295,8 @@
           value: function localGET() {
             var _this2 = this;
 
-            this.nativeStorage.getItem('main').then(function (data) {
-              _this2.content = data;
+            this.nativeStorage.getItem('database').then(function (data) {
+              _this2.content = data.main;
             }, function (error) {
               return console.log(error);
             });
@@ -398,76 +392,17 @@
           value: function downloadData() {
             var _this5 = this;
 
-            // this.loadingController.create({
-            //   message: 'Wird heruntergeladen...'
-            // }).then((res) => {
-            //   res.present();
-            // });
-            this.presentLoading('Wird heruntergeladen...', 90000); // REST Authentication
+            this.loadingController.create({
+              message: 'Wird heruntergeladen...'
+            }).then(function (res) {
+              res.present();
+            }); // this.presentLoading('Wird heruntergeladen...', 90000);
+            // REST Authentication
 
-            this.http.useBasicAuth('mail@example.de', 'Raute123'); // save main
-
-            this.http.get('http://api.jankoll.de/rest/main', {}, {}).then(function (dataMain) {
-              _this5.nativeStorage.setItem('main', JSON.parse(dataMain.data)).then(function (dataMain) {
-                console.log(dataMain);
-                dataMain.forEach(function (element) {
-                  switch (element.type[0].name) {
-                    case 'location':
-                      //HTTP GET
-                      _this5.http.get("http://api.jankoll.de/rest/map/".concat(element.id), {}, {}).then(function (dataLocation) {
-                        _this5.nativeStorage.setItem("location/".concat(element.id), JSON.parse(dataLocation.data)).then(function (dataLocation) {
-                          dataLocation.children.forEach(function (item) {
-                            var page = item.id.split("/"); //HTTP GET
-
-                            _this5.http.get("http://api.jankoll.de/rest/article/".concat(page[0], "/").concat(page[1]), {}, {}).then(function (dataPage) {
-                              _this5.nativeStorage.setItem(item.id, JSON.parse(dataPage.data)).then(function (dataPage) {
-                                return console.log(dataPage);
-                              }, function (error) {
-                                return console.error('Error storing item', error);
-                              });
-                            }).then(function (dataLocation) {// After getting all Data Reload Window
-                              // window.location.reload()
-                            })["catch"](function (error) {
-                              console.log(error.status);
-                              console.log(error.error); // error message as string
-
-                              console.log(error.headers);
-                            });
-                          });
-                        }, function (error) {
-                          return console.error('Error storing item', error);
-                        });
-                      })["catch"](function (error) {
-                        console.log(error.status);
-                        console.log(error.error); // error message as string
-
-                        console.log(error.headers);
-                      });
-
-                      break;
-
-                    case 'webview':
-                      // Not necessary
-                      break;
-
-                    default:
-                      //HTTP GET
-                      _this5.http.get("http://api.jankoll.de/rest/article/".concat(element.id), {}, {}).then(function (dataArticle) {
-                        _this5.nativeStorage.setItem("article/".concat(element.id), JSON.parse(dataArticle.data)).then(function (dataArticle) {
-                          return console.log(dataArticle);
-                        }, function (error) {
-                          return console.error('Error storing item', error);
-                        });
-                      })["catch"](function (error) {
-                        console.log(error.status);
-                        console.log(error.error); // error message as string
-
-                        console.log(error.headers);
-                      });
-
-                      break;
-                  }
-                });
+            this.http.useBasicAuth('mail@example.de', 'Raute123');
+            this.http.get('http://api.jankoll.de/rest/updated', {}, {}).then(function (data) {
+              _this5.nativeStorage.setItem('lastupdated', JSON.parse(data.data)).then(function (data) {
+                console.log(data);
               }, function (error) {
                 return console.error('Error storing item', error);
               });
@@ -476,26 +411,12 @@
               console.log(error.error); // error message as string
 
               console.log(error.headers);
-            }); // save meta
+            }); // save main
 
-            this.http.get('http://api.jankoll.de/rest/meta', {}, {}).then(function (dataMeta) {
-              _this5.nativeStorage.setItem('meta', JSON.parse(dataMeta.data)).then(function (dataMeta) {
-                console.log("META: " + dataMeta);
-                dataMeta.forEach(function (element) {
-                  //HTTP GET
-                  _this5.http.get("http://api.jankoll.de/rest/article/".concat(element.id), {}, {}).then(function (dataArticle) {
-                    _this5.nativeStorage.setItem("article/".concat(element.id), JSON.parse(dataArticle.data)).then(function (dataArticle) {
-                      return console.log("Article: " + dataArticle);
-                    }, function (error) {
-                      return console.error('Error storing item', error);
-                    });
-                  })["catch"](function (error) {
-                    console.log(error.status);
-                    console.log(error.error); // error message as string
-
-                    console.log(error.headers);
-                  });
-                });
+            this.http.get('http://api.jankoll.de/rest/download', {}, {}).then(function (data) {
+              _this5.nativeStorage.setItem('database', JSON.parse(data.data)).then(function (data) {
+                // console.log(data);
+                window.location.reload();
               }, function (error) {
                 return console.error('Error storing item', error);
               });
@@ -530,7 +451,7 @@
                           text: 'Löschen',
                           handler: function handler() {
                             _this6.nativeStorage.clear().then(function (data) {
-                              _this6.presentLoading('Daten werden gelöscht...', 5000);
+                              _this6.presentLoading('Daten werden gelöscht...', 3000);
 
                               console.log(data);
                             }, function (error) {
@@ -553,6 +474,48 @@
               }, _callee2, this);
             }));
           }
+        }, {
+          key: "updateData",
+          value: function updateData() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+              var _this7 = this;
+
+              var alert;
+              return regeneratorRuntime.wrap(function _callee3$(_context3) {
+                while (1) {
+                  switch (_context3.prev = _context3.next) {
+                    case 0:
+                      _context3.next = 2;
+                      return this.alertController.create({
+                        header: 'Es sind neue Inhalte verfügbar',
+                        message: 'Möchtest du die Inhalte aktualisieren?',
+                        buttons: [{
+                          text: 'Abbrechen',
+                          role: 'cancel',
+                          handler: function handler() {
+                            _this7.localGET();
+                          }
+                        }, {
+                          text: 'Aktualisieren',
+                          handler: function handler() {
+                            _this7.downloadData();
+                          }
+                        }]
+                      });
+
+                    case 2:
+                      alert = _context3.sent;
+                      _context3.next = 5;
+                      return alert.present();
+
+                    case 5:
+                    case "end":
+                      return _context3.stop();
+                  }
+                }
+              }, _callee3, this);
+            }));
+          }
         }]);
 
         return HomePage;
@@ -569,8 +532,6 @@
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"]
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"]
-        }, {
-          type: _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_8__["Network"]
         }];
       };
 

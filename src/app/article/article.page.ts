@@ -15,6 +15,7 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
 export class ArticlePage {
   content: any;
   title: any;
+  template: any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -39,20 +40,36 @@ export class ArticlePage {
     this.activatedRoute.params.subscribe(params => {
 
       let path = params['articleId'].split("/");
-      let url = undefined;
 
-      if (path.length > 1) {
-        url = `${params['articleId']}`;
-
-      } else {
-        url = `article/${params['articleId']}`;
-      }
-
-      this.nativeStorage.getItem(url)
+      this.nativeStorage.getItem('database')
       .then(
         data => {
-          this.content = data;
-          this.title = data.title;
+
+          // If page has Children (Is Locatoin)
+          if (path.length > 1) {
+            data.main.forEach(element => {
+              if (element.id == path[0]) {
+                element.children.forEach(child => {
+                  if (child.id == params.articleId) {
+                    this.content = child;
+                    this.template = 'article';
+                    this.title = child.title;
+                  }
+                });
+              }
+            });
+          } else {
+
+            data.meta.forEach(element => {
+              if (element.id == params.articleId) {
+                this.content = element;
+                this.template = 'default';
+                this.title = element.title;
+                console.log(element);
+
+              }
+            });
+          }
         },
         error => {
           this.content = {
@@ -86,9 +103,10 @@ export class ArticlePage {
 
          if (path.length > 1) {
            url = `http://api.jankoll.de/rest/article/${path[0]}/${path[path.length - 1]}`;
-
+           this.template = 'article';
          } else {
            url = `http://api.jankoll.de/rest/article/${path[path.length - 1]}`;
+           this.template = 'default';
          }
 
          // HTTP Request
@@ -117,8 +135,8 @@ export class ArticlePage {
   }
 
   saveURL(type, id: string) {
-    let dangerousVideoUrl = 'data:' + type + ';base64,' + id;
-    return this.sanitizer.bypassSecurityTrustResourceUrl(dangerousVideoUrl);
+    let saveurl = 'data:' + type + ';base64,' + id;
+    return this.sanitizer.bypassSecurityTrustResourceUrl(saveurl);
   }
 
 }

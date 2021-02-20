@@ -174,13 +174,9 @@
           value: function localGET() {
             var _this2 = this;
 
-            this.nativeStorage.getItem("main").then(function (data) {
-              _this2.mainNav = data;
-            }, function (error) {
-              return console.log(error);
-            });
-            this.nativeStorage.getItem("meta").then(function (data) {
-              _this2.metaNav = data;
+            this.nativeStorage.getItem('database').then(function (data) {
+              _this2.mainNav = data.main;
+              _this2.metaNav = data.meta;
             }, function (error) {
               return console.log(error);
             });

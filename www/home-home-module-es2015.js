@@ -123,8 +123,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/http/ngx */ "XSEc");
 /* harmony import */ var _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/in-app-browser/ngx */ "m/P+");
 /* harmony import */ var _ionic_native_native_storage_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/native-storage/ngx */ "M2ZX");
-/* harmony import */ var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic-native/network/ngx */ "kwrG");
-
 
 
 
@@ -134,33 +132,44 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let HomePage = class HomePage {
-    constructor(http, iab, nativeStorage, alertController, loadingController, network) {
+    constructor(http, iab, nativeStorage, alertController, loadingController) {
         this.http = http;
         this.iab = iab;
         this.nativeStorage = nativeStorage;
         this.alertController = alertController;
         this.loadingController = loadingController;
-        this.network = network;
         this.nativeStorage.getItem('isOffline')
             .then(data => {
             this.offline = true;
-            this.localGET();
+            this.http.useBasicAuth('mail@example.de', 'Raute123');
+            this.http.get('http://api.jankoll.de/rest/updated', {}, {})
+                .then(data => {
+                let storage = JSON.parse(data.data);
+                this.nativeStorage.getItem('lastupdated')
+                    .then(data => {
+                    if (data.date != storage.date) {
+                        this.updateData();
+                    }
+                    else {
+                        this.localGET();
+                    }
+                }, error => {
+                    console.log(error);
+                    this.localGET();
+                });
+            })
+                .catch(error => {
+                console.log(error.status);
+                console.log(error.error); // error message as string
+                console.log(error.headers);
+                this.localGET();
+            });
         }, error => this.restGET());
-        let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
-            console.log('network was disconnected :-(');
-            this.nativeStorage.setItem('network', { online: false })
-                .then((data) => console.log(data), error => console.error('Error storing item', error));
-        });
-        let connectSubscription = this.network.onConnect().subscribe(() => {
-            console.log('network connected!');
-            this.nativeStorage.setItem('network', { online: true })
-                .then((data) => console.log(data), error => console.error('Error storing item', error));
-        });
     }
     localGET() {
-        this.nativeStorage.getItem('main')
+        this.nativeStorage.getItem('database')
             .then(data => {
-            this.content = data;
+            this.content = data.main;
         }, error => console.log(error));
     }
     // Get Rest Data
@@ -219,71 +228,19 @@ let HomePage = class HomePage {
         });
     }
     downloadData() {
-        // this.loadingController.create({
-        //   message: 'Wird heruntergeladen...'
-        // }).then((res) => {
-        //   res.present();
-        // });
-        this.presentLoading('Wird heruntergeladen...', 90000);
+        this.loadingController.create({
+            message: 'Wird heruntergeladen...'
+        }).then((res) => {
+            res.present();
+        });
+        // this.presentLoading('Wird heruntergeladen...', 90000);
         // REST Authentication
         this.http.useBasicAuth('mail@example.de', 'Raute123');
-        // save main
-        this.http.get('http://api.jankoll.de/rest/main', {}, {})
-            .then(dataMain => {
-            this.nativeStorage.setItem('main', JSON.parse(dataMain.data))
-                .then((dataMain) => {
-                console.log(dataMain);
-                dataMain.forEach(element => {
-                    switch (element.type[0].name) {
-                        case 'location':
-                            //HTTP GET
-                            this.http.get(`http://api.jankoll.de/rest/map/${element.id}`, {}, {})
-                                .then(dataLocation => {
-                                this.nativeStorage.setItem(`location/${element.id}`, JSON.parse(dataLocation.data))
-                                    .then((dataLocation) => {
-                                    dataLocation.children.forEach(item => {
-                                        let page = item.id.split("/");
-                                        //HTTP GET
-                                        this.http.get(`http://api.jankoll.de/rest/article/${page[0]}/${page[1]}`, {}, {})
-                                            .then(dataPage => {
-                                            this.nativeStorage.setItem(item.id, JSON.parse(dataPage.data))
-                                                .then((dataPage) => console.log(dataPage), error => console.error('Error storing item', error));
-                                        }).then((dataLocation) => {
-                                            // After getting all Data Reload Window
-                                            // window.location.reload()
-                                        })
-                                            .catch(error => {
-                                            console.log(error.status);
-                                            console.log(error.error); // error message as string
-                                            console.log(error.headers);
-                                        });
-                                    });
-                                }, error => console.error('Error storing item', error));
-                            })
-                                .catch(error => {
-                                console.log(error.status);
-                                console.log(error.error); // error message as string
-                                console.log(error.headers);
-                            });
-                            break;
-                        case 'webview':
-                            // Not necessary
-                            break;
-                        default:
-                            //HTTP GET
-                            this.http.get(`http://api.jankoll.de/rest/article/${element.id}`, {}, {})
-                                .then(dataArticle => {
-                                this.nativeStorage.setItem(`article/${element.id}`, JSON.parse(dataArticle.data))
-                                    .then((dataArticle) => console.log(dataArticle), error => console.error('Error storing item', error));
-                            })
-                                .catch(error => {
-                                console.log(error.status);
-                                console.log(error.error); // error message as string
-                                console.log(error.headers);
-                            });
-                            break;
-                    }
-                });
+        this.http.get('http://api.jankoll.de/rest/updated', {}, {})
+            .then(data => {
+            this.nativeStorage.setItem('lastupdated', JSON.parse(data.data))
+                .then((data) => {
+                console.log(data);
             }, error => console.error('Error storing item', error));
         })
             .catch(error => {
@@ -291,25 +248,13 @@ let HomePage = class HomePage {
             console.log(error.error); // error message as string
             console.log(error.headers);
         });
-        // save meta
-        this.http.get('http://api.jankoll.de/rest/meta', {}, {})
-            .then(dataMeta => {
-            this.nativeStorage.setItem('meta', JSON.parse(dataMeta.data))
-                .then((dataMeta) => {
-                console.log("META: " + dataMeta);
-                dataMeta.forEach(element => {
-                    //HTTP GET
-                    this.http.get(`http://api.jankoll.de/rest/article/${element.id}`, {}, {})
-                        .then(dataArticle => {
-                        this.nativeStorage.setItem(`article/${element.id}`, JSON.parse(dataArticle.data))
-                            .then((dataArticle) => console.log("Article: " + dataArticle), error => console.error('Error storing item', error));
-                    })
-                        .catch(error => {
-                        console.log(error.status);
-                        console.log(error.error); // error message as string
-                        console.log(error.headers);
-                    });
-                });
+        // save main
+        this.http.get('http://api.jankoll.de/rest/download', {}, {})
+            .then(data => {
+            this.nativeStorage.setItem('database', JSON.parse(data.data))
+                .then((data) => {
+                // console.log(data);
+                window.location.reload();
             }, error => console.error('Error storing item', error));
         })
             .catch(error => {
@@ -334,9 +279,32 @@ let HomePage = class HomePage {
                         handler: () => {
                             this.nativeStorage.clear()
                                 .then(data => {
-                                this.presentLoading('Daten werden gelöscht...', 5000);
+                                this.presentLoading('Daten werden gelöscht...', 3000);
                                 console.log(data);
                             }, error => console.error(error));
+                        }
+                    }
+                ]
+            });
+            yield alert.present();
+        });
+    }
+    updateData() {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            const alert = yield this.alertController.create({
+                header: 'Es sind neue Inhalte verfügbar',
+                message: 'Möchtest du die Inhalte aktualisieren?',
+                buttons: [
+                    {
+                        text: 'Abbrechen',
+                        role: 'cancel',
+                        handler: () => {
+                            this.localGET();
+                        }
+                    }, {
+                        text: 'Aktualisieren',
+                        handler: () => {
+                            this.downloadData();
                         }
                     }
                 ]
@@ -350,8 +318,7 @@ HomePage.ctorParameters = () => [
     { type: _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_6__["InAppBrowser"] },
     { type: _ionic_native_native_storage_ngx__WEBPACK_IMPORTED_MODULE_7__["NativeStorage"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"] },
-    { type: _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_8__["Network"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"] }
 ];
 HomePage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({

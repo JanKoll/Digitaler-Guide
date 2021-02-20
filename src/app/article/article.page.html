@@ -17,9 +17,10 @@
 <ion-content [fullscreen]="true">
   <div class="article" *ngIf="content">
 
+
     <!-- intro section -->
 
-    <div class="icon-header" *ngIf="content.template != 'default'">
+    <div class="icon-header" *ngIf="template == 'article'">
       <div class="icon">
         <img [src]="saveURL('image/png', content.icon)" alt="{{ content.title }} Icon">
       </div>
@@ -28,7 +29,7 @@
       <h2>{{ content.title }}</h2>
     </div>
 
-    <ion-text color="light" *ngIf="content.template != 'default'">
+    <ion-text color="light" *ngIf="template == 'article'">
       <p>{{ content.teasertext }}</p>
     </ion-text>
 
@@ -77,8 +78,8 @@
 
         <!-- audio -->
         <div *ngSwitchCase="'audio'">
-          <audio controls preload autobuffer>
-            <source [src]="saveURL('audio/wav', item.content.audio)" />
+          <audio controls>
+            <source [src]="saveURL('audio/wav', item.content.audio)">
 
             Ups, da ist etwas schief gelaufen!
           </audio>
@@ -87,7 +88,8 @@
         <!-- default -->
         <div *ngSwitchDefault>
           <p>Error!</p>
-          <p>{{ item.content }}</p>
+          <div [innerHTML]="item.content">
+          </div>
         </div>
 
       </div>
