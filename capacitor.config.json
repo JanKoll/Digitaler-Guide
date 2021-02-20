@@ -11,6 +11,6 @@
   },
   "cordova": {},
   "ios": {
-    "hideLogs": false
+    "hideLogs": true
   }
 }

@@ -370,10 +370,6 @@ __webpack_require__.r(__webpack_exports__);
 
 let LocationPage = class LocationPage {
     constructor(modalCtrl, platform, alertController, sanitizer, qrScanner, zone, router, activatedRoute, http, nativeStorage) {
-        // Call and Update geo Location
-        // this.interval = setInterval(() =>
-        //   this.getCurrentLocation()
-        // , 1000);
         this.modalCtrl = modalCtrl;
         this.platform = platform;
         this.alertController = alertController;
@@ -384,6 +380,8 @@ let LocationPage = class LocationPage {
         this.activatedRoute = activatedRoute;
         this.http = http;
         this.nativeStorage = nativeStorage;
+        // Call and Update geo Location
+        this.interval = setInterval(() => this.getCurrentLocation(), 1000);
         // subscribe to cammera close
         this.platform.backButton.subscribeWithPriority(0, () => {
             // Android Physical Back Button???

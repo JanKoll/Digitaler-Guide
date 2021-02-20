@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController, Platform } from '@ionic/angular';
 
 import { HTTP } from '@ionic-native/http/ngx';
 
@@ -27,14 +27,21 @@ export class HomePage {
   constructor(
     private http: HTTP,
     private iab: InAppBrowser,
+    private platform: Platform,
     private nativeStorage: NativeStorage,
     public alertController: AlertController,
     public loadingController: LoadingController
   ) {
+
+    // this.platform.ready().then((readySource) => {
+      // console.log('Platform ready from', readySource);
+      // Platform now ready, execute any required native code
+
     this.nativeStorage.getItem('isOffline')
     .then(
       data => {
         this.offline = true;
+        // this.localGET();
 
         this.http.useBasicAuth('mail@example.de', 'Raute123');
 
@@ -66,6 +73,9 @@ export class HomePage {
       },
       error => this.restGET()
     );
+
+    // });
+
   }
 
   localGET() {
@@ -73,6 +83,8 @@ export class HomePage {
     .then(
       data => {
         this.content = data.main;
+        console.log(data.meta);
+
       },
       error => console.log(error)
     );

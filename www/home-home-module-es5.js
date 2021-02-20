@@ -248,18 +248,22 @@
       "M2ZX");
 
       var HomePage = /*#__PURE__*/function () {
-        function HomePage(http, iab, nativeStorage, alertController, loadingController) {
+        function HomePage(http, iab, platform, nativeStorage, alertController, loadingController) {
           var _this = this;
 
           _classCallCheck(this, HomePage);
 
+          // this.platform.ready().then((readySource) => {
+          // console.log('Platform ready from', readySource);
+          // Platform now ready, execute any required native code
           this.http = http;
           this.iab = iab;
+          this.platform = platform;
           this.nativeStorage = nativeStorage;
           this.alertController = alertController;
           this.loadingController = loadingController;
           this.nativeStorage.getItem('isOffline').then(function (data) {
-            _this.offline = true;
+            _this.offline = true; // this.localGET();
 
             _this.http.useBasicAuth('mail@example.de', 'Raute123');
 
@@ -287,7 +291,7 @@
             });
           }, function (error) {
             return _this.restGET();
-          });
+          }); // });
         }
 
         _createClass(HomePage, [{
@@ -297,6 +301,7 @@
 
             this.nativeStorage.getItem('database').then(function (data) {
               _this2.content = data.main;
+              console.log(data.meta);
             }, function (error) {
               return console.log(error);
             });
@@ -526,6 +531,8 @@
           type: _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_5__["HTTP"]
         }, {
           type: _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_6__["InAppBrowser"]
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["Platform"]
         }, {
           type: _ionic_native_native_storage_ngx__WEBPACK_IMPORTED_MODULE_7__["NativeStorage"]
         }, {

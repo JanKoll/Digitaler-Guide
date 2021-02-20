@@ -44,9 +44,9 @@ export class LocationPage {
     private nativeStorage: NativeStorage
   )  {
     // Call and Update geo Location
-    // this.interval = setInterval(() =>
-    //   this.getCurrentLocation()
-    // , 1000);
+    this.interval = setInterval(() =>
+      this.getCurrentLocation()
+    , 1000);
 
     // subscribe to cammera close
     this.platform.backButton.subscribeWithPriority(0, () => {

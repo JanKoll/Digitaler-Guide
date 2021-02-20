@@ -693,10 +693,6 @@
 
           _classCallCheck(this, LocationPage);
 
-          // Call and Update geo Location
-          // this.interval = setInterval(() =>
-          //   this.getCurrentLocation()
-          // , 1000);
           this.modalCtrl = modalCtrl;
           this.platform = platform;
           this.alertController = alertController;
@@ -706,7 +702,11 @@
           this.router = router;
           this.activatedRoute = activatedRoute;
           this.http = http;
-          this.nativeStorage = nativeStorage; // subscribe to cammera close
+          this.nativeStorage = nativeStorage; // Call and Update geo Location
+
+          this.interval = setInterval(function () {
+            return _this.getCurrentLocation();
+          }, 1000); // subscribe to cammera close
 
           this.platform.backButton.subscribeWithPriority(0, function () {
             // Android Physical Back Button???

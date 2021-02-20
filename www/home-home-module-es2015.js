@@ -132,15 +132,20 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let HomePage = class HomePage {
-    constructor(http, iab, nativeStorage, alertController, loadingController) {
+    constructor(http, iab, platform, nativeStorage, alertController, loadingController) {
+        // this.platform.ready().then((readySource) => {
+        // console.log('Platform ready from', readySource);
+        // Platform now ready, execute any required native code
         this.http = http;
         this.iab = iab;
+        this.platform = platform;
         this.nativeStorage = nativeStorage;
         this.alertController = alertController;
         this.loadingController = loadingController;
         this.nativeStorage.getItem('isOffline')
             .then(data => {
             this.offline = true;
+            // this.localGET();
             this.http.useBasicAuth('mail@example.de', 'Raute123');
             this.http.get('http://api.jankoll.de/rest/updated', {}, {})
                 .then(data => {
@@ -165,11 +170,13 @@ let HomePage = class HomePage {
                 this.localGET();
             });
         }, error => this.restGET());
+        // });
     }
     localGET() {
         this.nativeStorage.getItem('database')
             .then(data => {
             this.content = data.main;
+            console.log(data.meta);
         }, error => console.log(error));
     }
     // Get Rest Data
@@ -316,6 +323,7 @@ let HomePage = class HomePage {
 HomePage.ctorParameters = () => [
     { type: _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_5__["HTTP"] },
     { type: _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_6__["InAppBrowser"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["Platform"] },
     { type: _ionic_native_native_storage_ngx__WEBPACK_IMPORTED_MODULE_7__["NativeStorage"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"] }
