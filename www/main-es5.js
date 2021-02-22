@@ -139,9 +139,15 @@
       var _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! @ionic-native/in-app-browser/ngx */
       "m/P+");
+      /* harmony import */
+
+
+      var _ionic_native_native_storage_ngx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      /*! @ionic-native/native-storage/ngx */
+      "M2ZX");
 
       var AppComponent = /*#__PURE__*/function () {
-        function AppComponent(platform, splashScreen, statusBar, router, http, iab) {
+        function AppComponent(platform, splashScreen, statusBar, router, http, iab, nativeStorage) {
           var _this = this;
 
           _classCallCheck(this, AppComponent);
@@ -152,37 +158,64 @@
           this.router = router;
           this.http = http;
           this.iab = iab;
-          this.initializeApp(); // HTTP Request Main
+          this.nativeStorage = nativeStorage;
+          this.initializeApp(); // Check for Offline Mode
 
-          this.http.useBasicAuth('mail@example.de', 'Raute123');
-          this.http.get('http://api.jankoll.de/rest/main', {}, {}).then(function (data) {
-            _this.mainNav = JSON.parse(data.data); // data received by server
-          })["catch"](function (error) {
-            console.log(error.status);
-            console.log(error.error); // error message as string
-
-            console.log(error.headers);
-          }); // HTTP Request Meta
-
-          this.http.get('http://api.jankoll.de/rest/meta', {}, {}).then(function (data) {
-            _this.metaNav = JSON.parse(data.data); // data received by server
-          })["catch"](function (error) {
-            console.log(error.status);
-            console.log(error.error); // error message as string
-
-            console.log(error.headers);
+          this.nativeStorage.getItem('isOffline').then(function (data) {
+            _this.localGET();
+          }, function (error) {
+            return _this.restGET();
           });
-        }
+        } // Get Local Data
+
 
         _createClass(AppComponent, [{
-          key: "initializeApp",
-          value: function initializeApp() {
+          key: "localGET",
+          value: function localGET() {
             var _this2 = this;
 
-            this.platform.ready().then(function () {
-              _this2.statusBar.styleDefault();
+            this.nativeStorage.getItem('database').then(function (data) {
+              _this2.mainNav = data.main;
+              _this2.metaNav = data.meta;
+            }, function (error) {
+              return console.log(error);
+            });
+          } // Get Rest Data
 
-              _this2.splashScreen.hide();
+        }, {
+          key: "restGET",
+          value: function restGET() {
+            var _this3 = this;
+
+            // HTTP Request Main
+            this.http.useBasicAuth('mail@example.de', 'Raute123');
+            this.http.get('https://api.jankoll.de/rest/main', {}, {}).then(function (data) {
+              _this3.mainNav = JSON.parse(data.data); // data received by server
+            })["catch"](function (error) {
+              console.log(error.status);
+              console.log(error.error); // error message as string
+
+              console.log(error.headers);
+            }); // HTTP Request Meta
+
+            this.http.get('https://api.jankoll.de/rest/meta', {}, {}).then(function (data) {
+              _this3.metaNav = JSON.parse(data.data); // data received by server
+            })["catch"](function (error) {
+              console.log(error.status);
+              console.log(error.error); // error message as string
+
+              console.log(error.headers);
+            });
+          }
+        }, {
+          key: "initializeApp",
+          value: function initializeApp() {
+            var _this4 = this;
+
+            this.platform.ready().then(function () {
+              _this4.statusBar.styleDefault();
+
+              _this4.splashScreen.hide();
             });
           }
         }, {
@@ -208,6 +241,8 @@
           type: _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_8__["HTTP"]
         }, {
           type: _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_9__["InAppBrowser"]
+        }, {
+          type: _ionic_native_native_storage_ngx__WEBPACK_IMPORTED_MODULE_10__["NativeStorage"]
         }];
       };
 
@@ -342,6 +377,12 @@
       var _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
       /*! @ionic-native/in-app-browser/ngx */
       "m/P+");
+      /* harmony import */
+
+
+      var _ionic_native_native_storage_ngx__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
+      /*! @ionic-native/native-storage/ngx */
+      "M2ZX");
 
       var AppModule = function AppModule() {
         _classCallCheck(this, AppModule);
@@ -353,7 +394,7 @@
         imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"], _angular_service_worker__WEBPACK_IMPORTED_MODULE_10__["ServiceWorkerModule"].register('ngsw-worker.js', {
           enabled: _environments_environment__WEBPACK_IMPORTED_MODULE_11__["environment"].production
         })],
-        providers: [_ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"], _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"], {
+        providers: [_ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"], _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"], _ionic_native_native_storage_ngx__WEBPACK_IMPORTED_MODULE_14__["NativeStorage"], {
           provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"],
           useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"]
         }, _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_9__["QRScanner"], _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_12__["HTTP"], _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_13__["InAppBrowser"]],

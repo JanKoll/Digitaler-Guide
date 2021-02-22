@@ -4,11 +4,15 @@ import { ModalController, Platform, AlertController } from '@ionic/angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 
+import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
+
 // Import Components
 import { ArticlePreviewComponent } from '../components/article-preview/article-preview.component';
 import { LegendComponent } from '../components/legend/legend.component';
 
 import { HTTP } from '@ionic-native/http/ngx';
+
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
 @Component({
   selector: 'app-location',
@@ -17,6 +21,7 @@ import { HTTP } from '@ionic-native/http/ngx';
 })
 export class LocationPage {
   // Coords
+  coords: any;
   latitude: number;
   longitude: number;
   pointcoord: any;
@@ -30,11 +35,13 @@ export class LocationPage {
     private modalCtrl: ModalController,
     public platform: Platform,
     public alertController: AlertController,
+    public sanitizer: DomSanitizer,
     private qrScanner: QRScanner,
     private zone: NgZone,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private http: HTTP
+    private http: HTTP,
+    private nativeStorage: NativeStorage
   )  {
     // Call and Update geo Location
     this.interval = setInterval(() =>
@@ -53,16 +60,50 @@ export class LocationPage {
 
     });
 
-    // GET Route and poll data
+    // Check for Offline Mode
+    this.nativeStorage.getItem('isOffline')
+    .then(
+      data => {
+        this.localGET();
+      },
+      error => this.restGET()
+    );
+
+  }
+
+
+  // Get Local Data
+  localGET() {
+    this.activatedRoute.params.subscribe(params => {
+      let path = params['locationId'];
+
+      this.nativeStorage.getItem('database')
+        .then(
+          data => {
+            data.main.forEach(element => {
+              if (element.id == path) {
+                  this.content = element;
+                  this.coords = element.coords;
+              }
+            });
+          },
+          error => console.log(error)
+        );
+    });
+  }
+
+  // Get Rest Data
+  restGET() {
     this.activatedRoute.params.subscribe(params => {
 
          // REST Authentication
          this.http.useBasicAuth('mail@example.de', 'Raute123');
 
          //HTTP GET
-         this.http.get(`http://api.jankoll.de/rest/map/${params['locationId']}`, {}, {})
+         this.http.get(`https://api.jankoll.de/rest/map/${params['locationId']}`, {}, {})
          .then(data => {
            this.content = JSON.parse(data.data); // data received by server
+           this.coords = this.content.coords;
          })
          .catch(error => {
            console.log(error.status);
@@ -71,6 +112,7 @@ export class LocationPage {
          });
     });
   }
+
 
   ionViewWillLeave() {
     clearInterval(this.interval);
@@ -82,14 +124,14 @@ export class LocationPage {
     this.latitude = position.coords.latitude;
     this.longitude = position.coords.longitude;
 
-    let height = this.content.body.coords.leftTop.lat - this.content.body.coords.rightBot.lat;
-    let width = this.content.body.coords.rightBot.lon - this.content.body.coords.leftTop.lon;
+    let height = this.coords.leftTop.lat - this.coords.rightBot.lat;
+    let width = this.coords.rightBot.lon - this.coords.leftTop.lon;
 
-    this.pointcoord = 'top: ' + ((this.content.body.coords.leftTop.lat - this.latitude) * 100) / height + '%; right: ' + ((this.content.body.coords.rightBot.lon - this.longitude) * 100) / width + '%; opacity: 1;';
+    this.pointcoord = 'top: ' + ((this.coords.leftTop.lat - this.latitude) * 100) / height + '%; right: ' + ((this.coords.rightBot.lon - this.longitude) * 100) / width + '%; opacity: 1;';
 
     if (
-      (((this.content.body.coords.leftTop.lat - this.latitude) * 100) / height) > 100
-      || (((this.content.body.coords.leftTop.lat - this.latitude) * 100) / height) < 0
+      (((this.coords.leftTop.lat - this.latitude) * 100) / height) > 100
+      || (((this.coords.leftTop.lat - this.latitude) * 100) / height) < 0
     ) {
       clearInterval(this.interval);
       this.interval = setInterval(() =>
@@ -100,11 +142,11 @@ export class LocationPage {
 
   // Set artefact geo location
   setObjectLocation(geoData) {
-    let height = this.content.body.coords.leftTop.lat - this.content.body.coords.rightBot.lat;
-    let width = this.content.body.coords.rightBot.lon - this.content.body.coords.leftTop.lon;
+    let height = this.coords.leftTop.lat - this.coords.rightBot.lat;
+    let width = this.coords.rightBot.lon - this.coords.leftTop.lon;
 
-    let ycoord = ((this.content.body.coords.leftTop.lat - geoData.lat) * 100) / height;
-    let xcoord = ((this.content.body.coords.rightBot.lon - geoData.lon) * 100) / width;
+    let ycoord = ((this.coords.leftTop.lat - geoData.lat) * 100) / height;
+    let xcoord = ((this.coords.rightBot.lon - geoData.lon) * 100) / width;
 
     return "right:" + xcoord + "%; top:" + ycoord + "%;";
   }
@@ -169,9 +211,6 @@ export class LocationPage {
 
   startScanning() {
 
-
-    console.log("QR CODE START");
-
   // Optionally request the permission early
     this.qrScanner.prepare().
       then((status: QRScannerStatus) => {
@@ -217,6 +256,13 @@ export class LocationPage {
     // Use Class to Toggle Backgound Visibility
     document.getElementsByTagName('body')[0].classList.toggle("qractive");
     this.qrScanner.destroy();
+  }
+
+  saveURL(type, id: string) {
+    console.log(id);
+
+    let saveurl = 'data:' + type + ';base64,' + id;
+    return this.sanitizer.bypassSecurityTrustResourceUrl(saveurl);
   }
 
 }
