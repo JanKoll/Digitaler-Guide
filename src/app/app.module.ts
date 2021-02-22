@@ -17,6 +17,7 @@ import { HTTP } from '@ionic-native/http/ngx';
 
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,6 +30,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
   providers: [
     StatusBar,
     SplashScreen,
+    NativeStorage,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     QRScanner,
     HTTP,

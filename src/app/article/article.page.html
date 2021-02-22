@@ -17,18 +17,19 @@
 <ion-content [fullscreen]="true">
   <div class="article" *ngIf="content">
 
+
     <!-- intro section -->
 
-    <div class="icon-header" *ngIf="template !== 'default'">
+    <div class="icon-header" *ngIf="template == 'article'">
       <div class="icon">
-        <img src="{{ content.icon[0].icon.url }}" alt="{{ content.title }} Icon">
+        <img [src]="saveURL('image/png', content.icon)" alt="{{ content.title }} Icon">
       </div>
 
       <p>Mehr erleben im</p>
       <h2>{{ content.title }}</h2>
     </div>
 
-    <ion-text color="light" *ngIf="template !== 'default'">
+    <ion-text color="light" *ngIf="template == 'article'">
       <p>{{ content.teasertext }}</p>
     </ion-text>
 
@@ -58,14 +59,14 @@
 
         <!-- img -->
         <div *ngSwitchCase="'img'">
-          <ion-img src="{{ item.content.image[0].icon.url }}" alt="{{ item.content.image[0].alt }}"></ion-img>
+          <ion-img src="data:image/jpeg;base64,{{ item.content.image }}" alt="{{ item.content.alt }}"></ion-img>
         </div>
 
         <!-- slider -->
         <div *ngSwitchCase="'img-slider'">
          <ion-slides pager="true">
-            <ion-slide *ngFor="let img of item.content.images">
-              <ion-img src="{{ img.icon.url }}" alt="{{ content.title }} Artikel Bild"></ion-img>
+            <ion-slide *ngFor="let img of item.content.image">
+              <ion-img src="data:image/jpeg;base64,{{ img }}" alt="{{ content.title }} Artikel Bild"></ion-img>
             </ion-slide>
           </ion-slides>
         </div>
@@ -77,9 +78,9 @@
 
         <!-- audio -->
         <div *ngSwitchCase="'audio'">
-          <audio controls preload autobuffer>
-            {{ item.content.audio[0].url }}
-            <source src="{{ item.content.audio[0].url }}">
+          <audio controls>
+            <source [src]="saveURL('audio/wav', item.content.audio)">
+
             Ups, da ist etwas schief gelaufen!
           </audio>
         </div>
@@ -87,7 +88,8 @@
         <!-- default -->
         <div *ngSwitchDefault>
           <p>Error!</p>
-          <p>{{ item.content }}</p>
+          <div [innerHTML]="item.content">
+          </div>
         </div>
 
       </div>

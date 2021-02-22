@@ -1,7 +1,7 @@
 <div class="content">
     <div class="icon-header">
       <div class="icon">
-        <img src="{{ data.icon }}" alt="{{ data.title }} Icon">
+        <img src="data:image/png;base64,{{ data.icon }}" alt="{{ data.title }} Icon">
       </div>
 
       <h2>{{ data.title }}</h2>
@@ -24,7 +24,7 @@
       </div>
       <p>{{ data.teasertext }}</p>
 
-      <ion-img src="{{ data.teaserimg }}" alt="{{ data.title }} Vorschaubild"></ion-img>
+      <ion-img src="data:image/jpeg;base64,{{ data.teaserimg }}" alt="{{ data.title }} Vorschaubild"></ion-img>
 
       <div [innerHTML]="data.time"></div>
 
