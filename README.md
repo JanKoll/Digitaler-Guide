@@ -1,26 +1,18 @@
-# Praxisprojekt Wintersemester 2020/2021
+# Bachelorarbeit Wintersemester 2020/2021
 
-## Konzeption und prototypische Entwicklung eines digitalen Guides zur Informationsanreicherung einer Ausstellung für Verhaltensbiologie
+## Implementierung eines Content-Management-Systems in einen digitalen Guide Prototypen zur Informationsanreicherung einer Ausstellung für Verhaltensbiologie
 
 ### Setup - Entwicklung
 
 **Projekt Klonen und Ionic CLI installieren**
 ```
-$ git clone https://github.com/JanKoll/koll-jan-pp-ws-20-21.git
+$ git clone https://github.com/JanKoll/Digitaler-Guide.git
 $ npm install -g @ionic/cli
 ```
 
-**Code Kompilieren**
-```
-$ ionic build
-```
-
-**Code Entwickeln**
-```
-$ ionic serve
-```
 ---
-### Setup - Xcode
+
+### Setup - Xcode (iOS)
 Xcode muss installiert sein. Wenn ein externes Ios Gerät bespielt werden soll muss die Xcode Version die Ios version unterstützen (zB Xcode 12.**1** unterstütz iOS 14.**1**).
 
 **Wenn Code verändert wurde**
