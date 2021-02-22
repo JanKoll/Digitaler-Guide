@@ -2,6 +2,12 @@
 
 ## Implementierung eines Content-Management-Systems in einen digitalen Guide Prototypen zur Informationsanreicherung einer Ausstellung für Verhaltensbiologie
 
+---
+
+Zugehöriges Kirby CMS in https://github.com/JanKoll/maxcine-kirby/tree/master.
+
+---
+
 ### Setup - Entwicklung
 
 **Projekt Klonen und Ionic CLI installieren**
