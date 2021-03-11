@@ -28,8 +28,10 @@ export class LocationPage {
   interval: any;
 
   // General Data
+  title: any;
   locationId: any;
   content: any;
+  lang: any;
 
   constructor(
     private modalCtrl: ModalController,
@@ -43,6 +45,22 @@ export class LocationPage {
     private http: HTTP,
     private nativeStorage: NativeStorage
   )  {
+
+    // Check / Get Current Language
+    this.nativeStorage.getItem('language')
+    .then(
+      data => {
+        this.lang = data;
+
+        if (data == 'de') {
+          this.title = 'Digitaler Guide'
+        } else {
+          this.title = 'Digital Guide'
+        }
+      },
+      error => console.log(error)
+    );
+
     // Call and Update geo Location
     this.interval = setInterval(() =>
       this.getCurrentLocation()
@@ -68,6 +86,7 @@ export class LocationPage {
       },
       error => this.restGET()
     );
+
 
   }
 
@@ -100,7 +119,7 @@ export class LocationPage {
          this.http.useBasicAuth('mail@example.de', 'Raute123');
 
          //HTTP GET
-         this.http.get(`https://api.jankoll.de/rest/map/${params['locationId']}`, {}, {})
+         this.http.get(`https://api.jankoll.de/rest/${this.lang}/map/${params['locationId']}`, {}, {})
          .then(data => {
            this.content = JSON.parse(data.data); // data received by server
            this.coords = this.content.coords;
@@ -177,17 +196,28 @@ export class LocationPage {
 
   // QR-Code Functions
   async accessCamera() {
+    let title = 'Kamera deaktiviert';
+    let msg = 'Wenn du einen QR-Code Scannen möchtest, erlaube bitte den Kamera zugriff in den Einstellungen.';
+    let cancel = 'Abbrechen';
+    let sett = 'Einstellungen';
+
+    if (this.lang == 'en') {
+      title = 'Camera disabled';
+      msg = 'If you want to scan a QR code, please allow camera access in the settings.';
+      cancel = 'Cancel';
+      sett = 'Settings';
+    }
+
     const alert = await this.alertController.create({
-      // cssClass: 'my-custom-class',
-      header: 'Kamera deaktiviert',
-      message: 'Wenn du einen QR-Code Scannen möchtest, erlaube bitte den Kamera zugriff in den Einstellungen.',
+      header: title,
+      message: msg,
       buttons: [
         {
-          text: 'Abbrechen',
+          text: cancel,
           role: 'cancel',
           cssClass: 'secondary'
         }, {
-          text: 'Einstellungen',
+          text: sett,
           handler: () => {
             this.qrScanner.openSettings()
           }
@@ -199,10 +229,17 @@ export class LocationPage {
   }
 
   async undefinedQrCode() {
+    let title = 'Fehler';
+    let msg = 'Der QR-Code ist entweder nicht leserlich oder gehört nicht zur Tour.';
+
+    if (this.lang == 'en') {
+      title = 'Error';
+      msg = 'The QR code is either not readable or does not belong to the tour.';
+    }
+
     const alert = await this.alertController.create({
-      // cssClass: 'my-custom-class',
-      header: 'Fehler',
-      message: 'Der QR-Code ist entweder nicht leserlich oder gehört nicht zur Tour.',
+      header: title,
+      message: msg,
       buttons: ['Okay']
     });
 

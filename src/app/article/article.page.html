@@ -25,12 +25,14 @@
         <img [src]="saveURL('image/png', content.icon)" alt="{{ content.title }} Icon">
       </div>
 
-      <p>Mehr erleben im</p>
+      <p>{{ learn }}</p>
       <h2>{{ content.title }}</h2>
     </div>
 
     <ion-text color="light" *ngIf="template == 'article'">
       <p>{{ content.teasertext }}</p>
+
+      <div *ngIf="content.hastime" [innerHTML]="content.time"></div>
     </ion-text>
 
 
@@ -83,6 +85,18 @@
 
             Ups, da ist etwas schief gelaufen!
           </audio>
+        </div>
+
+        <!-- quote -->
+        <div *ngSwitchCase="'quotes'">
+           <ion-slides pager="true">
+              <ion-slide *ngFor="let quote of item.content">
+                <div class="quote">
+                  <p>"{{ quote.content.text }}"</p>
+                  <p class="cite">- {{ quote.content.citation }} </p>
+                </div>
+              </ion-slide>
+            </ion-slides>
         </div>
 
         <!-- default -->

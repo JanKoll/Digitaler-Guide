@@ -16,6 +16,8 @@ export class ArticlePage {
   content: any;
   title: any;
   template: any;
+  lang: any;
+  learn: any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -24,6 +26,21 @@ export class ArticlePage {
     private http: HTTP,
     private nativeStorage: NativeStorage
   ) {
+    // Check / Get Current Language
+    this.nativeStorage.getItem('language')
+    .then(
+      data => {
+        this.lang = data;
+      
+        if (data == 'de') {
+          this.learn = 'Mehr erleben im'
+        } else {
+          this.learn = 'Experience more at'
+        }
+      },
+      error => console.log(error)
+    );
+
     // Check for Offline Mode
     this.nativeStorage.getItem('isOffline')
     .then(
@@ -72,20 +89,28 @@ export class ArticlePage {
           }
         },
         error => {
-          this.content = {
-            "id": "error",
-            "title": "Fehler",
-            "template": "default",
-            "content": [
-                {
-                    "content": {
-                        "level": "h2",
-                        "text": "Fehler: Ups! Da ist etwas schiefgelaufen. Versuche bitte die Inhalte noch einmal herunterzuladen."
-                    }
-                }
-            ]
-          };
-          this.title = "Fehler";
+          let errTitle = "Fehler";
+          let errText = "Fehler: Ups! Da ist etwas schiefgelaufen. Versuche bitte die Inhalte noch einmal herunterzuladen.";
+
+          if(this.lang == 'en') {
+            errTitle = "Error";
+            errText = "Ups! Something went wrong. Please try to download the content again.";
+          }
+
+            this.content = {
+              "id": "error",
+              "title": errTitle,
+              "template": "default",
+              "content": [
+                  {
+                      "content": {
+                          "level": "h2",
+                          "text": errText
+                      }
+                  }
+              ]
+            };
+            this.title = errTitle;
 
           console.log(error);
         }
@@ -102,10 +127,10 @@ export class ArticlePage {
          let url = undefined;
 
          if (path.length > 1) {
-           url = `https://api.jankoll.de/rest/article/${path[0]}/${path[path.length - 1]}`;
+           url = `https://api.jankoll.de/rest/${this.lang}/article/${path[0]}/${path[path.length - 1]}`;
            this.template = 'article';
          } else {
-           url = `https://api.jankoll.de/rest/article/${path[path.length - 1]}`;
+           url = `https://api.jankoll.de/rest/${this.lang}/article/${path[path.length - 1]}`;
            this.template = 'default';
          }
 

@@ -18,6 +18,8 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
 export class HomePage {
   route: Router;
   offline: any;
+  ios: boolean;
+  lang: any;
 
   content: [];
 
@@ -29,6 +31,18 @@ export class HomePage {
     public alertController: AlertController,
     public loadingController: LoadingController
   ) {
+
+    // Check if is runing on iOS
+    this.ios = platform.is('ios');
+
+    // Check / Get Current Language
+    this.nativeStorage.getItem('language')
+    .then(
+      data => {
+        this.lang = data;
+      },
+      error => console.log(error)
+    );
 
     // this.platform.ready().then((readySource) => {
       // console.log('Platform ready from', readySource);
@@ -92,7 +106,7 @@ export class HomePage {
     // REST Authentication
     this.http.useBasicAuth('mail@example.de', 'Raute123');
 
-    this.http.get('https://api.jankoll.de/rest/main', {}, {})
+    this.http.get(`https://api.jankoll.de/rest/${this.lang}/main`, {}, {})
     .then(data => {
       // console.log(data.status);
       this.content = JSON.parse(data.data); // data received by server
@@ -112,12 +126,23 @@ export class HomePage {
 
   // Download Data
   async pollData() {
+    let title = 'Auf Gerät Speichern';
+    let msg = 'Möchtest du alle Inhalte auf deinem Smartphone Speichern?';
+    let cancel = 'Abbrechen';
+
+    if (this.lang == 'en') {
+      title = 'Save to device';
+      msg = 'Do you want to save all the content on your smartphone?';
+      cancel = 'Cancel';
+    }
+
+
     const alert = await this.alertController.create({
-      header: 'Auf Gerät Speichern',
-      message: 'Möchtest du alle Inhalte auf deinem Smartphone Speichern?',
+      header: title,
+      message: msg,
       buttons: [
         {
-          text: 'Abbrechen',
+          text: cancel,
           role: 'cancel',
           cssClass: 'secondary'
         }, {
@@ -152,8 +177,14 @@ export class HomePage {
   }
 
   downloadData() {
+    let msg = 'Wird heruntergeladen...';
+
+    if (this.lang == 'en') {
+      msg = 'Downloading...';
+    }
+
     this.loadingController.create({
-      message: 'Wird heruntergeladen...'
+      message: msg
     }).then((res) => {
       res.present();
     });
@@ -182,7 +213,7 @@ export class HomePage {
     });
 
     // save main
-    this.http.get('https://api.jankoll.de/rest/download', {}, {})
+    this.http.get(`https://api.jankoll.de/rest/${this.lang}/download`, {}, {})
     .then(data => {
       this.nativeStorage.setItem('database', JSON.parse(data.data))
         .then(
@@ -203,21 +234,35 @@ export class HomePage {
 
   // Offload Data
   async deleteData() {
+    let title = 'Gespeicherte Inhalte Löschen';
+    let msg = 'Möchtest du alle gespeicherten Inhalte Löschen?';
+    let cancel = 'Abbrechen';
+    let del = 'Löschen';
+    let loading = 'Daten werden gelöscht...';
+
+    if (this.lang == 'en') {
+      title = 'Clear saved data';
+      msg = 'Do you want to delete all saved data?';
+      cancel = 'Cancel';
+      del = 'Delete';
+      loading = 'Deleting...';
+    }
+
     const alert = await this.alertController.create({
-      header: 'Gespeicherte Inhalte Löschen',
-      message: 'Möchtest du alle gespeicherten Inhalte Löschen?',
+      header: title,
+      message: msg,
       buttons: [
         {
-          text: 'Abbrechen',
+          text: cancel,
           role: 'cancel',
           cssClass: 'secondary'
         }, {
-          text: 'Löschen',
+          text: del,
           handler: () => {
             this.nativeStorage.clear()
               .then(
                 data => {
-                  this.presentLoading('Daten werden gelöscht...', 3000);
+                  this.presentLoading(loading, 3000);
                   console.log(data);
                 },
                 error => console.error(error)
@@ -231,18 +276,32 @@ export class HomePage {
   }
 
   async updateData() {
+
+    let title = 'Es sind neue Inhalte verfügbar';
+    let msg = 'Möchtest du die Inhalte aktualisieren?';
+    let cancel = 'Abbrechen';
+    let upd = 'Aktualisieren';
+
+    if (this.lang == 'en') {
+      title = 'There is new content available';
+      msg = 'Do you want to update the content?';
+      cancel = 'Cancel';
+      upd = 'Update';
+    }
+
+
     const alert = await this.alertController.create({
-      header: 'Es sind neue Inhalte verfügbar',
-      message: 'Möchtest du die Inhalte aktualisieren?',
+      header: title,
+      message: msg,
       buttons: [
         {
-          text: 'Abbrechen',
+          text: cancel,
           role: 'cancel',
           handler: () => {
             this.localGET();
           }
         }, {
-          text: 'Aktualisieren',
+          text: upd,
           handler: () => {
             this.downloadData();
           }

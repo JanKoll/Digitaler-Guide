@@ -1,4 +1,10 @@
 ion-split-pane {
+  .bold {
+    font-weight: 900;
+    border-top: .125rem solid $light;
+    box-sizing: border-box;
+  }
+
   ion-list {
     margin-top: -.5rem;
     margin-bottom: 1rem;
