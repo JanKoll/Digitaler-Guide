@@ -32,10 +32,8 @@
   border-radius: 100%;
 }
 
-div.info {
+div.info, div.story {
   position: fixed;
-  bottom: .75rem;
-  right: .75rem;
   background: $primary;
   border: .25rem solid $light;
   color: $light;
@@ -51,6 +49,16 @@ div.info {
   &:hover {
     cursor: pointer;
   }
+}
+
+div.info {
+  bottom: .75rem;
+  right: .75rem;
+}
+
+div.story {
+  bottom: .75rem;
+  left: .75rem;
 }
 
 .hexagon {

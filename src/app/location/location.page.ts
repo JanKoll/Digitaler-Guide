@@ -91,6 +91,12 @@ export class LocationPage {
   }
 
 
+
+  route(id) {
+    this.router.navigate(['/article/', id]);
+  }
+
+
   // Get Local Data
   localGET() {
     this.activatedRoute.params.subscribe(params => {
@@ -142,6 +148,7 @@ export class LocationPage {
     let position = await Geolocation.getCurrentPosition();
     this.latitude = position.coords.latitude;
     this.longitude = position.coords.longitude;
+
 
     let height = this.coords.leftTop.lat - this.coords.rightBot.lat;
     let width = this.coords.rightBot.lon - this.coords.leftTop.lon;
@@ -257,9 +264,6 @@ export class LocationPage {
           // Use Class to Toggle Backgound Visibility
           document.getElementsByTagName('body')[0].classList.toggle("qractive");
           console.log("AUTHORIZED ");
-
-          // console.log(this.content.children);
-
 
           // debugger
           let scanSub = this.qrScanner.scan()

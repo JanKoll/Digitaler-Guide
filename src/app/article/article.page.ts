@@ -31,7 +31,7 @@ export class ArticlePage {
     .then(
       data => {
         this.lang = data;
-      
+
         if (data == 'de') {
           this.learn = 'Mehr erleben im'
         } else {
@@ -81,9 +81,18 @@ export class ArticlePage {
               if (element.id == params.articleId) {
                 this.content = element;
                 this.template = 'default';
-                this.title = element.title;
-                console.log(element);
 
+                if (!element.children) {
+                  this.title = element.title;
+                } else {
+                  let title = "Geschichte";
+
+                  if(this.lang == 'en') {
+                    title = "Story";
+                  }
+
+                  this.title = title;
+                }
               }
             });
           }
@@ -140,7 +149,17 @@ export class ArticlePage {
          this.http.get(url, {}, {})
          .then(data => {
             this.content = JSON.parse(data.data); // data received by server
-            this.title = this.content.title;
+            if (!this.content.children) {
+              this.title = this.content.title;
+            } else {
+              let title = "Geschichte";
+
+              if(this.lang == 'en') {
+                title = "Story";
+              }
+
+              this.title = title;
+            }
          })
          .catch(error => {
            console.log(error.status);

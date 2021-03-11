@@ -46,6 +46,11 @@
 
   </div>
 
+  {{ pointcoord }}
+
+  <div class="story" *ngIf="content.hasstory == 'true'" (click)="route(content.id)">
+    <svg id="Book_Layer_1" data-name="Book Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55.41 55.88" style="width:60%; padding-top:0.6rem"><defs><style>.book{fill:#eee;}</style></defs><polygon class="book" points="7.85 0.56 27.7 7.18 47.55 0.56 47.55 40.26 27.7 46.88 7.85 40.26 7.85 0.56"/><polygon class="book" points="27.7 55.88 0 46.18 0 0 3.05 0 3.05 44.02 27.7 52.65 52.35 44.02 52.35 0 55.41 0 55.41 46.18 27.7 55.88"/></svg>
+  </div>
   <div class="info" (click)="legend()">i</div>
   <div id="qropen" class="info" (click)="startScanning()"><img src="../assets/qr-icon.png" /></div>
 
