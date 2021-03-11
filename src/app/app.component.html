@@ -5,6 +5,12 @@
 
         <ion-header class="ion-no-border">
           <ion-toolbar color="none">
+
+            <ion-buttons slot="end" class="language">
+              <ion-button (click)="toggleLang('de')" [class.bold]="lang == 'de'">DE</ion-button>
+              <ion-button (click)="toggleLang('en')" [class.bold]="lang == 'en'">EN</ion-button>
+            </ion-buttons>
+
             <ion-buttons slot="start">
               <ion-menu-button color="light"></ion-menu-button>
             </ion-buttons>

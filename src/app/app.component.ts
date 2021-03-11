@@ -18,10 +18,10 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
 })
 export class AppComponent {
   articleId: any;
-  // data: any;
   route: Router;
   mainNav: any;
   metaNav: any;
+  lang: any;
 
   constructor(
     private platform: Platform,
@@ -33,59 +33,82 @@ export class AppComponent {
     private nativeStorage: NativeStorage
   ) {
     this.initializeApp();
-      // Check for Offline Mode
-      this.nativeStorage.getItem('isOffline')
-      .then(
-        data => {
-          this.localGET();
-        },
-        error => this.restGET()
-      );
+
+    // Check / Get Current Language
+    this.nativeStorage.getItem('language')
+    .then(
+      data => {
+        this.lang = data;
+      },
+      error => this.toggleLang('de')
+    );
+
+    // Check for Offline Mode
+    this.nativeStorage.getItem('isOffline')
+    .then(
+      data => {
+        this.localGET();
+      },
+      error => this.restGET()
+    );
   }
 
+  // Toggle Language
+  toggleLang(code) {
+    console.log(code);
 
 
-    // Get Local Data
-    localGET() {
+    this.nativeStorage.setItem('language', code)
+      .then(
+        (data) => {
+          // console.log(data);
+          window.location.reload();
+        },
+        error => console.error('Error storing item', error)
+    );
 
-        this.nativeStorage.getItem('database')
-        .then(
-          data => {
-            this.mainNav = data.main;
-            this.metaNav = data.meta;
-          },
-          error => console.log(error)
-        );
+    // window.location.reload();
 
+  }
 
-    }
+  // Get Local Data
+  localGET() {
+    this.nativeStorage.getItem('database')
+    .then(
+      data => {
+        this.mainNav = data.main;
+        this.metaNav = data.meta;
+      },
+      error => console.log(error)
+    );
+  }
 
-    // Get Rest Data
-    restGET() {
-      // HTTP Request Main
-      this.http.useBasicAuth('mail@example.de', 'Raute123');
+  // Get Rest Data
+  restGET() {
+    // HTTP Request Main
+    this.http.useBasicAuth('mail@example.de', 'Raute123');
 
-      this.http.get('https://api.jankoll.de/rest/main', {}, {})
-      .then(data => {
-        this.mainNav = JSON.parse(data.data); // data received by server
-      })
-      .catch(error => {
-        console.log(error.status);
-        console.log(error.error); // error message as string
-        console.log(error.headers);
-      });
+    this.http.get(`https://api.jankoll.de/rest/${this.lang}/main`, {}, {})
+    .then(data => {
+      this.mainNav = JSON.parse(data.data); // data received by server
+    })
+    .catch(error => {
+      console.log(error.status);
+      console.log(error.error); // error message as string
+      console.log(error.headers);
+    });
 
-      // HTTP Request Meta
-      this.http.get('https://api.jankoll.de/rest/meta', {}, {})
-      .then(data => {
-        this.metaNav = JSON.parse(data.data); // data received by server
-      })
-      .catch(error => {
-        console.log(error.status);
-        console.log(error.error); // error message as string
-        console.log(error.headers);
-      });
-    }
+    // HTTP Request Meta
+    this.http.get(`https://api.jankoll.de/rest/${this.lang}/meta`, {}, {})
+    .then(data => {
+      this.metaNav = JSON.parse(data.data); // data received by server
+    })
+    .catch(error => {
+      console.log(error.status);
+      console.log(error.error); // error message as string
+      console.log(error.headers);
+    });
+  }
 
   initializeApp() {
     this.platform.ready().then(() => {
