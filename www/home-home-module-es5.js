@@ -225,30 +225,36 @@
       /* harmony import */
 
 
-      var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      /*! @angular/router */
+      "tyNb");
+      /* harmony import */
+
+
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
       /*! @ionic/angular */
       "TEn/");
       /* harmony import */
 
 
-      var _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      var _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! @ionic-native/http/ngx */
       "XSEc");
       /* harmony import */
 
 
-      var _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      var _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! @ionic-native/in-app-browser/ngx */
       "m/P+");
       /* harmony import */
 
 
-      var _ionic_native_native_storage_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      var _ionic_native_native_storage_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! @ionic-native/native-storage/ngx */
       "M2ZX");
 
       var HomePage = /*#__PURE__*/function () {
-        function HomePage(http, iab, platform, nativeStorage, alertController, loadingController) {
+        function HomePage(http, iab, platform, router, nativeStorage, alertController, loadingController) {
           var _this = this;
 
           _classCallCheck(this, HomePage);
@@ -256,6 +262,7 @@
           this.http = http;
           this.iab = iab;
           this.platform = platform;
+          this.router = router;
           this.nativeStorage = nativeStorage;
           this.alertController = alertController;
           this.loadingController = loadingController; // Check if is runing on iOS
@@ -298,7 +305,11 @@
           }, function (error) {
             return console.log(error);
           });
-        } // Call Data
+        } // Android go Back
+        // this.platform.backButton.subscribeWithPriority(10, () => {
+        //   this.router.navigate(['..']);
+        // });
+        // Call Data
 
 
         _createClass(HomePage, [{
@@ -589,17 +600,19 @@
 
       HomePage.ctorParameters = function () {
         return [{
-          type: _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_5__["HTTP"]
+          type: _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_6__["HTTP"]
         }, {
-          type: _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_6__["InAppBrowser"]
+          type: _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_7__["InAppBrowser"]
         }, {
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["Platform"]
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["Platform"]
         }, {
-          type: _ionic_native_native_storage_ngx__WEBPACK_IMPORTED_MODULE_7__["NativeStorage"]
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]
         }, {
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"]
+          type: _ionic_native_native_storage_ngx__WEBPACK_IMPORTED_MODULE_8__["NativeStorage"]
         }, {
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"]
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["AlertController"]
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["LoadingController"]
         }];
       };
 

@@ -29,9 +29,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ArticlePage = class ArticlePage {
-    constructor(activatedRoute, sanitizer, navCtrl, http, nativeStorage) {
+    constructor(activatedRoute, sanitizer, platform, router, navCtrl, http, nativeStorage) {
         this.activatedRoute = activatedRoute;
         this.sanitizer = sanitizer;
+        this.platform = platform;
+        this.router = router;
         this.navCtrl = navCtrl;
         this.http = http;
         this.nativeStorage = nativeStorage;
@@ -51,6 +53,10 @@ let ArticlePage = class ArticlePage {
                 this.localGET();
             }, error => this.restGET());
         }, error => console.log(error));
+        // Android go Back
+        this.platform.backButton.subscribeWithPriority(10, () => {
+            this.router.navigate(['..']);
+        });
     }
     // Get Local Data
     localGET() {
@@ -167,6 +173,8 @@ let ArticlePage = class ArticlePage {
 ArticlePage.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"] },
     { type: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_5__["DomSanitizer"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["NavController"] },
     { type: _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_7__["HTTP"] },
     { type: _ionic_native_native_storage_ngx__WEBPACK_IMPORTED_MODULE_8__["NativeStorage"] }

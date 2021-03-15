@@ -777,6 +777,10 @@
             document.getElementsByTagName('body')[0].classList.toggle("qractive");
 
             _this3.qrScanner.destroy();
+          }); // Android go Back
+
+          this.platform.backButton.subscribeWithPriority(10, function () {
+            _this3.router.navigate(['..']);
           });
         }
 

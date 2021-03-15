@@ -81,13 +81,15 @@
       "M2ZX");
 
       var ArticlePage = /*#__PURE__*/function () {
-        function ArticlePage(activatedRoute, sanitizer, navCtrl, http, nativeStorage) {
+        function ArticlePage(activatedRoute, sanitizer, platform, router, navCtrl, http, nativeStorage) {
           var _this = this;
 
           _classCallCheck(this, ArticlePage);
 
           this.activatedRoute = activatedRoute;
           this.sanitizer = sanitizer;
+          this.platform = platform;
+          this.router = router;
           this.navCtrl = navCtrl;
           this.http = http;
           this.nativeStorage = nativeStorage; // Check / Get Current Language
@@ -109,6 +111,10 @@
             });
           }, function (error) {
             return console.log(error);
+          }); // Android go Back
+
+          this.platform.backButton.subscribeWithPriority(10, function () {
+            _this.router.navigate(['..']);
           });
         } // Get Local Data
 
@@ -249,6 +255,10 @@
           type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"]
         }, {
           type: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_5__["DomSanitizer"]
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"]
+        }, {
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["NavController"]
         }, {

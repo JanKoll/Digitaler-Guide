@@ -74,6 +74,11 @@ export class LocationPage {
       document.getElementsByTagName('body')[0].classList.toggle("qractive");
       this.qrScanner.destroy();
     });
+
+    // Android go Back
+    this.platform.backButton.subscribeWithPriority(10, () => {
+      this.router.navigate(['..']);
+    });
   }
 
   route(id) {

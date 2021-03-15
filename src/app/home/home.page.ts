@@ -27,6 +27,7 @@ export class HomePage {
     private http: HTTP,
     private iab: InAppBrowser,
     private platform: Platform,
+    private router: Router,
     private nativeStorage: NativeStorage,
     public alertController: AlertController,
     public loadingController: LoadingController
@@ -81,6 +82,11 @@ export class HomePage {
       error => console.log(error)
     );
   }
+
+  // Android go Back
+  // this.platform.backButton.subscribeWithPriority(10, () => {
+  //   this.router.navigate(['..']);
+  // });
 
   // Call Data
   callData() {

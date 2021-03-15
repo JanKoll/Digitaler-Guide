@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
-import { NavController } from '@ionic/angular';
+import { NavController, Platform } from '@ionic/angular';
 
 import { HTTP } from '@ionic-native/http/ngx';
 
@@ -22,6 +22,8 @@ export class ArticlePage {
   constructor(
     private activatedRoute: ActivatedRoute,
     public sanitizer: DomSanitizer,
+    public platform: Platform,
+    private router: Router,
     public navCtrl: NavController,
     private http: HTTP,
     private nativeStorage: NativeStorage
@@ -49,6 +51,11 @@ export class ArticlePage {
       },
       error => console.log(error)
     );
+
+    // Android go Back
+    this.platform.backButton.subscribeWithPriority(10, () => {
+      this.router.navigate(['..']);
+    });
   }
 
 
