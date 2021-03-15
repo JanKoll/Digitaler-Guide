@@ -46,7 +46,7 @@
             d.__proto__ = b;
           } || function (d, b) {
             for (var p in b) {
-              if (b.hasOwnProperty(p)) d[p] = b[p];
+              if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
             }
           };
 
@@ -534,7 +534,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header class=\"ion-no-border\">\n  <ion-toolbar class=\"solid-primary\">\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"home\" color=\"light\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title>\n      {{ title }}\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-menu-button color=\"light\"></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class=\"solid-primary\" [fullscreen]=\"true\" *ngIf=\"content\">\n  <div class=\"map-wrapper\">\n    <div class=\"coord\"\n      style=\"{{ setObjectLocation(item.coords) }}\"\n      *ngFor=\"let item of content.children; let i = index\"\n      (click)=\"showModal(i)\"\n    >\n      <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 39.62 34.31\">\n        <defs>\n          <style>\n            .mapmarker{fill:#006c66;stroke-width:4px;}\n            .mapmarker, .hex{stroke:#eee;stroke-miterlimit:10;}\n            .textmarker{\n              font-size: 1.5rem;\n              fill: #eeeeee;\n              font-family: Roboto;}\n          </style>\n        </defs>\n        <g id=\"Layer_2\" data-name=\"Layer 2\">\n          <g id=\"Hintergrund\"><polygon class=\"mapmarker\" points=\"28.56 2 11.06 2 2.31 17.16 11.06 32.31 28.56 32.31 37.31 17.16 28.56 2\"/>\n            <text class=\"textmarker\" transform=\"translate(12.5 25.5)\">{{ i + 1 }}</text>\n          </g>\n        </g>\n      </svg>\n    </div>\n\n    <div class=\"location\" style=\"{{ pointcoord }}\"></div>\n\n    <img src=\"data:image/png;base64,{{ content.map }}\" />\n\n  </div>\n\n  {{ pointcoord }}\n\n  <div class=\"story\" *ngIf=\"content.hasstory == 'true'\" (click)=\"route(content.id)\">\n    <svg id=\"Book_Layer_1\" data-name=\"Book Layer 1\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 55.41 55.88\" style=\"width:60%; padding-top:0.6rem\"><defs><style>.book{fill:#eee;}</style></defs><polygon class=\"book\" points=\"7.85 0.56 27.7 7.18 47.55 0.56 47.55 40.26 27.7 46.88 7.85 40.26 7.85 0.56\"/><polygon class=\"book\" points=\"27.7 55.88 0 46.18 0 0 3.05 0 3.05 44.02 27.7 52.65 52.35 44.02 52.35 0 55.41 0 55.41 46.18 27.7 55.88\"/></svg>\n  </div>\n  <div class=\"info\" (click)=\"legend()\">i</div>\n  <div id=\"qropen\" class=\"info\" (click)=\"startScanning()\"><img src=\"../assets/qr-icon.png\" /></div>\n\n</ion-content>\n\n<div id=\"qrclose\" (click)=\"stopScanning()\">\n  <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\">\n    <defs>\n      <style>\n        .closedark {\n          fill: #eeeeee;\n        }\n      </style>\n    </defs>\n    <g id=\"Layer_2\" data-name=\"Layer 2\">\n      <g id=\"Layer_1-2\" data-name=\"Layer 1\"><polygon class=\"closedark\" points=\"100 9.83 90.17 0 50 40.17 9.83 0 0 9.83 40.17 50 0 90.17 9.83 100 50 59.83 90.17 100 100 90.17 59.83 50 100 9.83\"/></g>\n    </g>\n  </svg>\n</div>\n";
+      __webpack_exports__["default"] = "<ion-header class=\"ion-no-border\">\n  <ion-toolbar class=\"solid-primary\">\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"home\" color=\"light\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title>\n      {{ title }}\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-menu-button color=\"light\"></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class=\"solid-primary\" [fullscreen]=\"true\" *ngIf=\"content\">\n  <div class=\"map-wrapper\">\n    <div class=\"coord\"\n      style=\"{{ setObjectLocation(item.coords) }}\"\n      *ngFor=\"let item of content.children; let i = index\"\n      (click)=\"showModal(i)\"\n    >\n      <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 39.62 34.31\">\n        <defs>\n          <style>\n            .mapmarker{fill:#006c66;stroke-width:4px;}\n            .mapmarker, .hex{stroke:#eee;stroke-miterlimit:10;}\n            .textmarker{\n              font-size: 1.5rem;\n              fill: #eeeeee;\n              font-family: Roboto;}\n          </style>\n        </defs>\n        <g id=\"Layer_2\" data-name=\"Layer 2\">\n          <g id=\"Hintergrund\"><polygon class=\"mapmarker\" points=\"28.56 2 11.06 2 2.31 17.16 11.06 32.31 28.56 32.31 37.31 17.16 28.56 2\"/>\n            <text class=\"textmarker\" transform=\"translate(12.5 25.5)\">{{ i + 1 }}</text>\n          </g>\n        </g>\n      </svg>\n    </div>\n\n    <div class=\"location\" style=\"{{ pointcoord }}\"></div>\n\n    <img src=\"data:image/png;base64,{{ content.map }}\" />\n\n  </div>\n\n  <div class=\"story\" *ngIf=\"content.hasstory == 'true'\" (click)=\"route(content.id)\">\n    <svg id=\"Book_Layer_1\" data-name=\"Book Layer 1\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 55.41 55.88\" style=\"width:60%; padding-top:0.6rem\"><defs><style>.book{fill:#eee;}</style></defs><polygon class=\"book\" points=\"7.85 0.56 27.7 7.18 47.55 0.56 47.55 40.26 27.7 46.88 7.85 40.26 7.85 0.56\"/><polygon class=\"book\" points=\"27.7 55.88 0 46.18 0 0 3.05 0 3.05 44.02 27.7 52.65 52.35 44.02 52.35 0 55.41 0 55.41 46.18 27.7 55.88\"/></svg>\n  </div>\n  <div class=\"info\" (click)=\"legend()\">i</div>\n  <div id=\"qropen\" class=\"info\" (click)=\"startScanning()\"><img src=\"../assets/qr-icon.png\" /></div>\n\n</ion-content>\n\n<div id=\"qrclose\" (click)=\"stopScanning()\">\n  <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\">\n    <defs>\n      <style>\n        .closedark {\n          fill: #eeeeee;\n        }\n      </style>\n    </defs>\n    <g id=\"Layer_2\" data-name=\"Layer 2\">\n      <g id=\"Layer_1-2\" data-name=\"Layer 1\"><polygon class=\"closedark\" points=\"100 9.83 90.17 0 50 40.17 9.83 0 0 9.83 40.17 50 0 90.17 9.83 100 50 59.83 90.17 100 100 90.17 59.83 50 100 9.83\"/></g>\n    </g>\n  </svg>\n</div>\n";
       /***/
     },
 
@@ -761,28 +761,22 @@
               _this3.title = 'Digitaler Guide';
             } else {
               _this3.title = 'Digital Guide';
-            }
+            } // Check for Offline Mode
+
+
+            _this3.nativeStorage.getItem('isOffline').then(function (res) {
+              _this3.localGET();
+            }, function (error) {
+              return _this3.restGET();
+            });
           }, function (error) {
             return console.log(error);
-          }); // Call and Update geo Location
-
-          this.interval = setInterval(function () {
-            return _this3.getCurrentLocation();
-          }, 1000); // subscribe to cammera close
+          }); // subscribe to cammera close
 
           this.platform.backButton.subscribeWithPriority(0, function () {
-            // Android Physical Back Button???
-            // document.getElementsByTagName('body')[0].style.opacity = '1';
-            // Use Class to Toggle Backgound Visibility
             document.getElementsByTagName('body')[0].classList.toggle("qractive");
 
             _this3.qrScanner.destroy();
-          }); // Check for Offline Mode
-
-          this.nativeStorage.getItem('isOffline').then(function (data) {
-            _this3.localGET();
-          }, function (error) {
-            return _this3.restGET();
           });
         }
 
@@ -807,6 +801,8 @@
                     _this4.coords = element.coords;
                   }
                 });
+
+                _this4.callGeoInterval();
               }, function (error) {
                 return console.log(error);
               });
@@ -827,6 +823,8 @@
                 _this5.content = JSON.parse(data.data); // data received by server
 
                 _this5.coords = _this5.content.coords;
+
+                _this5.callGeoInterval();
               })["catch"](function (error) {
                 console.log(error.status);
                 console.log(error.error); // error message as string
@@ -839,13 +837,23 @@
           key: "ionViewWillLeave",
           value: function ionViewWillLeave() {
             clearInterval(this.interval);
+          }
+        }, {
+          key: "callGeoInterval",
+          value: function callGeoInterval() {
+            var _this6 = this;
+
+            // Call and Update geo Location
+            this.interval = setInterval(function () {
+              return _this6.getCurrentLocation();
+            }, 1000);
           } // Call and set current geo location
 
         }, {
           key: "getCurrentLocation",
           value: function getCurrentLocation() {
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
-              var _this6 = this;
+              var _this7 = this;
 
               var position, height, width;
               return regeneratorRuntime.wrap(function _callee3$(_context3) {
@@ -859,7 +867,6 @@
                       position = _context3.sent;
                       this.latitude = position.coords.latitude;
                       this.longitude = position.coords.longitude;
-                      console.log(position);
                       height = this.coords.leftTop.lat - this.coords.rightBot.lat;
                       width = this.coords.rightBot.lon - this.coords.leftTop.lon;
                       this.pointcoord = 'top: ' + (this.coords.leftTop.lat - this.latitude) * 100 / height + '%; right: ' + (this.coords.rightBot.lon - this.longitude) * 100 / width + '%; opacity: 1;';
@@ -867,11 +874,11 @@
                       if ((this.coords.leftTop.lat - this.latitude) * 100 / height > 100 || (this.coords.leftTop.lat - this.latitude) * 100 / height < 0) {
                         clearInterval(this.interval);
                         this.interval = setInterval(function () {
-                          return _this6.getCurrentLocation();
+                          return _this7.getCurrentLocation();
                         }, 10000);
                       }
 
-                    case 10:
+                    case 9:
                     case "end":
                       return _context3.stop();
                   }
@@ -958,7 +965,7 @@
           key: "accessCamera",
           value: function accessCamera() {
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
-              var _this7 = this;
+              var _this8 = this;
 
               var title, msg, cancel, sett, alert;
               return regeneratorRuntime.wrap(function _callee6$(_context6) {
@@ -988,7 +995,7 @@
                         }, {
                           text: sett,
                           handler: function handler() {
-                            _this7.qrScanner.openSettings();
+                            _this8.qrScanner.openSettings();
                           }
                         }]
                       });
@@ -1046,33 +1053,33 @@
         }, {
           key: "startScanning",
           value: function startScanning() {
-            var _this8 = this;
+            var _this9 = this;
 
             // Optionally request the permission early
             this.qrScanner.prepare().then(function (status) {
               if (status.authorized) {
-                _this8.qrScanner.show(); // Use Class to Toggle Backgound Visibility
+                _this9.qrScanner.show(); // Use Class to Toggle Backgound Visibility
 
 
                 document.getElementsByTagName('body')[0].classList.toggle("qractive");
                 console.log("AUTHORIZED "); // debugger
 
-                var scanSub = _this8.qrScanner.scan().subscribe(function (textFound) {
+                var scanSub = _this9.qrScanner.scan().subscribe(function (textFound) {
                   // Use Class to Toggle Backgound Visibility
                   document.getElementsByTagName('body')[0].classList.toggle("qractive"); // Check if QR-Code is valid
 
-                  if (_this8.content.children.map(function (x) {
+                  if (_this9.content.children.map(function (x) {
                     return x.id;
                   }).includes(textFound)) {
-                    _this8.zone.run(function () {
-                      _this8.router.navigate(['/article/', textFound]);
+                    _this9.zone.run(function () {
+                      _this9.router.navigate(['/article/', textFound]);
                     });
 
-                    _this8.qrScanner.destroy();
+                    _this9.qrScanner.destroy();
                   } else {
-                    _this8.undefinedQrCode();
+                    _this9.undefinedQrCode();
 
-                    _this8.qrScanner.destroy();
+                    _this9.qrScanner.destroy();
                   }
                 }, function (err) {
                   alert(JSON.stringify(err));
@@ -1081,7 +1088,7 @@
             })["catch"](function (e) {
               console.log('Error is', e);
 
-              _this8.accessCamera();
+              _this9.accessCamera();
             });
           }
         }, {

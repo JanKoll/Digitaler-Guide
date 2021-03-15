@@ -16,7 +16,7 @@ var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
@@ -300,7 +300,7 @@ LocationPageModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header class=\"ion-no-border\">\n  <ion-toolbar class=\"solid-primary\">\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"home\" color=\"light\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title>\n      {{ title }}\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-menu-button color=\"light\"></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class=\"solid-primary\" [fullscreen]=\"true\" *ngIf=\"content\">\n  <div class=\"map-wrapper\">\n    <div class=\"coord\"\n      style=\"{{ setObjectLocation(item.coords) }}\"\n      *ngFor=\"let item of content.children; let i = index\"\n      (click)=\"showModal(i)\"\n    >\n      <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 39.62 34.31\">\n        <defs>\n          <style>\n            .mapmarker{fill:#006c66;stroke-width:4px;}\n            .mapmarker, .hex{stroke:#eee;stroke-miterlimit:10;}\n            .textmarker{\n              font-size: 1.5rem;\n              fill: #eeeeee;\n              font-family: Roboto;}\n          </style>\n        </defs>\n        <g id=\"Layer_2\" data-name=\"Layer 2\">\n          <g id=\"Hintergrund\"><polygon class=\"mapmarker\" points=\"28.56 2 11.06 2 2.31 17.16 11.06 32.31 28.56 32.31 37.31 17.16 28.56 2\"/>\n            <text class=\"textmarker\" transform=\"translate(12.5 25.5)\">{{ i + 1 }}</text>\n          </g>\n        </g>\n      </svg>\n    </div>\n\n    <div class=\"location\" style=\"{{ pointcoord }}\"></div>\n\n    <img src=\"data:image/png;base64,{{ content.map }}\" />\n\n  </div>\n\n  {{ pointcoord }}\n\n  <div class=\"story\" *ngIf=\"content.hasstory == 'true'\" (click)=\"route(content.id)\">\n    <svg id=\"Book_Layer_1\" data-name=\"Book Layer 1\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 55.41 55.88\" style=\"width:60%; padding-top:0.6rem\"><defs><style>.book{fill:#eee;}</style></defs><polygon class=\"book\" points=\"7.85 0.56 27.7 7.18 47.55 0.56 47.55 40.26 27.7 46.88 7.85 40.26 7.85 0.56\"/><polygon class=\"book\" points=\"27.7 55.88 0 46.18 0 0 3.05 0 3.05 44.02 27.7 52.65 52.35 44.02 52.35 0 55.41 0 55.41 46.18 27.7 55.88\"/></svg>\n  </div>\n  <div class=\"info\" (click)=\"legend()\">i</div>\n  <div id=\"qropen\" class=\"info\" (click)=\"startScanning()\"><img src=\"../assets/qr-icon.png\" /></div>\n\n</ion-content>\n\n<div id=\"qrclose\" (click)=\"stopScanning()\">\n  <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\">\n    <defs>\n      <style>\n        .closedark {\n          fill: #eeeeee;\n        }\n      </style>\n    </defs>\n    <g id=\"Layer_2\" data-name=\"Layer 2\">\n      <g id=\"Layer_1-2\" data-name=\"Layer 1\"><polygon class=\"closedark\" points=\"100 9.83 90.17 0 50 40.17 9.83 0 0 9.83 40.17 50 0 90.17 9.83 100 50 59.83 90.17 100 100 90.17 59.83 50 100 9.83\"/></g>\n    </g>\n  </svg>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header class=\"ion-no-border\">\n  <ion-toolbar class=\"solid-primary\">\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"home\" color=\"light\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title>\n      {{ title }}\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-menu-button color=\"light\"></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class=\"solid-primary\" [fullscreen]=\"true\" *ngIf=\"content\">\n  <div class=\"map-wrapper\">\n    <div class=\"coord\"\n      style=\"{{ setObjectLocation(item.coords) }}\"\n      *ngFor=\"let item of content.children; let i = index\"\n      (click)=\"showModal(i)\"\n    >\n      <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 39.62 34.31\">\n        <defs>\n          <style>\n            .mapmarker{fill:#006c66;stroke-width:4px;}\n            .mapmarker, .hex{stroke:#eee;stroke-miterlimit:10;}\n            .textmarker{\n              font-size: 1.5rem;\n              fill: #eeeeee;\n              font-family: Roboto;}\n          </style>\n        </defs>\n        <g id=\"Layer_2\" data-name=\"Layer 2\">\n          <g id=\"Hintergrund\"><polygon class=\"mapmarker\" points=\"28.56 2 11.06 2 2.31 17.16 11.06 32.31 28.56 32.31 37.31 17.16 28.56 2\"/>\n            <text class=\"textmarker\" transform=\"translate(12.5 25.5)\">{{ i + 1 }}</text>\n          </g>\n        </g>\n      </svg>\n    </div>\n\n    <div class=\"location\" style=\"{{ pointcoord }}\"></div>\n\n    <img src=\"data:image/png;base64,{{ content.map }}\" />\n\n  </div>\n\n  <div class=\"story\" *ngIf=\"content.hasstory == 'true'\" (click)=\"route(content.id)\">\n    <svg id=\"Book_Layer_1\" data-name=\"Book Layer 1\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 55.41 55.88\" style=\"width:60%; padding-top:0.6rem\"><defs><style>.book{fill:#eee;}</style></defs><polygon class=\"book\" points=\"7.85 0.56 27.7 7.18 47.55 0.56 47.55 40.26 27.7 46.88 7.85 40.26 7.85 0.56\"/><polygon class=\"book\" points=\"27.7 55.88 0 46.18 0 0 3.05 0 3.05 44.02 27.7 52.65 52.35 44.02 52.35 0 55.41 0 55.41 46.18 27.7 55.88\"/></svg>\n  </div>\n  <div class=\"info\" (click)=\"legend()\">i</div>\n  <div id=\"qropen\" class=\"info\" (click)=\"startScanning()\"><img src=\"../assets/qr-icon.png\" /></div>\n\n</ion-content>\n\n<div id=\"qrclose\" (click)=\"stopScanning()\">\n  <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\">\n    <defs>\n      <style>\n        .closedark {\n          fill: #eeeeee;\n        }\n      </style>\n    </defs>\n    <g id=\"Layer_2\" data-name=\"Layer 2\">\n      <g id=\"Layer_1-2\" data-name=\"Layer 1\"><polygon class=\"closedark\" points=\"100 9.83 90.17 0 50 40.17 9.83 0 0 9.83 40.17 50 0 90.17 9.83 100 50 59.83 90.17 100 100 90.17 59.83 50 100 9.83\"/></g>\n    </g>\n  </svg>\n</div>\n");
 
 /***/ }),
 
@@ -426,22 +426,17 @@ let LocationPage = class LocationPage {
             else {
                 this.title = 'Digital Guide';
             }
+            // Check for Offline Mode
+            this.nativeStorage.getItem('isOffline')
+                .then(res => {
+                this.localGET();
+            }, error => this.restGET());
         }, error => console.log(error));
-        // Call and Update geo Location
-        this.interval = setInterval(() => this.getCurrentLocation(), 1000);
         // subscribe to cammera close
         this.platform.backButton.subscribeWithPriority(0, () => {
-            // Android Physical Back Button???
-            // document.getElementsByTagName('body')[0].style.opacity = '1';
-            // Use Class to Toggle Backgound Visibility
             document.getElementsByTagName('body')[0].classList.toggle("qractive");
             this.qrScanner.destroy();
         });
-        // Check for Offline Mode
-        this.nativeStorage.getItem('isOffline')
-            .then(data => {
-            this.localGET();
-        }, error => this.restGET());
     }
     route(id) {
         this.router.navigate(['/article/', id]);
@@ -458,6 +453,7 @@ let LocationPage = class LocationPage {
                         this.coords = element.coords;
                     }
                 });
+                this.callGeoInterval();
             }, error => console.log(error));
         });
     }
@@ -471,6 +467,7 @@ let LocationPage = class LocationPage {
                 .then(data => {
                 this.content = JSON.parse(data.data); // data received by server
                 this.coords = this.content.coords;
+                this.callGeoInterval();
             })
                 .catch(error => {
                 console.log(error.status);
@@ -482,13 +479,16 @@ let LocationPage = class LocationPage {
     ionViewWillLeave() {
         clearInterval(this.interval);
     }
+    callGeoInterval() {
+        // Call and Update geo Location
+        this.interval = setInterval(() => this.getCurrentLocation(), 1000);
+    }
     // Call and set current geo location
     getCurrentLocation() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             let position = yield _ionic_native_geolocation__WEBPACK_IMPORTED_MODULE_6__["Geolocation"].getCurrentPosition();
             this.latitude = position.coords.latitude;
             this.longitude = position.coords.longitude;
-            console.log(position);
             let height = this.coords.leftTop.lat - this.coords.rightBot.lat;
             let width = this.coords.rightBot.lon - this.coords.leftTop.lon;
             this.pointcoord = 'top: ' + ((this.coords.leftTop.lat - this.latitude) * 100) / height + '%; right: ' + ((this.coords.rightBot.lon - this.longitude) * 100) / width + '%; opacity: 1;';

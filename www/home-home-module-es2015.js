@@ -143,41 +143,45 @@ let HomePage = class HomePage {
         this.ios = platform.is('ios');
         // Check / Get Current Language
         this.nativeStorage.getItem('language')
-            .then(data => {
-            this.lang = data;
-        }, error => console.log(error));
-        // this.platform.ready().then((readySource) => {
-        // console.log('Platform ready from', readySource);
-        // Platform now ready, execute any required native code
-        this.nativeStorage.getItem('isOffline')
-            .then(data => {
-            this.offline = true;
-            // this.localGET();
-            this.http.useBasicAuth('mail@example.de', 'Raute123');
-            this.http.get('https://api.jankoll.de/rest/updated', {}, {})
+            .then(res => {
+            this.lang = res;
+            this.nativeStorage.getItem('isOffline')
                 .then(data => {
-                let storage = JSON.parse(data.data);
-                this.nativeStorage.getItem('lastupdated')
+                this.offline = true;
+                // this.localGET();
+                this.http.useBasicAuth('mail@example.de', 'Raute123');
+                this.http.get('https://api.jankoll.de/rest/updated', {}, {})
                     .then(data => {
-                    if (data.date != storage.date) {
-                        this.updateData();
-                    }
-                    else {
+                    let storage = JSON.parse(data.data);
+                    this.nativeStorage.getItem('lastupdated')
+                        .then(data => {
+                        if (data.date != storage.date) {
+                            this.updateData();
+                        }
+                        else {
+                            this.localGET();
+                        }
+                    }, error => {
+                        console.log(error);
                         this.localGET();
-                    }
-                }, error => {
-                    console.log(error);
+                    });
+                })
+                    .catch(error => {
+                    console.log(error.status);
+                    console.log(error.error); // error message as string
+                    console.log(error.headers);
                     this.localGET();
                 });
-            })
-                .catch(error => {
-                console.log(error.status);
-                console.log(error.error); // error message as string
-                console.log(error.headers);
-                this.localGET();
-            });
+            }, error => this.restGET());
+        }, error => console.log(error));
+    }
+    // Call Data
+    callData() {
+        // Check for Offline Mode
+        this.nativeStorage.getItem('isOffline')
+            .then(data => {
+            this.localGET();
         }, error => this.restGET());
-        // });
     }
     localGET() {
         this.nativeStorage.getItem('database')

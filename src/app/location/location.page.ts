@@ -45,7 +45,6 @@ export class LocationPage {
     private http: HTTP,
     private nativeStorage: NativeStorage
   )  {
-
     // Check / Get Current Language
     this.nativeStorage.getItem('language')
     .then(
@@ -57,45 +56,29 @@ export class LocationPage {
         } else {
           this.title = 'Digital Guide'
         }
+
+        // Check for Offline Mode
+        this.nativeStorage.getItem('isOffline')
+        .then(
+          res => {
+            this.localGET();
+          },
+          error => this.restGET()
+        );
       },
       error => console.log(error)
     );
 
-    // Call and Update geo Location
-    this.interval = setInterval(() =>
-      this.getCurrentLocation()
-    , 1000);
-
     // subscribe to cammera close
     this.platform.backButton.subscribeWithPriority(0, () => {
-
-      // Android Physical Back Button???
-      // document.getElementsByTagName('body')[0].style.opacity = '1';
-      // Use Class to Toggle Backgound Visibility
       document.getElementsByTagName('body')[0].classList.toggle("qractive");
-
       this.qrScanner.destroy();
-
     });
-
-    // Check for Offline Mode
-    this.nativeStorage.getItem('isOffline')
-    .then(
-      data => {
-        this.localGET();
-      },
-      error => this.restGET()
-    );
-
-
   }
-
-
 
   route(id) {
     this.router.navigate(['/article/', id]);
   }
-
 
   // Get Local Data
   localGET() {
@@ -111,6 +94,7 @@ export class LocationPage {
                   this.coords = element.coords;
               }
             });
+            this.callGeoInterval();
           },
           error => console.log(error)
         );
@@ -129,6 +113,7 @@ export class LocationPage {
          .then(data => {
            this.content = JSON.parse(data.data); // data received by server
            this.coords = this.content.coords;
+           this.callGeoInterval();
          })
          .catch(error => {
            console.log(error.status);
@@ -141,6 +126,13 @@ export class LocationPage {
 
   ionViewWillLeave() {
     clearInterval(this.interval);
+  }
+
+  callGeoInterval() {
+    // Call and Update geo Location
+    this.interval = setInterval(() =>
+      this.getCurrentLocation()
+    , 1000);
   }
 
   // Call and set current geo location

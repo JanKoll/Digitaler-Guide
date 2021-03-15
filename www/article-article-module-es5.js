@@ -99,15 +99,16 @@
               _this.learn = 'Mehr erleben im';
             } else {
               _this.learn = 'Experience more at';
-            }
+            } // Check for Offline Mode
+
+
+            _this.nativeStorage.getItem('isOffline').then(function (res) {
+              _this.localGET();
+            }, function (error) {
+              return _this.restGET();
+            });
           }, function (error) {
             return console.log(error);
-          }); // Check for Offline Mode
-
-          this.nativeStorage.getItem('isOffline').then(function (data) {
-            _this.localGET();
-          }, function (error) {
-            return _this.restGET();
           });
         } // Get Local Data
 

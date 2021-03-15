@@ -262,53 +262,64 @@
 
           this.ios = platform.is('ios'); // Check / Get Current Language
 
-          this.nativeStorage.getItem('language').then(function (data) {
-            _this.lang = data;
-          }, function (error) {
-            return console.log(error);
-          }); // this.platform.ready().then((readySource) => {
-          // console.log('Platform ready from', readySource);
-          // Platform now ready, execute any required native code
+          this.nativeStorage.getItem('language').then(function (res) {
+            _this.lang = res;
 
-          this.nativeStorage.getItem('isOffline').then(function (data) {
-            _this.offline = true; // this.localGET();
+            _this.nativeStorage.getItem('isOffline').then(function (data) {
+              _this.offline = true; // this.localGET();
 
-            _this.http.useBasicAuth('mail@example.de', 'Raute123');
+              _this.http.useBasicAuth('mail@example.de', 'Raute123');
 
-            _this.http.get('https://api.jankoll.de/rest/updated', {}, {}).then(function (data) {
-              var storage = JSON.parse(data.data);
+              _this.http.get('https://api.jankoll.de/rest/updated', {}, {}).then(function (data) {
+                var storage = JSON.parse(data.data);
 
-              _this.nativeStorage.getItem('lastupdated').then(function (data) {
-                if (data.date != storage.date) {
-                  _this.updateData();
-                } else {
+                _this.nativeStorage.getItem('lastupdated').then(function (data) {
+                  if (data.date != storage.date) {
+                    _this.updateData();
+                  } else {
+                    _this.localGET();
+                  }
+                }, function (error) {
+                  console.log(error);
+
                   _this.localGET();
-                }
-              }, function (error) {
-                console.log(error);
+                });
+              })["catch"](function (error) {
+                console.log(error.status);
+                console.log(error.error); // error message as string
+
+                console.log(error.headers);
 
                 _this.localGET();
               });
-            })["catch"](function (error) {
-              console.log(error.status);
-              console.log(error.error); // error message as string
-
-              console.log(error.headers);
-
-              _this.localGET();
+            }, function (error) {
+              return _this.restGET();
             });
           }, function (error) {
-            return _this.restGET();
-          }); // });
-        }
+            return console.log(error);
+          });
+        } // Call Data
+
 
         _createClass(HomePage, [{
-          key: "localGET",
-          value: function localGET() {
+          key: "callData",
+          value: function callData() {
             var _this2 = this;
 
+            // Check for Offline Mode
+            this.nativeStorage.getItem('isOffline').then(function (data) {
+              _this2.localGET();
+            }, function (error) {
+              return _this2.restGET();
+            });
+          }
+        }, {
+          key: "localGET",
+          value: function localGET() {
+            var _this3 = this;
+
             this.nativeStorage.getItem('database').then(function (data) {
-              _this2.content = data.main;
+              _this3.content = data.main;
               console.log(data.meta);
             }, function (error) {
               return console.log(error);
@@ -318,13 +329,13 @@
         }, {
           key: "restGET",
           value: function restGET() {
-            var _this3 = this;
+            var _this4 = this;
 
             // REST Authentication
             this.http.useBasicAuth('mail@example.de', 'Raute123');
             this.http.get("https://api.jankoll.de/rest/".concat(this.lang, "/main"), {}, {}).then(function (data) {
               // console.log(data.status);
-              _this3.content = JSON.parse(data.data); // data received by server
+              _this4.content = JSON.parse(data.data); // data received by server
               // console.log(data.headers);
             })["catch"](function (error) {
               console.log(error.status);
@@ -344,7 +355,7 @@
           key: "pollData",
           value: function pollData() {
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-              var _this4 = this;
+              var _this5 = this;
 
               var title, msg, cancel, alert;
               return regeneratorRuntime.wrap(function _callee$(_context) {
@@ -372,10 +383,10 @@
                         }, {
                           text: 'Okay',
                           handler: function handler() {
-                            _this4.nativeStorage.setItem('isOffline', {
+                            _this5.nativeStorage.setItem('isOffline', {
                               offline: true
                             }).then(function (data) {
-                              return _this4.downloadData();
+                              return _this5.downloadData();
                             }, function (error) {
                               return console.error('Error storing item', error);
                             }); // window.location.reload();
@@ -413,7 +424,7 @@
         }, {
           key: "downloadData",
           value: function downloadData() {
-            var _this5 = this;
+            var _this6 = this;
 
             var msg = 'Wird heruntergeladen...';
 
@@ -430,7 +441,7 @@
 
             this.http.useBasicAuth('mail@example.de', 'Raute123');
             this.http.get('https://api.jankoll.de/rest/updated', {}, {}).then(function (data) {
-              _this5.nativeStorage.setItem('lastupdated', JSON.parse(data.data)).then(function (data) {
+              _this6.nativeStorage.setItem('lastupdated', JSON.parse(data.data)).then(function (data) {
                 console.log(data);
               }, function (error) {
                 return console.error('Error storing item', error);
@@ -443,7 +454,7 @@
             }); // save main
 
             this.http.get("https://api.jankoll.de/rest/".concat(this.lang, "/download"), {}, {}).then(function (data) {
-              _this5.nativeStorage.setItem('database', JSON.parse(data.data)).then(function (data) {
+              _this6.nativeStorage.setItem('database', JSON.parse(data.data)).then(function (data) {
                 // console.log(data);
                 window.location.reload();
               }, function (error) {
@@ -461,7 +472,7 @@
           key: "deleteData",
           value: function deleteData() {
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-              var _this6 = this;
+              var _this7 = this;
 
               var title, msg, cancel, del, loading, alert;
               return regeneratorRuntime.wrap(function _callee2$(_context2) {
@@ -493,8 +504,8 @@
                         }, {
                           text: del,
                           handler: function handler() {
-                            _this6.nativeStorage.clear().then(function (data) {
-                              _this6.presentLoading(loading, 3000);
+                            _this7.nativeStorage.clear().then(function (data) {
+                              _this7.presentLoading(loading, 3000);
 
                               console.log(data);
                             }, function (error) {
@@ -521,7 +532,7 @@
           key: "updateData",
           value: function updateData() {
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
-              var _this7 = this;
+              var _this8 = this;
 
               var title, msg, cancel, upd, alert;
               return regeneratorRuntime.wrap(function _callee3$(_context3) {
@@ -548,12 +559,12 @@
                           text: cancel,
                           role: 'cancel',
                           handler: function handler() {
-                            _this7.localGET();
+                            _this8.localGET();
                           }
                         }, {
                           text: upd,
                           handler: function handler() {
-                            _this7.downloadData();
+                            _this8.downloadData();
                           }
                         }]
                       });

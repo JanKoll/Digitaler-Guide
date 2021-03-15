@@ -73,7 +73,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let AppComponent = class AppComponent {
-    constructor(platform, splashScreen, statusBar, router, http, iab, nativeStorage) {
+    constructor(platform, splashScreen, statusBar, router, http, iab, nativeStorage, loadingController) {
         this.platform = platform;
         this.splashScreen = splashScreen;
         this.statusBar = statusBar;
@@ -81,16 +81,25 @@ let AppComponent = class AppComponent {
         this.http = http;
         this.iab = iab;
         this.nativeStorage = nativeStorage;
+        this.loadingController = loadingController;
         this.initializeApp();
         // Check / Get Current Language
         this.nativeStorage.getItem('language')
             .then(data => {
             this.lang = data;
-        }, error => this.toggleLang('de'));
+            this.callData();
+        }, error => {
+            this.toggleLang('de');
+            this.callData();
+        });
+    }
+    // Call Data
+    callData() {
         // Check for Offline Mode
         this.nativeStorage.getItem('isOffline')
             .then(data => {
             this.localGET();
+            this.offline = true;
         }, error => this.restGET());
     }
     // Toggle Language
@@ -98,10 +107,15 @@ let AppComponent = class AppComponent {
         console.log(code);
         this.nativeStorage.setItem('language', code)
             .then((data) => {
-            // console.log(data);
-            window.location.reload();
+            this.loadingController.create({
+                duration: 500
+            }).then((res) => {
+                res.present();
+                res.onDidDismiss().then((dis) => {
+                    window.location.reload();
+                });
+            });
         }, error => console.error('Error storing item', error));
-        // window.location.reload();
     }
     // Get Local Data
     localGET() {
@@ -152,7 +166,8 @@ AppComponent.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] },
     { type: _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_8__["HTTP"] },
     { type: _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_9__["InAppBrowser"] },
-    { type: _ionic_native_native_storage_ngx__WEBPACK_IMPORTED_MODULE_10__["NativeStorage"] }
+    { type: _ionic_native_native_storage_ngx__WEBPACK_IMPORTED_MODULE_10__["NativeStorage"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["LoadingController"] }
 ];
 AppComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
@@ -175,7 +190,7 @@ AppComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-app>\n  <ion-split-pane contentId=\"location-content\">\n    <ion-menu contentId=\"location-content\" type=\"overlay\" side=\"end\">\n      <ion-content color=\"primary\">\n\n        <ion-header class=\"ion-no-border\">\n          <ion-toolbar color=\"none\">\n\n            <ion-buttons slot=\"end\" class=\"language\">\n              <ion-button (click)=\"toggleLang('de')\" [class.bold]=\"lang == 'de'\">DE</ion-button>\n              <ion-button (click)=\"toggleLang('en')\" [class.bold]=\"lang == 'en'\">EN</ion-button>\n            </ion-buttons>\n\n            <ion-buttons slot=\"start\">\n              <ion-menu-button color=\"light\"></ion-menu-button>\n            </ion-buttons>\n          </ion-toolbar>\n        </ion-header>\n\n        <ion-list id=\"inbox-list\" *ngIf=\"mainNav\">\n          <div *ngFor=\"let item of mainNav\"\n          [ngSwitch]=\"item.type[0].name\" class=\"section-wrap\">\n\n            <!-- Location -->\n            <div *ngSwitchCase=\"'location'\">\n              <ion-menu-toggle auto-hide=\"false\">\n                <ion-list-header routerLink=\"/{{ item.type[0].name }}/{{ item.id }}\">{{ item.title }}</ion-list-header>\n              </ion-menu-toggle>\n\n              <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let child of item.children\">\n                <ion-item routerDirection=\"forward\" [routerLink]=\"['/article/', child.id]\" lines=\"none\" detail=\"false\">\n                  <ion-label>{{ child.title }}</ion-label>\n                </ion-item>\n              </ion-menu-toggle>\n            </div>\n\n            <!-- WebView -->\n            <div *ngSwitchCase=\"'webview'\">\n              <ion-menu-toggle auto-hide=\"false\">\n                <ion-list-header (click)=\"createInAppBrowser( item.link.value )\">{{ item.title }}</ion-list-header>\n              </ion-menu-toggle>\n            </div>\n\n            <!-- Defautl -->\n            <div *ngSwitchDefault>\n              <ion-menu-toggle auto-hide=\"false\">\n                <ion-list-header routerLink=\"/article/{{ item.id }}\">{{ item.title }}</ion-list-header>\n              </ion-menu-toggle>\n            </div>\n          </div>\n        </ion-list>\n\n        <div class=\"meta\">\n          <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let item of metaNav\">\n            <div [routerLink]=\"['/article/', item.id]\">{{ item.title }}</div>\n          </ion-menu-toggle>\n        </div>\n\n      </ion-content>\n    </ion-menu>\n    <ion-router-outlet id=\"location-content\"></ion-router-outlet>\n  </ion-split-pane>\n</ion-app>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-app>\n  <ion-split-pane contentId=\"location-content\">\n    <ion-menu contentId=\"location-content\" type=\"overlay\" side=\"end\">\n      <ion-content color=\"primary\">\n\n        <ion-header class=\"ion-no-border\">\n          <ion-toolbar color=\"none\">\n\n            <ion-buttons slot=\"end\" class=\"language\" [class.disabeld]=\"offline\">\n              <ion-button (click)=\"toggleLang('de')\" [class.bold]=\"lang == 'de'\">DE</ion-button>\n              <ion-button (click)=\"toggleLang('en')\" [class.bold]=\"lang == 'en'\">EN</ion-button>\n            </ion-buttons>\n\n            <ion-buttons slot=\"start\">\n              <ion-menu-button color=\"light\"></ion-menu-button>\n            </ion-buttons>\n          </ion-toolbar>\n        </ion-header>\n\n        <ion-list id=\"inbox-list\" *ngIf=\"mainNav\">\n          <div *ngFor=\"let item of mainNav\"\n          [ngSwitch]=\"item.type[0].name\" class=\"section-wrap\">\n\n            <!-- Location -->\n            <div *ngSwitchCase=\"'location'\">\n              <ion-menu-toggle auto-hide=\"false\">\n                <ion-list-header routerLink=\"/{{ item.type[0].name }}/{{ item.id }}\">{{ item.title }}</ion-list-header>\n              </ion-menu-toggle>\n\n              <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let child of item.children\">\n                <ion-item routerDirection=\"forward\" [routerLink]=\"['/article/', child.id]\" lines=\"none\" detail=\"false\">\n                  <ion-label>{{ child.title }}</ion-label>\n                </ion-item>\n              </ion-menu-toggle>\n            </div>\n\n            <!-- WebView -->\n            <div *ngSwitchCase=\"'webview'\">\n              <ion-menu-toggle auto-hide=\"false\">\n                <ion-list-header (click)=\"createInAppBrowser( item.link.value )\">{{ item.title }}</ion-list-header>\n              </ion-menu-toggle>\n            </div>\n\n            <!-- Defautl -->\n            <div *ngSwitchDefault>\n              <ion-menu-toggle auto-hide=\"false\">\n                <ion-list-header routerLink=\"/article/{{ item.id }}\">{{ item.title }}</ion-list-header>\n              </ion-menu-toggle>\n            </div>\n          </div>\n        </ion-list>\n\n        <div class=\"meta\">\n          <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let item of metaNav\">\n            <div [routerLink]=\"['/article/', item.id]\">{{ item.title }}</div>\n          </ion-menu-toggle>\n        </div>\n\n      </ion-content>\n    </ion-menu>\n    <ion-router-outlet id=\"location-content\"></ion-router-outlet>\n  </ion-split-pane>\n</ion-app>\n");
 
 /***/ }),
 

@@ -45,12 +45,12 @@ let ArticlePage = class ArticlePage {
             else {
                 this.learn = 'Experience more at';
             }
+            // Check for Offline Mode
+            this.nativeStorage.getItem('isOffline')
+                .then(res => {
+                this.localGET();
+            }, error => this.restGET());
         }, error => console.log(error));
-        // Check for Offline Mode
-        this.nativeStorage.getItem('isOffline')
-            .then(data => {
-            this.localGET();
-        }, error => this.restGET());
     }
     // Get Local Data
     localGET() {

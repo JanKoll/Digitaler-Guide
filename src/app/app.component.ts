@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Platform } from '@ionic/angular';
+import { Platform, LoadingController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
@@ -22,6 +22,7 @@ export class AppComponent {
   mainNav: any;
   metaNav: any;
   lang: any;
+  offline: any;
 
   constructor(
     private platform: Platform,
@@ -30,7 +31,8 @@ export class AppComponent {
     private router: Router,
     private http: HTTP,
     private iab: InAppBrowser,
-    private nativeStorage: NativeStorage
+    private nativeStorage: NativeStorage,
+    public loadingController: LoadingController
   ) {
     this.initializeApp();
 
@@ -39,15 +41,25 @@ export class AppComponent {
     .then(
       data => {
         this.lang = data;
+        this.callData();
       },
-      error => this.toggleLang('de')
+      error => {
+        this.toggleLang('de');
+        this.callData();
+      }
     );
 
+
+  }
+
+  // Call Data
+  callData() {
     // Check for Offline Mode
     this.nativeStorage.getItem('isOffline')
     .then(
       data => {
         this.localGET();
+        this.offline = true;
       },
       error => this.restGET()
     );
@@ -61,13 +73,18 @@ export class AppComponent {
     this.nativeStorage.setItem('language', code)
       .then(
         (data) => {
-          // console.log(data);
-          window.location.reload();
+          this.loadingController.create({
+            duration: 500
+          }).then((res) => {
+            res.present();
+
+            res.onDidDismiss().then((dis) => {
+              window.location.reload();
+            });
+          });
         },
         error => console.error('Error storing item', error)
     );
-
-    // window.location.reload();
 
   }
 
