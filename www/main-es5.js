@@ -167,7 +167,8 @@
 
             _this.callData();
           }, function (error) {
-            _this.toggleLang('de');
+            _this.toggleLang('de'); // <- also sets youtube default == false
+
 
             _this.callData();
           });
@@ -194,7 +195,11 @@
           value: function toggleLang(code) {
             var _this3 = this;
 
-            console.log(code);
+            this.nativeStorage.setItem('youtube', 'false').then(function (data) {
+              console.log(data);
+            }, function (error) {
+              return console.error('Error storing item', error);
+            });
             this.nativeStorage.setItem('language', code).then(function (data) {
               _this3.loadingController.create({
                 duration: 500

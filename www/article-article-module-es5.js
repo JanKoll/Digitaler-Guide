@@ -81,7 +81,7 @@
       "M2ZX");
 
       var ArticlePage = /*#__PURE__*/function () {
-        function ArticlePage(activatedRoute, sanitizer, platform, router, navCtrl, http, nativeStorage) {
+        function ArticlePage(activatedRoute, sanitizer, platform, alertController, router, navCtrl, http, nativeStorage) {
           var _this = this;
 
           _classCallCheck(this, ArticlePage);
@@ -89,6 +89,7 @@
           this.activatedRoute = activatedRoute;
           this.sanitizer = sanitizer;
           this.platform = platform;
+          this.alertController = alertController;
           this.router = router;
           this.navCtrl = navCtrl;
           this.http = http;
@@ -114,29 +115,69 @@
           }); // Android go Back
 
           this.platform.backButton.subscribeWithPriority(10, function () {
-            _this.router.navigate(['..']);
-          });
-        } // Get Local Data
+            _this.goBack();
+          }); // check if youtube is allowed
 
+          this.nativeStorage.getItem('youtube').then(function (data) {
+            _this.youtube = data;
+            var msg = "Um ein YouTube Video direkt in der App zu schauen, musst du es erst erlauben.";
+            var btn = "Erlauben";
+
+            if (_this.lang == 'en') {
+              msg = "To watch the YouTube video directly on your app, you have to allow it first.";
+              btn = "Allow";
+            }
+
+            if (data == 'true') {
+              _this.youtube = {
+                'allowed': true
+              };
+            } else {
+              _this.youtube = {
+                'allowed': false,
+                'msg': msg,
+                'btn': btn
+              };
+            }
+          }, function (error) {
+            console.log(error);
+          });
+        }
 
         _createClass(ArticlePage, [{
-          key: "localGET",
-          value: function localGET() {
+          key: "goBack",
+          value: function goBack() {
             var _this2 = this;
 
             this.activatedRoute.params.subscribe(function (params) {
               var path = params['articleId'].split("/");
 
-              _this2.nativeStorage.getItem('database').then(function (data) {
+              if (path.length > 1) {
+                _this2.router.navigate(['location', path[0]]);
+              } else {
+                _this2.router.navigate(['..']);
+              }
+            });
+          } // Get Local Data
+
+        }, {
+          key: "localGET",
+          value: function localGET() {
+            var _this3 = this;
+
+            this.activatedRoute.params.subscribe(function (params) {
+              var path = params['articleId'].split("/");
+
+              _this3.nativeStorage.getItem('database').then(function (data) {
                 // If page has Children (Is Locatoin)
                 if (path.length > 1) {
                   data.main.forEach(function (element) {
                     if (element.id == path[0]) {
                       element.children.forEach(function (child) {
                         if (child.id == params.articleId) {
-                          _this2.content = child;
-                          _this2.template = 'article';
-                          _this2.title = child.title;
+                          _this3.content = child;
+                          _this3.template = 'article';
+                          _this3.title = child.title;
                         }
                       });
                     }
@@ -144,19 +185,19 @@
                 } else {
                   data.meta.forEach(function (element) {
                     if (element.id == params.articleId) {
-                      _this2.content = element;
-                      _this2.template = 'default';
+                      _this3.content = element;
+                      _this3.template = 'default';
 
                       if (!element.children) {
-                        _this2.title = element.title;
+                        _this3.title = element.title;
                       } else {
                         var title = "Geschichte";
 
-                        if (_this2.lang == 'en') {
+                        if (_this3.lang == 'en') {
                           title = "Story";
                         }
 
-                        _this2.title = title;
+                        _this3.title = title;
                       }
                     }
                   });
@@ -165,12 +206,12 @@
                 var errTitle = "Fehler";
                 var errText = "Fehler: Ups! Da ist etwas schiefgelaufen. Versuche bitte die Inhalte noch einmal herunterzuladen.";
 
-                if (_this2.lang == 'en') {
+                if (_this3.lang == 'en') {
                   errTitle = "Error";
                   errText = "Ups! Something went wrong. Please try to download the content again.";
                 }
 
-                _this2.content = {
+                _this3.content = {
                   "id": "error",
                   "title": errTitle,
                   "template": "default",
@@ -181,7 +222,7 @@
                     }
                   }]
                 };
-                _this2.title = errTitle;
+                _this3.title = errTitle;
                 console.log(error);
               });
             });
@@ -190,36 +231,36 @@
         }, {
           key: "restGET",
           value: function restGET() {
-            var _this3 = this;
+            var _this4 = this;
 
             this.activatedRoute.params.subscribe(function (params) {
               var path = params['articleId'].split("/");
               var url = undefined;
 
               if (path.length > 1) {
-                url = "https://api.jankoll.de/rest/".concat(_this3.lang, "/article/").concat(path[0], "/").concat(path[path.length - 1]);
-                _this3.template = 'article';
+                url = "https://api.jankoll.de/rest/".concat(_this4.lang, "/article/").concat(path[0], "/").concat(path[path.length - 1]);
+                _this4.template = 'article';
               } else {
-                url = "https://api.jankoll.de/rest/".concat(_this3.lang, "/article/").concat(path[path.length - 1]);
-                _this3.template = 'default';
+                url = "https://api.jankoll.de/rest/".concat(_this4.lang, "/article/").concat(path[path.length - 1]);
+                _this4.template = 'default';
               } // HTTP Request
 
 
-              _this3.http.useBasicAuth('mail@example.de', 'Raute123');
+              _this4.http.useBasicAuth('mail@example.de', 'Raute123');
 
-              _this3.http.get(url, {}, {}).then(function (data) {
-                _this3.content = JSON.parse(data.data); // data received by server
+              _this4.http.get(url, {}, {}).then(function (data) {
+                _this4.content = JSON.parse(data.data); // data received by server
 
-                if (!_this3.content.children) {
-                  _this3.title = _this3.content.title;
+                if (!_this4.content.children) {
+                  _this4.title = _this4.content.title;
                 } else {
                   var title = "Geschichte";
 
-                  if (_this3.lang == 'en') {
+                  if (_this4.lang == 'en') {
                     title = "Story";
                   }
 
-                  _this3.title = title;
+                  _this4.title = title;
                 }
               })["catch"](function (error) {
                 console.log(error.status);
@@ -228,6 +269,71 @@
                 console.log(error.headers);
               });
             });
+          } // Allow YouTube
+
+        }, {
+          key: "allowYoutube",
+          value: function allowYoutube() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+              var _this5 = this;
+
+              var title, msg, cancel, allow, alert;
+              return regeneratorRuntime.wrap(function _callee$(_context) {
+                while (1) {
+                  switch (_context.prev = _context.next) {
+                    case 0:
+                      title = 'YouTube erlauben';
+                      msg = 'Möchtest du das YouTube Video in der App schauen? Dabei werden möglicherweise Geräteinformationen an YouTube übermittelt.';
+                      cancel = 'Abbrechen';
+                      allow = 'Erlauben';
+
+                      if (this.lang == 'en') {
+                        title = 'Allow YouTube';
+                        msg = 'Do you want to watch the YouTube video in the app? This might send device information to YouTube.';
+                        cancel = 'Cancel';
+                        allow = 'Allow';
+                      }
+
+                      _context.next = 7;
+                      return this.alertController.create({
+                        header: title,
+                        message: msg,
+                        buttons: [{
+                          text: cancel,
+                          role: 'cancel',
+                          cssClass: 'secondary'
+                        }, {
+                          text: allow,
+                          handler: function handler() {
+                            // this.nativeStorage.clear()
+                            //   .then(
+                            //     data => {
+                            //       console.log(data);
+                            //     },
+                            //     error => console.error(error)
+                            //   );
+                            _this5.nativeStorage.setItem('youtube', 'true').then(function (data) {
+                              console.log(data);
+                              window.location.reload();
+                            }, function (error) {
+                              return console.error('Error storing item', error);
+                            });
+                          }
+                        }]
+                      });
+
+                    case 7:
+                      alert = _context.sent;
+                      _context.next = 10;
+                      return alert.present();
+
+                    case 10:
+                    case "end":
+                      return _context.stop();
+                  }
+                }
+              }, _callee, this);
+            }));
           }
         }, {
           key: "updateVideoUrl",
@@ -257,6 +363,8 @@
           type: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_5__["DomSanitizer"]
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"]
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["AlertController"]
         }, {
           type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]
         }, {
@@ -445,7 +553,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header class=\"ion-no-border\">\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n        <ion-back-button defaultHref=\"location\" color=\"light\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title>\n      {{ title }}\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-menu-button color=\"light\"></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\">\n  <div class=\"article\" *ngIf=\"content\">\n\n\n    <!-- intro section -->\n\n    <div class=\"icon-header\" *ngIf=\"template == 'article'\">\n      <div class=\"icon\">\n        <img [src]=\"saveURL('image/png', content.icon)\" alt=\"{{ content.title }} Icon\">\n      </div>\n\n      <p>{{ learn }}</p>\n      <h2>{{ content.title }}</h2>\n    </div>\n\n    <ion-text color=\"light\" *ngIf=\"template == 'article'\">\n      <p>{{ content.teasertext }}</p>\n\n      <div *ngIf=\"content.hastime\" [innerHTML]=\"content.time\"></div>\n    </ion-text>\n\n\n    <!-- content section -->\n\n    <div *ngFor=\"let item of content.content; index as i;\">\n      <div [ngSwitch]=\"item.type\" class=\"section-wrap\">\n\n        <!-- Heading -->\n        <div *ngSwitchCase=\"'heading'\">\n          <div [ngSwitch]=\"item.content.level\">\n            <h1 *ngSwitchCase=\"'h1'\">{{ item.content.text }}</h1>\n            <h2 *ngSwitchCase=\"'h2'\">{{ item.content.text }}</h2>\n            <h3 *ngSwitchCase=\"'h3'\">{{ item.content.text }}</h3>\n            <h4 *ngSwitchCase=\"'h4'\">{{ item.content.text }}</h4>\n            <h5 *ngSwitchCase=\"'h5'\">{{ item.content.text }}</h5>\n            <h6 *ngSwitchCase=\"'h6'\">{{ item.content.text }}</h6>\n          </div>\n        </div>\n\n        <!-- Text -->\n        <div *ngSwitchCase=\"'text'\" [innerHTML]=\"item.content.text\"></div>\n\n        <!-- List -->\n        <div *ngSwitchCase=\"'list'\" [innerHTML]=\"item.content.text\"></div>\n\n        <!-- img -->\n        <div *ngSwitchCase=\"'img'\">\n          <ion-img src=\"data:image/jpeg;base64,{{ item.content.image }}\" alt=\"{{ item.content.alt }}\"></ion-img>\n        </div>\n\n        <!-- slider -->\n        <div *ngSwitchCase=\"'img-slider'\">\n         <ion-slides pager=\"true\">\n            <ion-slide *ngFor=\"let img of item.content.image\">\n              <ion-img src=\"data:image/jpeg;base64,{{ img }}\" alt=\"{{ content.title }} Artikel Bild\"></ion-img>\n            </ion-slide>\n          </ion-slides>\n        </div>\n\n        <!-- video -->\n        <div *ngSwitchCase=\"'youtube'\">\n          <iframe [src]=\"updateVideoUrl(item.content.url)\" allowfullscreen>Ups, da ist etwas schief gelaufen!</iframe>\n        </div>\n\n        <!-- audio -->\n        <div *ngSwitchCase=\"'audio'\">\n          <audio controls>\n            <source [src]=\"saveURL('audio/wav', item.content.audio)\">\n\n            Ups, da ist etwas schief gelaufen!\n          </audio>\n        </div>\n\n        <!-- quote -->\n        <div *ngSwitchCase=\"'quotes'\">\n           <ion-slides pager=\"true\">\n              <ion-slide *ngFor=\"let quote of item.content\">\n                <div class=\"quote\">\n                  <p>\"{{ quote.content.text }}\"</p>\n                  <p class=\"cite\">- {{ quote.content.citation }} </p>\n                </div>\n              </ion-slide>\n            </ion-slides>\n        </div>\n\n        <!-- default -->\n        <div *ngSwitchDefault>\n          <p>Error!</p>\n          <div [innerHTML]=\"item.content\">\n          </div>\n        </div>\n\n      </div>\n    </div>\n\n\n  </div>\n</ion-content>\n";
+      __webpack_exports__["default"] = "<ion-header class=\"ion-no-border\">\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n        <ion-back-button defaultHref=\"..\" (click)=\"goBack()\" color=\"light\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title>\n      {{ title }}\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-menu-button color=\"light\"></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\">\n  <div class=\"article\" *ngIf=\"content\">\n\n\n    <!-- intro section -->\n\n    <div class=\"icon-header\" *ngIf=\"template == 'article'\">\n      <div class=\"icon\">\n        <img [src]=\"saveURL('image/png', content.icon)\" alt=\"{{ content.title }} Icon\">\n      </div>\n\n      <p>{{ learn }}</p>\n      <h2>{{ content.title }}</h2>\n    </div>\n\n    <ion-text color=\"light\" *ngIf=\"template == 'article'\">\n      <p>{{ content.teasertext }}</p>\n\n      <div *ngIf=\"content.hastime\" [innerHTML]=\"content.time\"></div>\n    </ion-text>\n\n\n    <!-- content section -->\n\n    <div *ngFor=\"let item of content.content; index as i;\">\n      <div [ngSwitch]=\"item.type\" class=\"section-wrap\">\n\n        <!-- Heading -->\n        <div *ngSwitchCase=\"'heading'\">\n          <div [ngSwitch]=\"item.content.level\">\n            <h1 *ngSwitchCase=\"'h1'\">{{ item.content.text }}</h1>\n            <h2 *ngSwitchCase=\"'h2'\">{{ item.content.text }}</h2>\n            <h3 *ngSwitchCase=\"'h3'\">{{ item.content.text }}</h3>\n            <h4 *ngSwitchCase=\"'h4'\">{{ item.content.text }}</h4>\n            <h5 *ngSwitchCase=\"'h5'\">{{ item.content.text }}</h5>\n            <h6 *ngSwitchCase=\"'h6'\">{{ item.content.text }}</h6>\n          </div>\n        </div>\n\n        <!-- Text -->\n        <div *ngSwitchCase=\"'text'\" [innerHTML]=\"item.content.text\"></div>\n\n        <!-- List -->\n        <div *ngSwitchCase=\"'list'\" [innerHTML]=\"item.content.text\"></div>\n\n        <!-- img -->\n        <div *ngSwitchCase=\"'img'\">\n          <ion-img src=\"data:image/jpeg;base64,{{ item.content.image }}\" alt=\"{{ item.content.alt }}\"></ion-img>\n        </div>\n\n        <!-- slider -->\n        <div *ngSwitchCase=\"'img-slider'\">\n         <ion-slides pager=\"true\">\n            <ion-slide *ngFor=\"let img of item.content.image\">\n              <ion-img src=\"data:image/jpeg;base64,{{ img }}\" alt=\"{{ content.title }} Artikel Bild\"></ion-img>\n            </ion-slide>\n          </ion-slides>\n        </div>\n\n        <!-- video -->\n        <div *ngSwitchCase=\"'youtube'\">\n          <div *ngIf=\"youtube.allowed; else elseBlock\">\n            <iframe [src]=\"updateVideoUrl(item.content.url)\" allowfullscreen>Ups, da ist etwas schief gelaufen!</iframe>\n          </div>\n          <ng-template #elseBlock>\n            <p>{{ youtube.msg }}</p>\n            <p><a href=\"{{ item.content.url }}\" style=\"color: #ffffff\">YouTube Link</a></p>\n\n            <ion-button color=\"light\" expand=\"full\" (click)=\"allowYoutube()\">{{ youtube.btn }}</ion-button>\n          </ng-template>\n\n          <!-- <iframe [src]=\"updateVideoUrl(item.content.url)\" allowfullscreen>Ups, da ist etwas schief gelaufen!</iframe> -->\n        </div>\n\n        <!-- audio -->\n        <div *ngSwitchCase=\"'audio'\">\n          <audio controls>\n            <source [src]=\"saveURL('audio/wav', item.content.audio)\">\n\n            Ups, da ist etwas schief gelaufen!\n          </audio>\n        </div>\n\n        <!-- quote -->\n        <div *ngSwitchCase=\"'quotes'\">\n           <ion-slides pager=\"true\">\n              <ion-slide *ngFor=\"let quote of item.content\">\n                <div class=\"quote\">\n                  <p>\"{{ quote.content.text }}\"</p>\n                  <p class=\"cite\">- {{ quote.content.citation }} </p>\n                </div>\n              </ion-slide>\n            </ion-slides>\n        </div>\n\n        <!-- default -->\n        <div *ngSwitchDefault>\n          <p>Error!</p>\n          <div [innerHTML]=\"item.content\">\n          </div>\n        </div>\n\n      </div>\n    </div>\n\n\n  </div>\n</ion-content>\n";
       /***/
     }
   }]);

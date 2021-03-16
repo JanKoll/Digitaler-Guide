@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
-import { NavController, Platform } from '@ionic/angular';
+import { AlertController, NavController, Platform } from '@ionic/angular';
 
 import { HTTP } from '@ionic-native/http/ngx';
 
@@ -18,11 +18,13 @@ export class ArticlePage {
   template: any;
   lang: any;
   learn: any;
+  youtube: any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     public sanitizer: DomSanitizer,
     public platform: Platform,
+    public alertController: AlertController,
     private router: Router,
     public navCtrl: NavController,
     private http: HTTP,
@@ -54,7 +56,44 @@ export class ArticlePage {
 
     // Android go Back
     this.platform.backButton.subscribeWithPriority(10, () => {
-      this.router.navigate(['..']);
+      this.goBack();
+    });
+
+    // check if youtube is allowed
+    this.nativeStorage.getItem('youtube')
+    .then(
+      data => {
+        this.youtube = data;
+
+        let msg = "Um ein YouTube Video direkt in der App zu schauen, musst du es erst erlauben.";
+        let btn = "Erlauben";
+
+        if(this.lang == 'en') {
+          msg = "To watch the YouTube video directly on your app, you have to allow it first.";
+          btn = "Allow";
+        }
+
+        if (data == 'true') {
+          this.youtube = {'allowed': true};
+        } else {
+          this.youtube = {'allowed': false, 'msg': msg, 'btn': btn};
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  goBack() {
+    this.activatedRoute.params.subscribe(params => {
+      let path = params['articleId'].split("/");
+
+      if (path.length > 1) {
+        this.router.navigate(['location', path[0]]);
+      } else {
+        this.router.navigate(['..']);
+      }
     });
   }
 
@@ -174,6 +213,55 @@ export class ArticlePage {
            console.log(error.headers);
          });
     });
+  }
+
+  // Allow YouTube
+  async allowYoutube() {
+    let title = 'YouTube erlauben';
+    let msg = 'Möchtest du das YouTube Video in der App schauen? Dabei werden möglicherweise Geräteinformationen an YouTube übermittelt.';
+    let cancel = 'Abbrechen';
+    let allow = 'Erlauben';
+
+    if (this.lang == 'en') {
+      title = 'Allow YouTube';
+      msg = 'Do you want to watch the YouTube video in the app? This might send device information to YouTube.';
+      cancel = 'Cancel';
+      allow = 'Allow';
+    }
+
+    const alert = await this.alertController.create({
+      header: title,
+      message: msg,
+      buttons: [
+        {
+          text: cancel,
+          role: 'cancel',
+          cssClass: 'secondary'
+        }, {
+          text: allow,
+          handler: () => {
+            // this.nativeStorage.clear()
+            //   .then(
+            //     data => {
+            //       console.log(data);
+            //     },
+            //     error => console.error(error)
+            //   );
+
+            this.nativeStorage.setItem('youtube', 'true')
+              .then(
+                (data) => {
+                  console.log(data);
+                  window.location.reload();
+                },
+                error => console.error('Error storing item', error)
+            );
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   updateVideoUrl(id: string) {

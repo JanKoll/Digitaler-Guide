@@ -29,10 +29,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ArticlePage = class ArticlePage {
-    constructor(activatedRoute, sanitizer, platform, router, navCtrl, http, nativeStorage) {
+    constructor(activatedRoute, sanitizer, platform, alertController, router, navCtrl, http, nativeStorage) {
         this.activatedRoute = activatedRoute;
         this.sanitizer = sanitizer;
         this.platform = platform;
+        this.alertController = alertController;
         this.router = router;
         this.navCtrl = navCtrl;
         this.http = http;
@@ -55,7 +56,37 @@ let ArticlePage = class ArticlePage {
         }, error => console.log(error));
         // Android go Back
         this.platform.backButton.subscribeWithPriority(10, () => {
-            this.router.navigate(['..']);
+            this.goBack();
+        });
+        // check if youtube is allowed
+        this.nativeStorage.getItem('youtube')
+            .then(data => {
+            this.youtube = data;
+            let msg = "Um ein YouTube Video direkt in der App zu schauen, musst du es erst erlauben.";
+            let btn = "Erlauben";
+            if (this.lang == 'en') {
+                msg = "To watch the YouTube video directly on your app, you have to allow it first.";
+                btn = "Allow";
+            }
+            if (data == 'true') {
+                this.youtube = { 'allowed': true };
+            }
+            else {
+                this.youtube = { 'allowed': false, 'msg': msg, 'btn': btn };
+            }
+        }, error => {
+            console.log(error);
+        });
+    }
+    goBack() {
+        this.activatedRoute.params.subscribe(params => {
+            let path = params['articleId'].split("/");
+            if (path.length > 1) {
+                this.router.navigate(['location', path[0]]);
+            }
+            else {
+                this.router.navigate(['..']);
+            }
         });
     }
     // Get Local Data
@@ -157,6 +188,49 @@ let ArticlePage = class ArticlePage {
             });
         });
     }
+    // Allow YouTube
+    allowYoutube() {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            let title = 'YouTube erlauben';
+            let msg = 'Möchtest du das YouTube Video in der App schauen? Dabei werden möglicherweise Geräteinformationen an YouTube übermittelt.';
+            let cancel = 'Abbrechen';
+            let allow = 'Erlauben';
+            if (this.lang == 'en') {
+                title = 'Allow YouTube';
+                msg = 'Do you want to watch the YouTube video in the app? This might send device information to YouTube.';
+                cancel = 'Cancel';
+                allow = 'Allow';
+            }
+            const alert = yield this.alertController.create({
+                header: title,
+                message: msg,
+                buttons: [
+                    {
+                        text: cancel,
+                        role: 'cancel',
+                        cssClass: 'secondary'
+                    }, {
+                        text: allow,
+                        handler: () => {
+                            // this.nativeStorage.clear()
+                            //   .then(
+                            //     data => {
+                            //       console.log(data);
+                            //     },
+                            //     error => console.error(error)
+                            //   );
+                            this.nativeStorage.setItem('youtube', 'true')
+                                .then((data) => {
+                                console.log(data);
+                                window.location.reload();
+                            }, error => console.error('Error storing item', error));
+                        }
+                    }
+                ]
+            });
+            yield alert.present();
+        });
+    }
     updateVideoUrl(id) {
         // Appending an ID to a YouTube URL is safe.
         // Always make sure to construct SafeValue objects as
@@ -174,6 +248,7 @@ ArticlePage.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"] },
     { type: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_5__["DomSanitizer"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["AlertController"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["NavController"] },
     { type: _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_7__["HTTP"] },
@@ -292,7 +367,7 @@ ArticlePageModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header class=\"ion-no-border\">\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n        <ion-back-button defaultHref=\"location\" color=\"light\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title>\n      {{ title }}\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-menu-button color=\"light\"></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\">\n  <div class=\"article\" *ngIf=\"content\">\n\n\n    <!-- intro section -->\n\n    <div class=\"icon-header\" *ngIf=\"template == 'article'\">\n      <div class=\"icon\">\n        <img [src]=\"saveURL('image/png', content.icon)\" alt=\"{{ content.title }} Icon\">\n      </div>\n\n      <p>{{ learn }}</p>\n      <h2>{{ content.title }}</h2>\n    </div>\n\n    <ion-text color=\"light\" *ngIf=\"template == 'article'\">\n      <p>{{ content.teasertext }}</p>\n\n      <div *ngIf=\"content.hastime\" [innerHTML]=\"content.time\"></div>\n    </ion-text>\n\n\n    <!-- content section -->\n\n    <div *ngFor=\"let item of content.content; index as i;\">\n      <div [ngSwitch]=\"item.type\" class=\"section-wrap\">\n\n        <!-- Heading -->\n        <div *ngSwitchCase=\"'heading'\">\n          <div [ngSwitch]=\"item.content.level\">\n            <h1 *ngSwitchCase=\"'h1'\">{{ item.content.text }}</h1>\n            <h2 *ngSwitchCase=\"'h2'\">{{ item.content.text }}</h2>\n            <h3 *ngSwitchCase=\"'h3'\">{{ item.content.text }}</h3>\n            <h4 *ngSwitchCase=\"'h4'\">{{ item.content.text }}</h4>\n            <h5 *ngSwitchCase=\"'h5'\">{{ item.content.text }}</h5>\n            <h6 *ngSwitchCase=\"'h6'\">{{ item.content.text }}</h6>\n          </div>\n        </div>\n\n        <!-- Text -->\n        <div *ngSwitchCase=\"'text'\" [innerHTML]=\"item.content.text\"></div>\n\n        <!-- List -->\n        <div *ngSwitchCase=\"'list'\" [innerHTML]=\"item.content.text\"></div>\n\n        <!-- img -->\n        <div *ngSwitchCase=\"'img'\">\n          <ion-img src=\"data:image/jpeg;base64,{{ item.content.image }}\" alt=\"{{ item.content.alt }}\"></ion-img>\n        </div>\n\n        <!-- slider -->\n        <div *ngSwitchCase=\"'img-slider'\">\n         <ion-slides pager=\"true\">\n            <ion-slide *ngFor=\"let img of item.content.image\">\n              <ion-img src=\"data:image/jpeg;base64,{{ img }}\" alt=\"{{ content.title }} Artikel Bild\"></ion-img>\n            </ion-slide>\n          </ion-slides>\n        </div>\n\n        <!-- video -->\n        <div *ngSwitchCase=\"'youtube'\">\n          <iframe [src]=\"updateVideoUrl(item.content.url)\" allowfullscreen>Ups, da ist etwas schief gelaufen!</iframe>\n        </div>\n\n        <!-- audio -->\n        <div *ngSwitchCase=\"'audio'\">\n          <audio controls>\n            <source [src]=\"saveURL('audio/wav', item.content.audio)\">\n\n            Ups, da ist etwas schief gelaufen!\n          </audio>\n        </div>\n\n        <!-- quote -->\n        <div *ngSwitchCase=\"'quotes'\">\n           <ion-slides pager=\"true\">\n              <ion-slide *ngFor=\"let quote of item.content\">\n                <div class=\"quote\">\n                  <p>\"{{ quote.content.text }}\"</p>\n                  <p class=\"cite\">- {{ quote.content.citation }} </p>\n                </div>\n              </ion-slide>\n            </ion-slides>\n        </div>\n\n        <!-- default -->\n        <div *ngSwitchDefault>\n          <p>Error!</p>\n          <div [innerHTML]=\"item.content\">\n          </div>\n        </div>\n\n      </div>\n    </div>\n\n\n  </div>\n</ion-content>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header class=\"ion-no-border\">\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n        <ion-back-button defaultHref=\"..\" (click)=\"goBack()\" color=\"light\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title>\n      {{ title }}\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-menu-button color=\"light\"></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\">\n  <div class=\"article\" *ngIf=\"content\">\n\n\n    <!-- intro section -->\n\n    <div class=\"icon-header\" *ngIf=\"template == 'article'\">\n      <div class=\"icon\">\n        <img [src]=\"saveURL('image/png', content.icon)\" alt=\"{{ content.title }} Icon\">\n      </div>\n\n      <p>{{ learn }}</p>\n      <h2>{{ content.title }}</h2>\n    </div>\n\n    <ion-text color=\"light\" *ngIf=\"template == 'article'\">\n      <p>{{ content.teasertext }}</p>\n\n      <div *ngIf=\"content.hastime\" [innerHTML]=\"content.time\"></div>\n    </ion-text>\n\n\n    <!-- content section -->\n\n    <div *ngFor=\"let item of content.content; index as i;\">\n      <div [ngSwitch]=\"item.type\" class=\"section-wrap\">\n\n        <!-- Heading -->\n        <div *ngSwitchCase=\"'heading'\">\n          <div [ngSwitch]=\"item.content.level\">\n            <h1 *ngSwitchCase=\"'h1'\">{{ item.content.text }}</h1>\n            <h2 *ngSwitchCase=\"'h2'\">{{ item.content.text }}</h2>\n            <h3 *ngSwitchCase=\"'h3'\">{{ item.content.text }}</h3>\n            <h4 *ngSwitchCase=\"'h4'\">{{ item.content.text }}</h4>\n            <h5 *ngSwitchCase=\"'h5'\">{{ item.content.text }}</h5>\n            <h6 *ngSwitchCase=\"'h6'\">{{ item.content.text }}</h6>\n          </div>\n        </div>\n\n        <!-- Text -->\n        <div *ngSwitchCase=\"'text'\" [innerHTML]=\"item.content.text\"></div>\n\n        <!-- List -->\n        <div *ngSwitchCase=\"'list'\" [innerHTML]=\"item.content.text\"></div>\n\n        <!-- img -->\n        <div *ngSwitchCase=\"'img'\">\n          <ion-img src=\"data:image/jpeg;base64,{{ item.content.image }}\" alt=\"{{ item.content.alt }}\"></ion-img>\n        </div>\n\n        <!-- slider -->\n        <div *ngSwitchCase=\"'img-slider'\">\n         <ion-slides pager=\"true\">\n            <ion-slide *ngFor=\"let img of item.content.image\">\n              <ion-img src=\"data:image/jpeg;base64,{{ img }}\" alt=\"{{ content.title }} Artikel Bild\"></ion-img>\n            </ion-slide>\n          </ion-slides>\n        </div>\n\n        <!-- video -->\n        <div *ngSwitchCase=\"'youtube'\">\n          <div *ngIf=\"youtube.allowed; else elseBlock\">\n            <iframe [src]=\"updateVideoUrl(item.content.url)\" allowfullscreen>Ups, da ist etwas schief gelaufen!</iframe>\n          </div>\n          <ng-template #elseBlock>\n            <p>{{ youtube.msg }}</p>\n            <p><a href=\"{{ item.content.url }}\" style=\"color: #ffffff\">YouTube Link</a></p>\n\n            <ion-button color=\"light\" expand=\"full\" (click)=\"allowYoutube()\">{{ youtube.btn }}</ion-button>\n          </ng-template>\n\n          <!-- <iframe [src]=\"updateVideoUrl(item.content.url)\" allowfullscreen>Ups, da ist etwas schief gelaufen!</iframe> -->\n        </div>\n\n        <!-- audio -->\n        <div *ngSwitchCase=\"'audio'\">\n          <audio controls>\n            <source [src]=\"saveURL('audio/wav', item.content.audio)\">\n\n            Ups, da ist etwas schief gelaufen!\n          </audio>\n        </div>\n\n        <!-- quote -->\n        <div *ngSwitchCase=\"'quotes'\">\n           <ion-slides pager=\"true\">\n              <ion-slide *ngFor=\"let quote of item.content\">\n                <div class=\"quote\">\n                  <p>\"{{ quote.content.text }}\"</p>\n                  <p class=\"cite\">- {{ quote.content.citation }} </p>\n                </div>\n              </ion-slide>\n            </ion-slides>\n        </div>\n\n        <!-- default -->\n        <div *ngSwitchDefault>\n          <p>Error!</p>\n          <div [innerHTML]=\"item.content\">\n          </div>\n        </div>\n\n      </div>\n    </div>\n\n\n  </div>\n</ion-content>\n");
 
 /***/ })
 

@@ -534,7 +534,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header class=\"ion-no-border\">\n  <ion-toolbar class=\"solid-primary\">\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"home\" color=\"light\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title>\n      {{ title }}\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-menu-button color=\"light\"></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class=\"solid-primary\" [fullscreen]=\"true\" *ngIf=\"content\">\n  <div class=\"map-wrapper\">\n    <div class=\"coord\"\n      style=\"{{ setObjectLocation(item.coords) }}\"\n      *ngFor=\"let item of content.children; let i = index\"\n      (click)=\"showModal(i)\"\n    >\n      <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 39.62 34.31\">\n        <defs>\n          <style>\n            .mapmarker{fill:#006c66;stroke-width:4px;}\n            .mapmarker, .hex{stroke:#eee;stroke-miterlimit:10;}\n            .textmarker{\n              font-size: 1.5rem;\n              fill: #eeeeee;\n              font-family: Roboto;}\n          </style>\n        </defs>\n        <g id=\"Layer_2\" data-name=\"Layer 2\">\n          <g id=\"Hintergrund\"><polygon class=\"mapmarker\" points=\"28.56 2 11.06 2 2.31 17.16 11.06 32.31 28.56 32.31 37.31 17.16 28.56 2\"/>\n            <text class=\"textmarker\" transform=\"translate(12.5 25.5)\">{{ i + 1 }}</text>\n          </g>\n        </g>\n      </svg>\n    </div>\n\n    <div class=\"location\" style=\"{{ pointcoord }}\"></div>\n\n    <img src=\"data:image/png;base64,{{ content.map }}\" />\n\n  </div>\n\n  <div class=\"story\" *ngIf=\"content.hasstory == 'true'\" (click)=\"route(content.id)\">\n    <svg id=\"Book_Layer_1\" data-name=\"Book Layer 1\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 55.41 55.88\" style=\"width:60%; padding-top:0.6rem\"><defs><style>.book{fill:#eee;}</style></defs><polygon class=\"book\" points=\"7.85 0.56 27.7 7.18 47.55 0.56 47.55 40.26 27.7 46.88 7.85 40.26 7.85 0.56\"/><polygon class=\"book\" points=\"27.7 55.88 0 46.18 0 0 3.05 0 3.05 44.02 27.7 52.65 52.35 44.02 52.35 0 55.41 0 55.41 46.18 27.7 55.88\"/></svg>\n  </div>\n  <div class=\"info\" (click)=\"legend()\">i</div>\n  <div id=\"qropen\" class=\"info\" (click)=\"startScanning()\"><img src=\"../assets/qr-icon.png\" /></div>\n\n</ion-content>\n\n<div id=\"qrclose\" (click)=\"stopScanning()\">\n  <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\">\n    <defs>\n      <style>\n        .closedark {\n          fill: #eeeeee;\n        }\n      </style>\n    </defs>\n    <g id=\"Layer_2\" data-name=\"Layer 2\">\n      <g id=\"Layer_1-2\" data-name=\"Layer 1\"><polygon class=\"closedark\" points=\"100 9.83 90.17 0 50 40.17 9.83 0 0 9.83 40.17 50 0 90.17 9.83 100 50 59.83 90.17 100 100 90.17 59.83 50 100 9.83\"/></g>\n    </g>\n  </svg>\n</div>\n";
+      __webpack_exports__["default"] = "<ion-header class=\"ion-no-border\">\n  <ion-toolbar class=\"solid-primary\">\n    <ion-buttons slot=\"start\">\n      <ion-back-button  defaultHref=\"..\" (click)=\"goBack()\" color=\"light\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title>\n      {{ title }}\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-menu-button color=\"light\"></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class=\"solid-primary\" [fullscreen]=\"true\" *ngIf=\"content\">\n  <div class=\"map-wrapper\">\n    <div class=\"coord\"\n      style=\"{{ setObjectLocation(item.coords) }}\"\n      *ngFor=\"let item of content.children; let i = index\"\n      (click)=\"showModal(i)\"\n    >\n      <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 39.62 34.31\">\n        <defs>\n          <style>\n            .mapmarker{fill:#006c66;stroke-width:4px;}\n            .mapmarker, .hex{stroke:#eee;stroke-miterlimit:10;}\n            .textmarker{\n              font-size: 1.5rem;\n              fill: #eeeeee;\n              font-family: Roboto;}\n          </style>\n        </defs>\n        <g id=\"Layer_2\" data-name=\"Layer 2\">\n          <g id=\"Hintergrund\"><polygon class=\"mapmarker\" points=\"28.56 2 11.06 2 2.31 17.16 11.06 32.31 28.56 32.31 37.31 17.16 28.56 2\"/>\n            <text class=\"textmarker\" transform=\"translate(12.5 25.5)\">{{ i + 1 }}</text>\n          </g>\n        </g>\n      </svg>\n    </div>\n\n    <div class=\"location\" style=\"{{ pointcoord }}\"></div>\n\n    <img src=\"data:image/png;base64,{{ content.map }}\" />\n\n  </div>\n\n  <div class=\"story\" *ngIf=\"content.hasstory == 'true'\" (click)=\"route(content.id)\">\n    <svg id=\"Book_Layer_1\" data-name=\"Book Layer 1\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 55.41 55.88\" style=\"width:60%; padding-top:0.6rem\"><defs><style>.book{fill:#eee;}</style></defs><polygon class=\"book\" points=\"7.85 0.56 27.7 7.18 47.55 0.56 47.55 40.26 27.7 46.88 7.85 40.26 7.85 0.56\"/><polygon class=\"book\" points=\"27.7 55.88 0 46.18 0 0 3.05 0 3.05 44.02 27.7 52.65 52.35 44.02 52.35 0 55.41 0 55.41 46.18 27.7 55.88\"/></svg>\n  </div>\n  <div class=\"info\" (click)=\"legend()\">i</div>\n  <div id=\"qropen\" class=\"info\" (click)=\"startScanning()\"><img src=\"../assets/qr-icon.png\" /></div>\n\n</ion-content>\n\n<div id=\"qrclose\" (click)=\"stopScanning()\">\n  <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\">\n    <defs>\n      <style>\n        .closedark {\n          fill: #eeeeee;\n        }\n      </style>\n    </defs>\n    <g id=\"Layer_2\" data-name=\"Layer 2\">\n      <g id=\"Layer_1-2\" data-name=\"Layer 1\"><polygon class=\"closedark\" points=\"100 9.83 90.17 0 50 40.17 9.83 0 0 9.83 40.17 50 0 90.17 9.83 100 50 59.83 90.17 100 100 90.17 59.83 50 100 9.83\"/></g>\n    </g>\n  </svg>\n</div>\n";
       /***/
     },
 
@@ -788,6 +788,11 @@
           key: "route",
           value: function route(id) {
             this.router.navigate(['/article/', id]);
+          }
+        }, {
+          key: "goBack",
+          value: function goBack() {
+            this.router.navigate(['..']);
           } // Get Local Data
 
         }, {
@@ -1066,7 +1071,14 @@
 
 
                 document.getElementsByTagName('body')[0].classList.toggle("qractive");
-                console.log("AUTHORIZED "); // debugger
+                console.log("AUTHORIZED "); // Exit on android back
+
+                _this9.platform.backButton.subscribeWithPriority(15, function () {
+                  document.getElementsByTagName('body')[0].classList.toggle("qractive");
+
+                  _this9.qrScanner.destroy();
+                }); // debugger
+
 
                 var scanSub = _this9.qrScanner.scan().subscribe(function (textFound) {
                   // Use Class to Toggle Backgound Visibility

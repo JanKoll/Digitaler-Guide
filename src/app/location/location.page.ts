@@ -85,6 +85,10 @@ export class LocationPage {
     this.router.navigate(['/article/', id]);
   }
 
+  goBack() {
+    this.router.navigate(['..']);
+  }
+
   // Get Local Data
   localGET() {
     this.activatedRoute.params.subscribe(params => {
@@ -261,6 +265,12 @@ export class LocationPage {
           // Use Class to Toggle Backgound Visibility
           document.getElementsByTagName('body')[0].classList.toggle("qractive");
           console.log("AUTHORIZED ");
+
+          // Exit on android back
+          this.platform.backButton.subscribeWithPriority(15, () => {
+            document.getElementsByTagName('body')[0].classList.toggle("qractive");
+            this.qrScanner.destroy();
+          });
 
           // debugger
           let scanSub = this.qrScanner.scan()

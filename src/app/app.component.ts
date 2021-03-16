@@ -44,12 +44,10 @@ export class AppComponent {
         this.callData();
       },
       error => {
-        this.toggleLang('de');
+        this.toggleLang('de'); // <- also sets youtube default == false
         this.callData();
       }
     );
-
-
   }
 
   // Call Data
@@ -67,8 +65,13 @@ export class AppComponent {
 
   // Toggle Language
   toggleLang(code) {
-    console.log(code);
-
+    this.nativeStorage.setItem('youtube', 'false')
+      .then(
+        (data) => {
+          console.log(data);
+        },
+        error => console.error('Error storing item', error)
+    );
 
     this.nativeStorage.setItem('language', code)
       .then(
@@ -85,7 +88,6 @@ export class AppComponent {
         },
         error => console.error('Error storing item', error)
     );
-
   }
 
   // Get Local Data
