@@ -46,7 +46,7 @@
             d.__proto__ = b;
           } || function (d, b) {
             for (var p in b) {
-              if (b.hasOwnProperty(p)) d[p] = b[p];
+              if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
             }
           };
 
@@ -138,7 +138,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<div class=\"content\">\n    <div class=\"icon-header\">\n      <div class=\"icon\">\n        <img src=\"data:image/png;base64,{{ data.icon }}\" alt=\"{{ data.title }} Icon\">\n      </div>\n\n      <h2>{{ data.title }}</h2>\n    </div>\n\n    <div class=\"text\">\n      <div class=\"close\" (click)=\"close()\">\n        <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" style=\"height: .75rem; width: .75rem; overflow: hidden\">\n          <defs>\n            <style>\n              .closedark {\n                fill: #000000;\n              }\n            </style>\n          </defs>\n          <g id=\"Layer_2\" data-name=\"Layer 2\">\n            <g id=\"Layer_1-2\" data-name=\"Layer 1\"><polygon class=\"closedark\" points=\"100 9.83 90.17 0 50 40.17 9.83 0 0 9.83 40.17 50 0 90.17 9.83 100 50 59.83 90.17 100 100 90.17 59.83 50 100 9.83\"/></g>\n          </g>\n        </svg>\n      </div>\n      <p>{{ data.teasertext }}</p>\n\n      <ion-img src=\"data:image/jpeg;base64,{{ data.teaserimg }}\" alt=\"{{ data.title }} Vorschaubild\"></ion-img>\n\n      <div [innerHTML]=\"data.time\"></div>\n\n      <div class=\"routerbtn\">\n        <ion-button (click)=\"route(data.id)\">\n          Mehr erfahren\n        </ion-button>\n      </div>\n    </div>\n</div>\n";
+      __webpack_exports__["default"] = "<div class=\"content\">\n    <div class=\"icon-header\">\n      <div class=\"icon\">\n        <img src=\"data:image/png;base64,{{ data.icon }}\" alt=\"{{ data.title }} Icon\">\n      </div>\n\n      <h2>{{ data.title }}</h2>\n    </div>\n\n    <div class=\"text\">\n      <div class=\"close\" (click)=\"close()\">\n        <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" style=\"height: .75rem; width: .75rem; overflow: hidden\">\n          <defs>\n            <style>\n              .closedark {\n                fill: #000000;\n              }\n            </style>\n          </defs>\n          <g id=\"Layer_2\" data-name=\"Layer 2\">\n            <g id=\"Layer_1-2\" data-name=\"Layer 1\"><polygon class=\"closedark\" points=\"100 9.83 90.17 0 50 40.17 9.83 0 0 9.83 40.17 50 0 90.17 9.83 100 50 59.83 90.17 100 100 90.17 59.83 50 100 9.83\"/></g>\n          </g>\n        </svg>\n      </div>\n      <p>{{ data.teasertext }}</p>\n\n      <ion-img src=\"data:image/jpeg;base64,{{ data.teaserimg }}\" alt=\"{{ data.title }} Vorschaubild\"></ion-img>\n\n      <div [innerHTML]=\"data.time\"></div>\n\n      <div class=\"routerbtn\">\n        <ion-button (click)=\"route(data.id)\">\n          {{ more }}\n        </ion-button>\n      </div>\n    </div>\n</div>\n";
       /***/
     },
 
@@ -178,7 +178,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<div class=\"content\">\n    <div class=\"text\">\n      <div class=\"close\" (click)=\"close()\">\n        <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" style=\"height: .75rem; width: .75rem; overflow: hidden\">\n          <defs>\n            <style>\n              .closedark {\n                fill: #000000;\n              }\n            </style>\n          </defs>\n          <g id=\"Layer_2\" data-name=\"Layer 2\">\n            <g id=\"Layer_1-2\" data-name=\"Layer 1\"><polygon class=\"closedark\" points=\"100 9.83 90.17 0 50 40.17 9.83 0 0 9.83 40.17 50 0 90.17 9.83 100 50 59.83 90.17 100 100 90.17 59.83 50 100 9.83\"/></g>\n          </g>\n        </svg>\n      </div>\n\n      <p><b>Legende:</b></p>\n\n      <div class=\"leg\">\n        <div class=\"location\"></div>\n        <p>Aktueller Standort</p>\n      </div>\n\n      <div class=\"leg\">\n        <div class=\"station\">\n          <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 39.62 34.31\"><defs><style>.cls-1{fill:#006c66;stroke-width:4px;}.cls-1,.cls-2{stroke:#eee;stroke-miterlimit:10;}.cls-2{fill:#eee;}</style></defs><g id=\"Layer_2\" data-name=\"Layer 2\"><g id=\"Hintergrund\"><polygon class=\"cls-1\" points=\"28.56 2 11.06 2 2.31 17.16 11.06 32.31 28.56 32.31 37.31 17.16 28.56 2\"/><path class=\"cls-2\" d=\"M18.32,24.24a1.47,1.47,0,0,1,1.49-1.56,1.45,1.45,0,0,1,1.49,1.56,1.49,1.49,0,1,1-3,0ZM19,20.63,18.6,8.5H21l-.35,12.13Z\"/></g></g></svg>\n        </div>\n        <p>Station</p>\n      </div>\n\n      <div class=\"leg\">\n        <div class=\"park\">P</div>\n        <p>Parkplatz</p>\n      </div>\n\n      <div class=\"leg\">\n        <div class=\"qr\"><img src=\"../assets/qr-icon.png\" /></div>\n        <p>QR-Code Scanner</p>\n      </div>\n    </div>\n</div>\n";
+      __webpack_exports__["default"] = "<div class=\"content\">\n    <div class=\"text\">\n      <div class=\"close\" (click)=\"close()\">\n        <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" style=\"height: .75rem; width: .75rem; overflow: hidden\">\n          <defs>\n            <style>\n              .closedark {\n                fill: #000000;\n              }\n            </style>\n          </defs>\n          <g id=\"Layer_2\" data-name=\"Layer 2\">\n            <g id=\"Layer_1-2\" data-name=\"Layer 1\"><polygon class=\"closedark\" points=\"100 9.83 90.17 0 50 40.17 9.83 0 0 9.83 40.17 50 0 90.17 9.83 100 50 59.83 90.17 100 100 90.17 59.83 50 100 9.83\"/></g>\n          </g>\n        </svg>\n      </div>\n\n      <p><b>{{data.title}}</b></p>\n\n      <div class=\"leg\">\n        <div class=\"location\"></div>\n        <p>{{data.location}}</p>\n      </div>\n\n      <div class=\"leg\">\n        <div class=\"station\">\n          <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 39.62 34.31\"><defs><style>.cls-1{fill:#006c66;stroke-width:4px;}.cls-1,.cls-2{stroke:#eee;stroke-miterlimit:10;}.cls-2{fill:#eee;}</style></defs><g id=\"Layer_2\" data-name=\"Layer 2\"><g id=\"Hintergrund\"><polygon class=\"cls-1\" points=\"28.56 2 11.06 2 2.31 17.16 11.06 32.31 28.56 32.31 37.31 17.16 28.56 2\"/><path class=\"cls-2\" d=\"M18.32,24.24a1.47,1.47,0,0,1,1.49-1.56,1.45,1.45,0,0,1,1.49,1.56,1.49,1.49,0,1,1-3,0ZM19,20.63,18.6,8.5H21l-.35,12.13Z\"/></g></g></svg>\n        </div>\n        <p>{{data.station}}</p>\n      </div>\n\n      <div class=\"leg\">\n        <div class=\"park\">P</div>\n        <p>{{data.parking}}</p>\n      </div>\n\n      <div class=\"leg\">\n        <div class=\"qr\"><img src=\"../assets/qr-icon.png\" /></div>\n        <p>QR-Code Scanner</p>\n      </div>\n    </div>\n</div>\n";
       /***/
     },
 
@@ -231,12 +231,40 @@
       var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
       /*! @ionic/angular */
       "TEn/");
+      /* harmony import */
+
+
+      var _ionic_native_native_storage_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      /*! @ionic-native/native-storage/ngx */
+      "M2ZX");
 
       var LegendComponent = /*#__PURE__*/function () {
-        function LegendComponent(modalCtrl) {
+        function LegendComponent(modalCtrl, nativeStorage) {
+          var _this = this;
+
           _classCallCheck(this, LegendComponent);
 
           this.modalCtrl = modalCtrl;
+          this.nativeStorage = nativeStorage;
+          this.nativeStorage.getItem('language').then(function (data) {
+            if (data == 'de') {
+              _this.data = {
+                'title': 'Legende:',
+                'location': 'Aktueller Standort',
+                'station': 'Station',
+                'parking': 'Parkplatz'
+              };
+            } else {
+              _this.data = {
+                'title': 'Legend:',
+                'location': 'Current location',
+                'station': 'Station',
+                'parking': 'Parking spot'
+              };
+            }
+          }, function (error) {
+            return console.log(error);
+          });
         }
 
         _createClass(LegendComponent, [{
@@ -269,6 +297,8 @@
       LegendComponent.ctorParameters = function () {
         return [{
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"]
+        }, {
+          type: _ionic_native_native_storage_ngx__WEBPACK_IMPORTED_MODULE_5__["NativeStorage"]
         }];
       };
 
@@ -335,13 +365,31 @@
       var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
       /*! @angular/router */
       "tyNb");
+      /* harmony import */
+
+
+      var _ionic_native_native_storage_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      /*! @ionic-native/native-storage/ngx */
+      "M2ZX");
 
       var ArticlePreviewComponent = /*#__PURE__*/function () {
-        function ArticlePreviewComponent(modalCtrl, router) {
+        function ArticlePreviewComponent(modalCtrl, router, nativeStorage) {
+          var _this2 = this;
+
           _classCallCheck(this, ArticlePreviewComponent);
 
           this.modalCtrl = modalCtrl;
           this.router = router;
+          this.nativeStorage = nativeStorage;
+          this.nativeStorage.getItem('language').then(function (data) {
+            if (data == 'de') {
+              _this2.more = 'Mehr erfahren';
+            } else {
+              _this2.more = 'Read more';
+            }
+          }, function (error) {
+            return console.log(error);
+          });
         }
 
         _createClass(ArticlePreviewComponent, [{
@@ -379,6 +427,8 @@
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"]
         }, {
           type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]
+        }, {
+          type: _ionic_native_native_storage_ngx__WEBPACK_IMPORTED_MODULE_6__["NativeStorage"]
         }];
       };
 
@@ -484,7 +534,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header class=\"ion-no-border\">\n  <ion-toolbar class=\"solid-primary\">\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"home\" color=\"light\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title>\n      Digitaler Guide\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-menu-button color=\"light\"></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class=\"solid-primary\" [fullscreen]=\"true\" *ngIf=\"content\">\n  <div class=\"map-wrapper\">\n    <div class=\"coord\"\n      style=\"{{ setObjectLocation(item.coords) }}\"\n      *ngFor=\"let item of content.children; let i = index\"\n      (click)=\"showModal(i)\"\n    >\n      <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 39.62 34.31\">\n        <defs>\n          <style>.mapmarker{fill:#006c66;stroke-width:4px;}.mapmarker,.cls-2{stroke:#eee;stroke-miterlimit:10;}.cls-2{fill:#eee;}</style>\n        </defs>\n        <g id=\"Layer_2\" data-name=\"Layer 2\">\n          <g id=\"Hintergrund\"><polygon class=\"mapmarker\" points=\"28.56 2 11.06 2 2.31 17.16 11.06 32.31 28.56 32.31 37.31 17.16 28.56 2\"/>\n            <path class=\"cls-2\" d=\"M18.32,24.24a1.47,1.47,0,0,1,1.49-1.56,1.45,1.45,0,0,1,1.49,1.56,1.49,1.49,0,1,1-3,0ZM19,20.63,18.6,8.5H21l-.35,12.13Z\"/>\n          </g>\n        </g>\n      </svg>\n    </div>\n\n    <div class=\"location\" style=\"{{ pointcoord }}\"></div>\n\n    <img src=\"data:image/png;base64,{{ content.map }}\" />\n\n  </div>\n\n  <div class=\"info\" (click)=\"legend()\">i</div>\n  <div id=\"qropen\" class=\"info\" (click)=\"startScanning()\"><img src=\"../assets/qr-icon.png\" /></div>\n\n</ion-content>\n\n<div id=\"qrclose\" (click)=\"stopScanning()\">\n  <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\">\n    <defs>\n      <style>\n        .closedark {\n          fill: #eeeeee;\n        }\n      </style>\n    </defs>\n    <g id=\"Layer_2\" data-name=\"Layer 2\">\n      <g id=\"Layer_1-2\" data-name=\"Layer 1\"><polygon class=\"closedark\" points=\"100 9.83 90.17 0 50 40.17 9.83 0 0 9.83 40.17 50 0 90.17 9.83 100 50 59.83 90.17 100 100 90.17 59.83 50 100 9.83\"/></g>\n    </g>\n  </svg>\n</div>\n";
+      __webpack_exports__["default"] = "<ion-header class=\"ion-no-border\">\n  <ion-toolbar class=\"solid-primary\">\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"home\" color=\"light\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title>\n      {{ title }}\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-menu-button color=\"light\"></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class=\"solid-primary\" [fullscreen]=\"true\" *ngIf=\"content\">\n  <div class=\"map-wrapper\">\n    <div class=\"coord\"\n      style=\"{{ setObjectLocation(item.coords) }}\"\n      *ngFor=\"let item of content.children; let i = index\"\n      (click)=\"showModal(i)\"\n    >\n      <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 39.62 34.31\">\n        <defs>\n          <style>\n            .mapmarker{fill:#006c66;stroke-width:4px;}\n            .mapmarker, .hex{stroke:#eee;stroke-miterlimit:10;}\n            .textmarker{\n              font-size: 1.5rem;\n              fill: #eeeeee;\n              font-family: Roboto;}\n          </style>\n        </defs>\n        <g id=\"Layer_2\" data-name=\"Layer 2\">\n          <g id=\"Hintergrund\"><polygon class=\"mapmarker\" points=\"28.56 2 11.06 2 2.31 17.16 11.06 32.31 28.56 32.31 37.31 17.16 28.56 2\"/>\n            <text class=\"textmarker\" transform=\"translate(12.5 25.5)\">{{ i + 1 }}</text>\n          </g>\n        </g>\n      </svg>\n    </div>\n\n    <div class=\"location\" style=\"{{ pointcoord }}\"></div>\n\n    <img src=\"data:image/png;base64,{{ content.map }}\" />\n\n  </div>\n\n  <div class=\"story\" *ngIf=\"content.hasstory == 'true'\" (click)=\"route(content.id)\">\n    <svg id=\"Book_Layer_1\" data-name=\"Book Layer 1\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 55.41 55.88\" style=\"width:60%; padding-top:0.6rem\"><defs><style>.book{fill:#eee;}</style></defs><polygon class=\"book\" points=\"7.85 0.56 27.7 7.18 47.55 0.56 47.55 40.26 27.7 46.88 7.85 40.26 7.85 0.56\"/><polygon class=\"book\" points=\"27.7 55.88 0 46.18 0 0 3.05 0 3.05 44.02 27.7 52.65 52.35 44.02 52.35 0 55.41 0 55.41 46.18 27.7 55.88\"/></svg>\n  </div>\n  <div class=\"info\" (click)=\"legend()\">i</div>\n  <div id=\"qropen\" class=\"info\" (click)=\"startScanning()\"><img src=\"../assets/qr-icon.png\" /></div>\n\n</ion-content>\n\n<div id=\"qrclose\" (click)=\"stopScanning()\">\n  <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\">\n    <defs>\n      <style>\n        .closedark {\n          fill: #eeeeee;\n        }\n      </style>\n    </defs>\n    <g id=\"Layer_2\" data-name=\"Layer 2\">\n      <g id=\"Layer_1-2\" data-name=\"Layer 1\"><polygon class=\"closedark\" points=\"100 9.83 90.17 0 50 40.17 9.83 0 0 9.83 40.17 50 0 90.17 9.83 100 50 59.83 90.17 100 100 90.17 59.83 50 100 9.83\"/></g>\n    </g>\n  </svg>\n</div>\n";
       /***/
     },
 
@@ -689,7 +739,7 @@
 
       var LocationPage = /*#__PURE__*/function () {
         function LocationPage(modalCtrl, platform, alertController, sanitizer, qrScanner, zone, router, activatedRoute, http, nativeStorage) {
-          var _this = this;
+          var _this3 = this;
 
           _classCallCheck(this, LocationPage);
 
@@ -702,44 +752,61 @@
           this.router = router;
           this.activatedRoute = activatedRoute;
           this.http = http;
-          this.nativeStorage = nativeStorage; // Call and Update geo Location
+          this.nativeStorage = nativeStorage; // Check / Get Current Language
 
-          this.interval = setInterval(function () {
-            return _this.getCurrentLocation();
-          }, 1000); // subscribe to cammera close
+          this.nativeStorage.getItem('language').then(function (data) {
+            _this3.lang = data;
+
+            if (data == 'de') {
+              _this3.title = 'Digitaler Guide';
+            } else {
+              _this3.title = 'Digital Guide';
+            } // Check for Offline Mode
+
+
+            _this3.nativeStorage.getItem('isOffline').then(function (res) {
+              _this3.localGET();
+            }, function (error) {
+              return _this3.restGET();
+            });
+          }, function (error) {
+            return console.log(error);
+          }); // subscribe to cammera close
 
           this.platform.backButton.subscribeWithPriority(0, function () {
-            // Android Physical Back Button???
-            // document.getElementsByTagName('body')[0].style.opacity = '1';
-            // Use Class to Toggle Backgound Visibility
             document.getElementsByTagName('body')[0].classList.toggle("qractive");
 
-            _this.qrScanner.destroy();
-          }); // Check for Offline Mode
+            _this3.qrScanner.destroy();
+          }); // Android go Back
 
-          this.nativeStorage.getItem('isOffline').then(function (data) {
-            _this.localGET();
-          }, function (error) {
-            return _this.restGET();
+          this.platform.backButton.subscribeWithPriority(10, function () {
+            _this3.router.navigate(['..']);
           });
-        } // Get Local Data
-
+        }
 
         _createClass(LocationPage, [{
+          key: "route",
+          value: function route(id) {
+            this.router.navigate(['/article/', id]);
+          } // Get Local Data
+
+        }, {
           key: "localGET",
           value: function localGET() {
-            var _this2 = this;
+            var _this4 = this;
 
             this.activatedRoute.params.subscribe(function (params) {
               var path = params['locationId'];
 
-              _this2.nativeStorage.getItem('database').then(function (data) {
+              _this4.nativeStorage.getItem('database').then(function (data) {
                 data.main.forEach(function (element) {
                   if (element.id == path) {
-                    _this2.content = element;
-                    _this2.coords = element.coords;
+                    _this4.content = element;
+                    _this4.coords = element.coords;
                   }
                 });
+
+                _this4.callGeoInterval();
               }, function (error) {
                 return console.log(error);
               });
@@ -749,17 +816,19 @@
         }, {
           key: "restGET",
           value: function restGET() {
-            var _this3 = this;
+            var _this5 = this;
 
             this.activatedRoute.params.subscribe(function (params) {
               // REST Authentication
-              _this3.http.useBasicAuth('mail@example.de', 'Raute123'); //HTTP GET
+              _this5.http.useBasicAuth('mail@example.de', 'Raute123'); //HTTP GET
 
 
-              _this3.http.get("https://api.jankoll.de/rest/map/".concat(params['locationId']), {}, {}).then(function (data) {
-                _this3.content = JSON.parse(data.data); // data received by server
+              _this5.http.get("https://api.jankoll.de/rest/".concat(_this5.lang, "/map/").concat(params['locationId']), {}, {}).then(function (data) {
+                _this5.content = JSON.parse(data.data); // data received by server
 
-                _this3.coords = _this3.content.coords;
+                _this5.coords = _this5.content.coords;
+
+                _this5.callGeoInterval();
               })["catch"](function (error) {
                 console.log(error.status);
                 console.log(error.error); // error message as string
@@ -772,13 +841,23 @@
           key: "ionViewWillLeave",
           value: function ionViewWillLeave() {
             clearInterval(this.interval);
+          }
+        }, {
+          key: "callGeoInterval",
+          value: function callGeoInterval() {
+            var _this6 = this;
+
+            // Call and Update geo Location
+            this.interval = setInterval(function () {
+              return _this6.getCurrentLocation();
+            }, 1000);
           } // Call and set current geo location
 
         }, {
           key: "getCurrentLocation",
           value: function getCurrentLocation() {
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
-              var _this4 = this;
+              var _this7 = this;
 
               var position, height, width;
               return regeneratorRuntime.wrap(function _callee3$(_context3) {
@@ -799,7 +878,7 @@
                       if ((this.coords.leftTop.lat - this.latitude) * 100 / height > 100 || (this.coords.leftTop.lat - this.latitude) * 100 / height < 0) {
                         clearInterval(this.interval);
                         this.interval = setInterval(function () {
-                          return _this4.getCurrentLocation();
+                          return _this7.getCurrentLocation();
                         }, 10000);
                       }
 
@@ -890,36 +969,47 @@
           key: "accessCamera",
           value: function accessCamera() {
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
-              var _this5 = this;
+              var _this8 = this;
 
-              var alert;
+              var title, msg, cancel, sett, alert;
               return regeneratorRuntime.wrap(function _callee6$(_context6) {
                 while (1) {
                   switch (_context6.prev = _context6.next) {
                     case 0:
-                      _context6.next = 2;
+                      title = 'Kamera deaktiviert';
+                      msg = 'Wenn du einen QR-Code Scannen möchtest, erlaube bitte den Kamera zugriff in den Einstellungen.';
+                      cancel = 'Abbrechen';
+                      sett = 'Einstellungen';
+
+                      if (this.lang == 'en') {
+                        title = 'Camera disabled';
+                        msg = 'If you want to scan a QR code, please allow camera access in the settings.';
+                        cancel = 'Cancel';
+                        sett = 'Settings';
+                      }
+
+                      _context6.next = 7;
                       return this.alertController.create({
-                        // cssClass: 'my-custom-class',
-                        header: 'Kamera deaktiviert',
-                        message: 'Wenn du einen QR-Code Scannen möchtest, erlaube bitte den Kamera zugriff in den Einstellungen.',
+                        header: title,
+                        message: msg,
                         buttons: [{
-                          text: 'Abbrechen',
+                          text: cancel,
                           role: 'cancel',
                           cssClass: 'secondary'
                         }, {
-                          text: 'Einstellungen',
+                          text: sett,
                           handler: function handler() {
-                            _this5.qrScanner.openSettings();
+                            _this8.qrScanner.openSettings();
                           }
                         }]
                       });
 
-                    case 2:
+                    case 7:
                       alert = _context6.sent;
-                      _context6.next = 5;
+                      _context6.next = 10;
                       return alert.present();
 
-                    case 5:
+                    case 10:
                     case "end":
                       return _context6.stop();
                   }
@@ -931,25 +1021,32 @@
           key: "undefinedQrCode",
           value: function undefinedQrCode() {
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
-              var alert;
+              var title, msg, alert;
               return regeneratorRuntime.wrap(function _callee7$(_context7) {
                 while (1) {
                   switch (_context7.prev = _context7.next) {
                     case 0:
-                      _context7.next = 2;
+                      title = 'Fehler';
+                      msg = 'Der QR-Code ist entweder nicht leserlich oder gehört nicht zur Tour.';
+
+                      if (this.lang == 'en') {
+                        title = 'Error';
+                        msg = 'The QR code is either not readable or does not belong to the tour.';
+                      }
+
+                      _context7.next = 5;
                       return this.alertController.create({
-                        // cssClass: 'my-custom-class',
-                        header: 'Fehler',
-                        message: 'Der QR-Code ist entweder nicht leserlich oder gehört nicht zur Tour.',
+                        header: title,
+                        message: msg,
                         buttons: ['Okay']
                       });
 
-                    case 2:
+                    case 5:
                       alert = _context7.sent;
-                      _context7.next = 5;
+                      _context7.next = 8;
                       return alert.present();
 
-                    case 5:
+                    case 8:
                     case "end":
                       return _context7.stop();
                   }
@@ -960,34 +1057,33 @@
         }, {
           key: "startScanning",
           value: function startScanning() {
-            var _this6 = this;
+            var _this9 = this;
 
             // Optionally request the permission early
             this.qrScanner.prepare().then(function (status) {
               if (status.authorized) {
-                _this6.qrScanner.show(); // Use Class to Toggle Backgound Visibility
+                _this9.qrScanner.show(); // Use Class to Toggle Backgound Visibility
 
 
                 document.getElementsByTagName('body')[0].classList.toggle("qractive");
-                console.log("AUTHORIZED "); // console.log(this.content.children);
-                // debugger
+                console.log("AUTHORIZED "); // debugger
 
-                var scanSub = _this6.qrScanner.scan().subscribe(function (textFound) {
+                var scanSub = _this9.qrScanner.scan().subscribe(function (textFound) {
                   // Use Class to Toggle Backgound Visibility
                   document.getElementsByTagName('body')[0].classList.toggle("qractive"); // Check if QR-Code is valid
 
-                  if (_this6.content.children.map(function (x) {
+                  if (_this9.content.children.map(function (x) {
                     return x.id;
                   }).includes(textFound)) {
-                    _this6.zone.run(function () {
-                      _this6.router.navigate(['/article/', textFound]);
+                    _this9.zone.run(function () {
+                      _this9.router.navigate(['/article/', textFound]);
                     });
 
-                    _this6.qrScanner.destroy();
+                    _this9.qrScanner.destroy();
                   } else {
-                    _this6.undefinedQrCode();
+                    _this9.undefinedQrCode();
 
-                    _this6.qrScanner.destroy();
+                    _this9.qrScanner.destroy();
                   }
                 }, function (err) {
                   alert(JSON.stringify(err));
@@ -996,7 +1092,7 @@
             })["catch"](function (e) {
               console.log('Error is', e);
 
-              _this6.accessCamera();
+              _this9.accessCamera();
             });
           }
         }, {

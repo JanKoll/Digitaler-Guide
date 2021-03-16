@@ -45,7 +45,6 @@ export class LocationPage {
     private http: HTTP,
     private nativeStorage: NativeStorage
   )  {
-
     // Check / Get Current Language
     this.nativeStorage.getItem('language')
     .then(
@@ -57,39 +56,34 @@ export class LocationPage {
         } else {
           this.title = 'Digital Guide'
         }
+
+        // Check for Offline Mode
+        this.nativeStorage.getItem('isOffline')
+        .then(
+          res => {
+            this.localGET();
+          },
+          error => this.restGET()
+        );
       },
       error => console.log(error)
     );
 
-    // Call and Update geo Location
-    this.interval = setInterval(() =>
-      this.getCurrentLocation()
-    , 1000);
-
     // subscribe to cammera close
     this.platform.backButton.subscribeWithPriority(0, () => {
-
-      // Android Physical Back Button???
-      // document.getElementsByTagName('body')[0].style.opacity = '1';
-      // Use Class to Toggle Backgound Visibility
       document.getElementsByTagName('body')[0].classList.toggle("qractive");
-
       this.qrScanner.destroy();
-
     });
 
-    // Check for Offline Mode
-    this.nativeStorage.getItem('isOffline')
-    .then(
-      data => {
-        this.localGET();
-      },
-      error => this.restGET()
-    );
-
-
+    // Android go Back
+    this.platform.backButton.subscribeWithPriority(10, () => {
+      this.router.navigate(['..']);
+    });
   }
 
+  route(id) {
+    this.router.navigate(['/article/', id]);
+  }
 
   // Get Local Data
   localGET() {
@@ -105,6 +99,7 @@ export class LocationPage {
                   this.coords = element.coords;
               }
             });
+            this.callGeoInterval();
           },
           error => console.log(error)
         );
@@ -123,6 +118,7 @@ export class LocationPage {
          .then(data => {
            this.content = JSON.parse(data.data); // data received by server
            this.coords = this.content.coords;
+           this.callGeoInterval();
          })
          .catch(error => {
            console.log(error.status);
@@ -137,11 +133,19 @@ export class LocationPage {
     clearInterval(this.interval);
   }
 
+  callGeoInterval() {
+    // Call and Update geo Location
+    this.interval = setInterval(() =>
+      this.getCurrentLocation()
+    , 1000);
+  }
+
   // Call and set current geo location
   async getCurrentLocation() {
     let position = await Geolocation.getCurrentPosition();
     this.latitude = position.coords.latitude;
     this.longitude = position.coords.longitude;
+
 
     let height = this.coords.leftTop.lat - this.coords.rightBot.lat;
     let width = this.coords.rightBot.lon - this.coords.leftTop.lon;
@@ -257,9 +261,6 @@ export class LocationPage {
           // Use Class to Toggle Backgound Visibility
           document.getElementsByTagName('body')[0].classList.toggle("qractive");
           console.log("AUTHORIZED ");
-
-          // console.log(this.content.children);
-
 
           // debugger
           let scanSub = this.qrScanner.scan()

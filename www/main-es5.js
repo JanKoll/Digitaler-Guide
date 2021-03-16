@@ -147,7 +147,7 @@
       "M2ZX");
 
       var AppComponent = /*#__PURE__*/function () {
-        function AppComponent(platform, splashScreen, statusBar, router, http, iab, nativeStorage) {
+        function AppComponent(platform, splashScreen, statusBar, router, http, iab, nativeStorage, loadingController) {
           var _this = this;
 
           _classCallCheck(this, AppComponent);
@@ -159,24 +159,64 @@
           this.http = http;
           this.iab = iab;
           this.nativeStorage = nativeStorage;
-          this.initializeApp(); // Check for Offline Mode
+          this.loadingController = loadingController;
+          this.initializeApp(); // Check / Get Current Language
 
-          this.nativeStorage.getItem('isOffline').then(function (data) {
-            _this.localGET();
+          this.nativeStorage.getItem('language').then(function (data) {
+            _this.lang = data;
+
+            _this.callData();
           }, function (error) {
-            return _this.restGET();
+            _this.toggleLang('de');
+
+            _this.callData();
           });
-        } // Get Local Data
+        } // Call Data
 
 
         _createClass(AppComponent, [{
-          key: "localGET",
-          value: function localGET() {
+          key: "callData",
+          value: function callData() {
             var _this2 = this;
 
+            // Check for Offline Mode
+            this.nativeStorage.getItem('isOffline').then(function (data) {
+              _this2.localGET();
+
+              _this2.offline = true;
+            }, function (error) {
+              return _this2.restGET();
+            });
+          } // Toggle Language
+
+        }, {
+          key: "toggleLang",
+          value: function toggleLang(code) {
+            var _this3 = this;
+
+            console.log(code);
+            this.nativeStorage.setItem('language', code).then(function (data) {
+              _this3.loadingController.create({
+                duration: 500
+              }).then(function (res) {
+                res.present();
+                res.onDidDismiss().then(function (dis) {
+                  window.location.reload();
+                });
+              });
+            }, function (error) {
+              return console.error('Error storing item', error);
+            });
+          } // Get Local Data
+
+        }, {
+          key: "localGET",
+          value: function localGET() {
+            var _this4 = this;
+
             this.nativeStorage.getItem('database').then(function (data) {
-              _this2.mainNav = data.main;
-              _this2.metaNav = data.meta;
+              _this4.mainNav = data.main;
+              _this4.metaNav = data.meta;
             }, function (error) {
               return console.log(error);
             });
@@ -185,12 +225,12 @@
         }, {
           key: "restGET",
           value: function restGET() {
-            var _this3 = this;
+            var _this5 = this;
 
             // HTTP Request Main
             this.http.useBasicAuth('mail@example.de', 'Raute123');
-            this.http.get('https://api.jankoll.de/rest/main', {}, {}).then(function (data) {
-              _this3.mainNav = JSON.parse(data.data); // data received by server
+            this.http.get("https://api.jankoll.de/rest/".concat(this.lang, "/main"), {}, {}).then(function (data) {
+              _this5.mainNav = JSON.parse(data.data); // data received by server
             })["catch"](function (error) {
               console.log(error.status);
               console.log(error.error); // error message as string
@@ -198,8 +238,8 @@
               console.log(error.headers);
             }); // HTTP Request Meta
 
-            this.http.get('https://api.jankoll.de/rest/meta', {}, {}).then(function (data) {
-              _this3.metaNav = JSON.parse(data.data); // data received by server
+            this.http.get("https://api.jankoll.de/rest/".concat(this.lang, "/meta"), {}, {}).then(function (data) {
+              _this5.metaNav = JSON.parse(data.data); // data received by server
             })["catch"](function (error) {
               console.log(error.status);
               console.log(error.error); // error message as string
@@ -210,12 +250,12 @@
         }, {
           key: "initializeApp",
           value: function initializeApp() {
-            var _this4 = this;
+            var _this6 = this;
 
             this.platform.ready().then(function () {
-              _this4.statusBar.styleDefault();
+              _this6.statusBar.styleDefault();
 
-              _this4.splashScreen.hide();
+              _this6.splashScreen.hide();
             });
           }
         }, {
@@ -243,6 +283,8 @@
           type: _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_9__["InAppBrowser"]
         }, {
           type: _ionic_native_native_storage_ngx__WEBPACK_IMPORTED_MODULE_10__["NativeStorage"]
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["LoadingController"]
         }];
       };
 
@@ -270,7 +312,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-app>\n  <ion-split-pane contentId=\"location-content\">\n    <ion-menu contentId=\"location-content\" type=\"overlay\" side=\"end\">\n      <ion-content color=\"primary\">\n\n        <ion-header class=\"ion-no-border\">\n          <ion-toolbar color=\"none\">\n            <ion-buttons slot=\"start\">\n              <ion-menu-button color=\"light\"></ion-menu-button>\n            </ion-buttons>\n          </ion-toolbar>\n        </ion-header>\n\n        <ion-list id=\"inbox-list\" *ngIf=\"mainNav\">\n          <div *ngFor=\"let item of mainNav\"\n          [ngSwitch]=\"item.type[0].name\" class=\"section-wrap\">\n\n            <!-- Location -->\n            <div *ngSwitchCase=\"'location'\">\n              <ion-menu-toggle auto-hide=\"false\">\n                <ion-list-header routerLink=\"/{{ item.type[0].name }}/{{ item.id }}\">{{ item.title }}</ion-list-header>\n              </ion-menu-toggle>\n\n              <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let child of item.children\">\n                <ion-item routerDirection=\"forward\" [routerLink]=\"['/article/', child.id]\" lines=\"none\" detail=\"false\">\n                  <ion-label>{{ child.title }}</ion-label>\n                </ion-item>\n              </ion-menu-toggle>\n            </div>\n\n            <!-- WebView -->\n            <div *ngSwitchCase=\"'webview'\">\n              <ion-menu-toggle auto-hide=\"false\">\n                <ion-list-header (click)=\"createInAppBrowser( item.link.value )\">{{ item.title }}</ion-list-header>\n              </ion-menu-toggle>\n            </div>\n\n            <!-- Defautl -->\n            <div *ngSwitchDefault>\n              <ion-menu-toggle auto-hide=\"false\">\n                <ion-list-header routerLink=\"/article/{{ item.id }}\">{{ item.title }}</ion-list-header>\n              </ion-menu-toggle>\n            </div>\n          </div>\n        </ion-list>\n\n        <div class=\"meta\">\n          <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let item of metaNav\">\n            <div [routerLink]=\"['/article/', item.id]\">{{ item.title }}</div>\n          </ion-menu-toggle>\n        </div>\n\n      </ion-content>\n    </ion-menu>\n    <ion-router-outlet id=\"location-content\"></ion-router-outlet>\n  </ion-split-pane>\n</ion-app>\n";
+      __webpack_exports__["default"] = "<ion-app>\n  <ion-split-pane contentId=\"location-content\">\n    <ion-menu contentId=\"location-content\" type=\"overlay\" side=\"end\">\n      <ion-content color=\"primary\">\n\n        <ion-header class=\"ion-no-border\">\n          <ion-toolbar color=\"none\">\n\n            <ion-buttons slot=\"end\" class=\"language\" [class.disabeld]=\"offline\">\n              <ion-button (click)=\"toggleLang('de')\" [class.bold]=\"lang == 'de'\">DE</ion-button>\n              <ion-button (click)=\"toggleLang('en')\" [class.bold]=\"lang == 'en'\">EN</ion-button>\n            </ion-buttons>\n\n            <ion-buttons slot=\"start\">\n              <ion-menu-button color=\"light\"></ion-menu-button>\n            </ion-buttons>\n          </ion-toolbar>\n        </ion-header>\n\n        <ion-list id=\"inbox-list\" *ngIf=\"mainNav\">\n          <div *ngFor=\"let item of mainNav\"\n          [ngSwitch]=\"item.type[0].name\" class=\"section-wrap\">\n\n            <!-- Location -->\n            <div *ngSwitchCase=\"'location'\">\n              <ion-menu-toggle auto-hide=\"false\">\n                <ion-list-header routerLink=\"/{{ item.type[0].name }}/{{ item.id }}\">{{ item.title }}</ion-list-header>\n              </ion-menu-toggle>\n\n              <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let child of item.children\">\n                <ion-item routerDirection=\"forward\" [routerLink]=\"['/article/', child.id]\" lines=\"none\" detail=\"false\">\n                  <ion-label>{{ child.title }}</ion-label>\n                </ion-item>\n              </ion-menu-toggle>\n            </div>\n\n            <!-- WebView -->\n            <div *ngSwitchCase=\"'webview'\">\n              <ion-menu-toggle auto-hide=\"false\">\n                <ion-list-header (click)=\"createInAppBrowser( item.link.value )\">{{ item.title }}</ion-list-header>\n              </ion-menu-toggle>\n            </div>\n\n            <!-- Defautl -->\n            <div *ngSwitchDefault>\n              <ion-menu-toggle auto-hide=\"false\">\n                <ion-list-header routerLink=\"/article/{{ item.id }}\">{{ item.title }}</ion-list-header>\n              </ion-menu-toggle>\n            </div>\n          </div>\n        </ion-list>\n\n        <div class=\"meta\">\n          <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let item of metaNav\">\n            <div [routerLink]=\"['/article/', item.id]\">{{ item.title }}</div>\n          </ion-menu-toggle>\n        </div>\n\n      </ion-content>\n    </ion-menu>\n    <ion-router-outlet id=\"location-content\"></ion-router-outlet>\n  </ion-split-pane>\n</ion-app>\n";
       /***/
     },
 

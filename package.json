@@ -1,5 +1,5 @@
 {
-  "name": "Maxcine",
+  "name": "MaxCine",
   "version": "0.9.0",
   "author": "Ionic Framework",
   "homepage": "https://ionicframework.com/",
@@ -24,7 +24,7 @@
     "@capacitor/core": "2.4.3",
     "@capacitor/ios": "^2.4.3",
     "@ionic-native/core": "^5.0.0",
-    "@ionic-native/geolocation": "^5.30.0",
+    "@ionic-native/geolocation": "^5.31.1",
     "@ionic-native/http": "^5.31.1",
     "@ionic-native/in-app-browser": "^5.31.1",
     "@ionic-native/native-storage": "^5.31.1",

@@ -1,6 +1,6 @@
 {
   "appId": "jan.koll",
-  "appName": "Maxcine",
+  "appName": "MaxCine",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",
