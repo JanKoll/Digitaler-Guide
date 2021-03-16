@@ -266,6 +266,12 @@ export class LocationPage {
           document.getElementsByTagName('body')[0].classList.toggle("qractive");
           console.log("AUTHORIZED ");
 
+          // Exit on android back
+          this.platform.backButton.subscribeWithPriority(15, () => {
+            document.getElementsByTagName('body')[0].classList.toggle("qractive");
+            this.qrScanner.destroy();
+          });
+
           // debugger
           let scanSub = this.qrScanner.scan()
             .subscribe((textFound: string) => {

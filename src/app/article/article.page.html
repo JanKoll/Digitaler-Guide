@@ -75,7 +75,17 @@
 
         <!-- video -->
         <div *ngSwitchCase="'youtube'">
-          <iframe [src]="updateVideoUrl(item.content.url)" allowfullscreen>Ups, da ist etwas schief gelaufen!</iframe>
+          <div *ngIf="youtube.allowed; else elseBlock">
+            <iframe [src]="updateVideoUrl(item.content.url)" allowfullscreen>Ups, da ist etwas schief gelaufen!</iframe>
+          </div>
+          <ng-template #elseBlock>
+            <p>{{ youtube.msg }}</p>
+            <p><a href="{{ item.content.url }}" style="color: #ffffff">YouTube Link</a></p>
+
+            <ion-button color="light" expand="full" (click)="allowYoutube()">{{ youtube.btn }}</ion-button>
+          </ng-template>
+
+          <!-- <iframe [src]="updateVideoUrl(item.content.url)" allowfullscreen>Ups, da ist etwas schief gelaufen!</iframe> -->
         </div>
 
         <!-- audio -->
