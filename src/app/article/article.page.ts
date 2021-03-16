@@ -58,6 +58,18 @@ export class ArticlePage {
     });
   }
 
+  goBack() {
+    this.activatedRoute.params.subscribe(params => {
+      let path = params['articleId'].split("/");
+
+      if (path.length > 1) {
+        this.router.navigate(['location', path[0]]);
+      } else {
+        this.router.navigate(['..']);
+      }
+    });
+  }
+
 
   // Get Local Data
   localGET() {

@@ -85,6 +85,10 @@ export class LocationPage {
     this.router.navigate(['/article/', id]);
   }
 
+  goBack() {
+    this.router.navigate(['..']);
+  }
+
   // Get Local Data
   localGET() {
     this.activatedRoute.params.subscribe(params => {
