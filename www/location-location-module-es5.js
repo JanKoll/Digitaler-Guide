@@ -738,7 +738,7 @@
 
 
       var LocationPage = /*#__PURE__*/function () {
-        function LocationPage(modalCtrl, platform, alertController, sanitizer, qrScanner, zone, router, activatedRoute, http, nativeStorage) {
+        function LocationPage(modalCtrl, platform, alertController, sanitizer, qrScanner, zone, router, activatedRoute, http, loadingController, nativeStorage) {
           var _this3 = this;
 
           _classCallCheck(this, LocationPage);
@@ -752,6 +752,7 @@
           this.router = router;
           this.activatedRoute = activatedRoute;
           this.http = http;
+          this.loadingController = loadingController;
           this.nativeStorage = nativeStorage; // Check / Get Current Language
 
           this.nativeStorage.getItem('language').then(function (data) {
@@ -798,49 +799,105 @@
         }, {
           key: "localGET",
           value: function localGET() {
-            var _this4 = this;
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+              var _this4 = this;
 
-            this.activatedRoute.params.subscribe(function (params) {
-              var path = params['locationId'];
+              var loading;
+              return regeneratorRuntime.wrap(function _callee3$(_context3) {
+                while (1) {
+                  switch (_context3.prev = _context3.next) {
+                    case 0:
+                      _context3.next = 2;
+                      return this.loadingController.create({
+                        cssClass: 'spinner'
+                      });
 
-              _this4.nativeStorage.getItem('database').then(function (data) {
-                data.main.forEach(function (element) {
-                  if (element.id == path) {
-                    _this4.content = element;
-                    _this4.coords = element.coords;
+                    case 2:
+                      loading = _context3.sent;
+                      _context3.next = 5;
+                      return loading.present();
+
+                    case 5:
+                      this.activatedRoute.params.subscribe(function (params) {
+                        var path = params['locationId'];
+
+                        _this4.nativeStorage.getItem('database').then(function (data) {
+                          data.main.forEach(function (element) {
+                            if (element.id == path) {
+                              _this4.content = element;
+                              _this4.coords = element.coords;
+                            }
+                          });
+
+                          _this4.callGeoInterval();
+
+                          loading.dismiss();
+                        }, function (error) {
+                          console.log(error);
+                          loading.dismiss();
+                        });
+                      });
+
+                    case 6:
+                    case "end":
+                      return _context3.stop();
                   }
-                });
-
-                _this4.callGeoInterval();
-              }, function (error) {
-                return console.log(error);
-              });
-            });
+                }
+              }, _callee3, this);
+            }));
           } // Get Rest Data
 
         }, {
           key: "restGET",
           value: function restGET() {
-            var _this5 = this;
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+              var _this5 = this;
 
-            this.activatedRoute.params.subscribe(function (params) {
-              // REST Authentication
-              _this5.http.useBasicAuth('mail@example.de', 'Raute123'); //HTTP GET
+              var loading;
+              return regeneratorRuntime.wrap(function _callee4$(_context4) {
+                while (1) {
+                  switch (_context4.prev = _context4.next) {
+                    case 0:
+                      _context4.next = 2;
+                      return this.loadingController.create({
+                        cssClass: 'spinner'
+                      });
+
+                    case 2:
+                      loading = _context4.sent;
+                      _context4.next = 5;
+                      return loading.present();
+
+                    case 5:
+                      this.activatedRoute.params.subscribe(function (params) {
+                        // REST Authentication
+                        _this5.http.useBasicAuth('mail@example.de', 'Raute123'); //HTTP GET
 
 
-              _this5.http.get("https://api.jankoll.de/rest/".concat(_this5.lang, "/map/").concat(params['locationId']), {}, {}).then(function (data) {
-                _this5.content = JSON.parse(data.data); // data received by server
+                        _this5.http.get("https://api.jankoll.de/rest/".concat(_this5.lang, "/map/").concat(params['locationId']), {}, {}).then(function (data) {
+                          _this5.content = JSON.parse(data.data); // data received by server
 
-                _this5.coords = _this5.content.coords;
+                          _this5.coords = _this5.content.coords;
 
-                _this5.callGeoInterval();
-              })["catch"](function (error) {
-                console.log(error.status);
-                console.log(error.error); // error message as string
+                          _this5.callGeoInterval();
 
-                console.log(error.headers);
-              });
-            });
+                          loading.dismiss();
+                        })["catch"](function (error) {
+                          console.log(error.status);
+                          console.log(error.error); // error message as string
+
+                          console.log(error.headers);
+                          loading.dismiss();
+                        });
+                      });
+
+                    case 6:
+                    case "end":
+                      return _context4.stop();
+                  }
+                }
+              }, _callee4, this);
+            }));
           }
         }, {
           key: "ionViewWillLeave",
@@ -861,19 +918,19 @@
         }, {
           key: "getCurrentLocation",
           value: function getCurrentLocation() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
               var _this7 = this;
 
               var position, height, width;
-              return regeneratorRuntime.wrap(function _callee3$(_context3) {
+              return regeneratorRuntime.wrap(function _callee5$(_context5) {
                 while (1) {
-                  switch (_context3.prev = _context3.next) {
+                  switch (_context5.prev = _context5.next) {
                     case 0:
-                      _context3.next = 2;
+                      _context5.next = 2;
                       return _ionic_native_geolocation__WEBPACK_IMPORTED_MODULE_6__["Geolocation"].getCurrentPosition();
 
                     case 2:
-                      position = _context3.sent;
+                      position = _context5.sent;
                       this.latitude = position.coords.latitude;
                       this.longitude = position.coords.longitude;
                       height = this.coords.leftTop.lat - this.coords.rightBot.lat;
@@ -889,10 +946,10 @@
 
                     case 9:
                     case "end":
-                      return _context3.stop();
+                      return _context5.stop();
                   }
                 }
-              }, _callee3, this);
+              }, _callee5, this);
             }));
           } // Set artefact geo location
 
@@ -909,13 +966,13 @@
         }, {
           key: "showModal",
           value: function showModal(id) {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
               var modal;
-              return regeneratorRuntime.wrap(function _callee4$(_context4) {
+              return regeneratorRuntime.wrap(function _callee6$(_context6) {
                 while (1) {
-                  switch (_context4.prev = _context4.next) {
+                  switch (_context6.prev = _context6.next) {
                     case 0:
-                      _context4.next = 2;
+                      _context6.next = 2;
                       return this.modalCtrl.create({
                         component: _components_article_preview_article_preview_component__WEBPACK_IMPORTED_MODULE_9__["ArticlePreviewComponent"],
                         componentProps: {
@@ -927,28 +984,28 @@
                       });
 
                     case 2:
-                      modal = _context4.sent;
-                      _context4.next = 5;
+                      modal = _context6.sent;
+                      _context6.next = 5;
                       return modal.present();
 
                     case 5:
                     case "end":
-                      return _context4.stop();
+                      return _context6.stop();
                   }
                 }
-              }, _callee4, this);
+              }, _callee6, this);
             }));
           }
         }, {
           key: "legend",
           value: function legend() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
               var modal;
-              return regeneratorRuntime.wrap(function _callee5$(_context5) {
+              return regeneratorRuntime.wrap(function _callee7$(_context7) {
                 while (1) {
-                  switch (_context5.prev = _context5.next) {
+                  switch (_context7.prev = _context7.next) {
                     case 0:
-                      _context5.next = 2;
+                      _context7.next = 2;
                       return this.modalCtrl.create({
                         component: _components_legend_legend_component__WEBPACK_IMPORTED_MODULE_10__["LegendComponent"],
                         // backdropDismiss:false,
@@ -957,29 +1014,29 @@
                       });
 
                     case 2:
-                      modal = _context5.sent;
-                      _context5.next = 5;
+                      modal = _context7.sent;
+                      _context7.next = 5;
                       return modal.present();
 
                     case 5:
                     case "end":
-                      return _context5.stop();
+                      return _context7.stop();
                   }
                 }
-              }, _callee5, this);
+              }, _callee7, this);
             }));
           } // QR-Code Functions
 
         }, {
           key: "accessCamera",
           value: function accessCamera() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
               var _this8 = this;
 
               var title, msg, cancel, sett, alert;
-              return regeneratorRuntime.wrap(function _callee6$(_context6) {
+              return regeneratorRuntime.wrap(function _callee8$(_context8) {
                 while (1) {
-                  switch (_context6.prev = _context6.next) {
+                  switch (_context8.prev = _context8.next) {
                     case 0:
                       title = 'Kamera deaktiviert';
                       msg = 'Wenn du einen QR-Code Scannen möchtest, erlaube bitte den Kamera zugriff in den Einstellungen.';
@@ -993,7 +1050,7 @@
                         sett = 'Settings';
                       }
 
-                      _context6.next = 7;
+                      _context8.next = 7;
                       return this.alertController.create({
                         header: title,
                         message: msg,
@@ -1010,26 +1067,26 @@
                       });
 
                     case 7:
-                      alert = _context6.sent;
-                      _context6.next = 10;
+                      alert = _context8.sent;
+                      _context8.next = 10;
                       return alert.present();
 
                     case 10:
                     case "end":
-                      return _context6.stop();
+                      return _context8.stop();
                   }
                 }
-              }, _callee6, this);
+              }, _callee8, this);
             }));
           }
         }, {
           key: "undefinedQrCode",
           value: function undefinedQrCode() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
               var title, msg, alert;
-              return regeneratorRuntime.wrap(function _callee7$(_context7) {
+              return regeneratorRuntime.wrap(function _callee9$(_context9) {
                 while (1) {
-                  switch (_context7.prev = _context7.next) {
+                  switch (_context9.prev = _context9.next) {
                     case 0:
                       title = 'Fehler';
                       msg = 'Der QR-Code ist entweder nicht leserlich oder gehört nicht zur Tour.';
@@ -1039,7 +1096,7 @@
                         msg = 'The QR code is either not readable or does not belong to the tour.';
                       }
 
-                      _context7.next = 5;
+                      _context9.next = 5;
                       return this.alertController.create({
                         header: title,
                         message: msg,
@@ -1047,16 +1104,16 @@
                       });
 
                     case 5:
-                      alert = _context7.sent;
-                      _context7.next = 8;
+                      alert = _context9.sent;
+                      _context9.next = 8;
                       return alert.present();
 
                     case 8:
                     case "end":
-                      return _context7.stop();
+                      return _context9.stop();
                   }
                 }
-              }, _callee7, this);
+              }, _callee9, this);
             }));
           }
         }, {
@@ -1145,6 +1202,8 @@
           type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"]
         }, {
           type: _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_11__["HTTP"]
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["LoadingController"]
         }, {
           type: _ionic_native_native_storage_ngx__WEBPACK_IMPORTED_MODULE_12__["NativeStorage"]
         }];

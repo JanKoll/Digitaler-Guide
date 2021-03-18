@@ -29,7 +29,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ArticlePage = class ArticlePage {
-    constructor(activatedRoute, sanitizer, platform, alertController, router, navCtrl, http, nativeStorage) {
+    constructor(activatedRoute, sanitizer, platform, alertController, router, navCtrl, http, loadingController, nativeStorage) {
         this.activatedRoute = activatedRoute;
         this.sanitizer = sanitizer;
         this.platform = platform;
@@ -37,6 +37,7 @@ let ArticlePage = class ArticlePage {
         this.router = router;
         this.navCtrl = navCtrl;
         this.http = http;
+        this.loadingController = loadingController;
         this.nativeStorage = nativeStorage;
         // Check / Get Current Language
         this.nativeStorage.getItem('language')
@@ -81,7 +82,7 @@ let ArticlePage = class ArticlePage {
     goBack() {
         this.activatedRoute.params.subscribe(params => {
             let path = params['articleId'].split("/");
-            if (path.length > 1) {
+            if (path.length > 1 || this.content.children) {
                 this.router.navigate(['location', path[0]]);
             }
             else {
@@ -91,100 +92,134 @@ let ArticlePage = class ArticlePage {
     }
     // Get Local Data
     localGET() {
-        this.activatedRoute.params.subscribe(params => {
-            let path = params['articleId'].split("/");
-            this.nativeStorage.getItem('database')
-                .then(data => {
-                // If page has Children (Is Locatoin)
-                if (path.length > 1) {
-                    data.main.forEach(element => {
-                        if (element.id == path[0]) {
-                            element.children.forEach(child => {
-                                if (child.id == params.articleId) {
-                                    this.content = child;
-                                    this.template = 'article';
-                                    this.title = child.title;
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            const loading = yield this.loadingController.create({
+                cssClass: 'spinner',
+            });
+            yield loading.present();
+            this.activatedRoute.params.subscribe(params => {
+                console.log(params);
+                console.log("Hallo?!");
+                let path = params['articleId'].split("/");
+                this.nativeStorage.getItem('database')
+                    .then(data => {
+                    // If page has Children (Is Locatoin)
+                    if (path.length > 1) {
+                        data.main.forEach(element => {
+                            if (element.id == path[0]) {
+                                element.children.forEach(child => {
+                                    if (child.id == params.articleId) {
+                                        this.content = child;
+                                        this.template = 'article';
+                                        this.title = child.title;
+                                    }
+                                });
+                            }
+                        });
+                    }
+                    else {
+                        data.meta.forEach(element => {
+                            if (element.id == params.articleId) {
+                                this.content = element;
+                                this.template = 'default';
+                                if (!element.children) {
+                                    this.title = element.title;
                                 }
-                            });
-                        }
-                    });
-                }
-                else {
-                    data.meta.forEach(element => {
-                        if (element.id == params.articleId) {
-                            this.content = element;
-                            this.template = 'default';
-                            if (!element.children) {
-                                this.title = element.title;
-                            }
-                            else {
-                                let title = "Geschichte";
-                                if (this.lang == 'en') {
-                                    title = "Story";
+                                else {
+                                    let title = "Geschichte";
+                                    if (this.lang == 'en') {
+                                        title = "Story";
+                                    }
+                                    this.title = title;
                                 }
-                                this.title = title;
                             }
-                        }
-                    });
-                }
-            }, error => {
-                let errTitle = "Fehler";
-                let errText = "Fehler: Ups! Da ist etwas schiefgelaufen. Versuche bitte die Inhalte noch einmal herunterzuladen.";
-                if (this.lang == 'en') {
-                    errTitle = "Error";
-                    errText = "Ups! Something went wrong. Please try to download the content again.";
-                }
-                this.content = {
-                    "id": "error",
-                    "title": errTitle,
-                    "template": "default",
-                    "content": [
-                        {
-                            "content": {
-                                "level": "h2",
-                                "text": errText
+                        });
+                        data.main.forEach(element => {
+                            if (element.id == params.articleId) {
+                                this.content = element;
+                                this.template = 'default';
+                                if (!element.children) {
+                                    this.title = element.title;
+                                }
+                                else {
+                                    let title = "Geschichte";
+                                    if (this.lang == 'en') {
+                                        title = "Story";
+                                    }
+                                    this.title = title;
+                                }
                             }
-                        }
-                    ]
-                };
-                this.title = errTitle;
-                console.log(error);
+                        });
+                    }
+                    loading.dismiss();
+                }, error => {
+                    let errTitle = "Fehler";
+                    let errText = "Fehler: Ups! Da ist etwas schiefgelaufen. Versuche bitte die Inhalte noch einmal herunterzuladen.";
+                    if (this.lang == 'en') {
+                        errTitle = "Error";
+                        errText = "Ups! Something went wrong. Please try to download the content again.";
+                    }
+                    this.content = {
+                        "id": "error",
+                        "title": errTitle,
+                        "template": "default",
+                        "content": [
+                            {
+                                "content": {
+                                    "level": "h2",
+                                    "text": errText
+                                }
+                            }
+                        ]
+                    };
+                    this.title = errTitle;
+                    loading.dismiss();
+                    console.log(error);
+                });
             });
         });
     }
     // Get Rest Data
     restGET() {
-        this.activatedRoute.params.subscribe(params => {
-            let path = params['articleId'].split("/");
-            let url = undefined;
-            if (path.length > 1) {
-                url = `https://api.jankoll.de/rest/${this.lang}/article/${path[0]}/${path[path.length - 1]}`;
-                this.template = 'article';
-            }
-            else {
-                url = `https://api.jankoll.de/rest/${this.lang}/article/${path[path.length - 1]}`;
-                this.template = 'default';
-            }
-            // HTTP Request
-            this.http.useBasicAuth('mail@example.de', 'Raute123');
-            this.http.get(url, {}, {})
-                .then(data => {
-                this.content = JSON.parse(data.data); // data received by server
-                if (!this.content.children) {
-                    this.title = this.content.title;
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            const loading = yield this.loadingController.create({
+                cssClass: 'spinner',
+            });
+            yield loading.present();
+            this.activatedRoute.params.subscribe(params => {
+                let path = params['articleId'].split("/");
+                let url = undefined;
+                if (path.length > 1) {
+                    url = `https://api.jankoll.de/rest/${this.lang}/article/${path[0]}/${path[path.length - 1]}`;
+                    this.template = 'article';
                 }
                 else {
-                    let title = "Geschichte";
-                    if (this.lang == 'en') {
-                        title = "Story";
-                    }
-                    this.title = title;
+                    url = `https://api.jankoll.de/rest/${this.lang}/article/${path[path.length - 1]}`;
+                    this.template = 'default';
                 }
-            })
-                .catch(error => {
-                console.log(error.status);
-                console.log(error.error); // error message as string
-                console.log(error.headers);
+                // HTTP Request
+                this.http.useBasicAuth('mail@example.de', 'Raute123');
+                this.http.get(url, {}, {})
+                    .then(data => {
+                    this.content = JSON.parse(data.data); // data received by server
+                    if (!this.content.children) {
+                        this.title = this.content.title;
+                    }
+                    else {
+                        let title = "Geschichte";
+                        if (this.lang == 'en') {
+                            title = "Story";
+                        }
+                        this.title = title;
+                    }
+                    loading.dismiss();
+                })
+                    .catch(error => {
+                    console.log(error.status);
+                    console.log(error.error); // error message as string
+                    console.log(error.headers);
+                    loading.dismiss();
+                });
             });
         });
     }
@@ -252,6 +287,7 @@ ArticlePage.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["NavController"] },
     { type: _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_7__["HTTP"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["LoadingController"] },
     { type: _ionic_native_native_storage_ngx__WEBPACK_IMPORTED_MODULE_8__["NativeStorage"] }
 ];
 ArticlePage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([

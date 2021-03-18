@@ -121,3 +121,10 @@ ion-toolbar {
 .ion-padding-horizontal {
   padding: 0 2.5rem;
 }
+
+.spinner {
+  // overflow: hidden !important;
+  // --background: transparent;
+  // --spinner-color: #EEEEEE;
+  --backdrop-opacity: 0;
+}
