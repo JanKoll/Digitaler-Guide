@@ -1,6 +1,6 @@
 import { Component, NgZone } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ModalController, Platform, AlertController } from '@ionic/angular';
+import { ModalController, Platform, AlertController, LoadingController } from '@ionic/angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 
@@ -43,6 +43,7 @@ export class LocationPage {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private http: HTTP,
+    public loadingController: LoadingController,
     private nativeStorage: NativeStorage
   )  {
     // Check / Get Current Language
@@ -90,7 +91,12 @@ export class LocationPage {
   }
 
   // Get Local Data
-  localGET() {
+  async localGET() {
+    const loading = await this.loadingController.create({
+      cssClass: 'spinner',
+    });
+    await loading.present();
+
     this.activatedRoute.params.subscribe(params => {
       let path = params['locationId'];
 
@@ -104,16 +110,24 @@ export class LocationPage {
               }
             });
             this.callGeoInterval();
+            loading.dismiss();
           },
-          error => console.log(error)
+          error => {
+            console.log(error);
+            loading.dismiss();
+          }
         );
     });
   }
 
   // Get Rest Data
-  restGET() {
-    this.activatedRoute.params.subscribe(params => {
+  async restGET() {
+    const loading = await this.loadingController.create({
+      cssClass: 'spinner',
+    });
+    await loading.present();
 
+    this.activatedRoute.params.subscribe(params => {
          // REST Authentication
          this.http.useBasicAuth('mail@example.de', 'Raute123');
 
@@ -123,11 +137,13 @@ export class LocationPage {
            this.content = JSON.parse(data.data); // data received by server
            this.coords = this.content.coords;
            this.callGeoInterval();
+           loading.dismiss();
          })
          .catch(error => {
            console.log(error.status);
            console.log(error.error); // error message as string
            console.log(error.headers);
+           loading.dismiss();
          });
     });
   }

@@ -81,7 +81,7 @@
       "M2ZX");
 
       var ArticlePage = /*#__PURE__*/function () {
-        function ArticlePage(activatedRoute, sanitizer, platform, alertController, router, navCtrl, http, nativeStorage) {
+        function ArticlePage(activatedRoute, sanitizer, platform, alertController, router, navCtrl, http, loadingController, nativeStorage) {
           var _this = this;
 
           _classCallCheck(this, ArticlePage);
@@ -93,6 +93,7 @@
           this.router = router;
           this.navCtrl = navCtrl;
           this.http = http;
+          this.loadingController = loadingController;
           this.nativeStorage = nativeStorage; // Check / Get Current Language
 
           this.nativeStorage.getItem('language').then(function (data) {
@@ -152,7 +153,7 @@
             this.activatedRoute.params.subscribe(function (params) {
               var path = params['articleId'].split("/");
 
-              if (path.length > 1) {
+              if (path.length > 1 || _this2.content.children) {
                 _this2.router.navigate(['location', path[0]]);
               } else {
                 _this2.router.navigate(['..']);
@@ -163,124 +164,200 @@
         }, {
           key: "localGET",
           value: function localGET() {
-            var _this3 = this;
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+              var _this3 = this;
 
-            this.activatedRoute.params.subscribe(function (params) {
-              var path = params['articleId'].split("/");
-
-              _this3.nativeStorage.getItem('database').then(function (data) {
-                // If page has Children (Is Locatoin)
-                if (path.length > 1) {
-                  data.main.forEach(function (element) {
-                    if (element.id == path[0]) {
-                      element.children.forEach(function (child) {
-                        if (child.id == params.articleId) {
-                          _this3.content = child;
-                          _this3.template = 'article';
-                          _this3.title = child.title;
-                        }
+              var loading;
+              return regeneratorRuntime.wrap(function _callee$(_context) {
+                while (1) {
+                  switch (_context.prev = _context.next) {
+                    case 0:
+                      _context.next = 2;
+                      return this.loadingController.create({
+                        cssClass: 'spinner'
                       });
-                    }
-                  });
-                } else {
-                  data.meta.forEach(function (element) {
-                    if (element.id == params.articleId) {
-                      _this3.content = element;
-                      _this3.template = 'default';
 
-                      if (!element.children) {
-                        _this3.title = element.title;
-                      } else {
-                        var title = "Geschichte";
+                    case 2:
+                      loading = _context.sent;
+                      _context.next = 5;
+                      return loading.present();
 
-                        if (_this3.lang == 'en') {
-                          title = "Story";
-                        }
+                    case 5:
+                      this.activatedRoute.params.subscribe(function (params) {
+                        console.log(params);
+                        console.log("Hallo?!");
+                        var path = params['articleId'].split("/");
 
-                        _this3.title = title;
-                      }
-                    }
-                  });
+                        _this3.nativeStorage.getItem('database').then(function (data) {
+                          // If page has Children (Is Locatoin)
+                          if (path.length > 1) {
+                            data.main.forEach(function (element) {
+                              if (element.id == path[0]) {
+                                element.children.forEach(function (child) {
+                                  if (child.id == params.articleId) {
+                                    _this3.content = child;
+                                    _this3.template = 'article';
+                                    _this3.title = child.title;
+                                  }
+                                });
+                              }
+                            });
+                          } else {
+                            data.meta.forEach(function (element) {
+                              if (element.id == params.articleId) {
+                                _this3.content = element;
+                                _this3.template = 'default';
+
+                                if (!element.children) {
+                                  _this3.title = element.title;
+                                } else {
+                                  var title = "Geschichte";
+
+                                  if (_this3.lang == 'en') {
+                                    title = "Story";
+                                  }
+
+                                  _this3.title = title;
+                                }
+                              }
+                            });
+                            data.main.forEach(function (element) {
+                              if (element.id == params.articleId) {
+                                _this3.content = element;
+                                _this3.template = 'default';
+
+                                if (!element.children) {
+                                  _this3.title = element.title;
+                                } else {
+                                  var title = "Geschichte";
+
+                                  if (_this3.lang == 'en') {
+                                    title = "Story";
+                                  }
+
+                                  _this3.title = title;
+                                }
+                              }
+                            });
+                          }
+
+                          loading.dismiss();
+                        }, function (error) {
+                          var errTitle = "Fehler";
+                          var errText = "Fehler: Ups! Da ist etwas schiefgelaufen. Versuche bitte die Inhalte noch einmal herunterzuladen.";
+
+                          if (_this3.lang == 'en') {
+                            errTitle = "Error";
+                            errText = "Ups! Something went wrong. Please try to download the content again.";
+                          }
+
+                          _this3.content = {
+                            "id": "error",
+                            "title": errTitle,
+                            "template": "default",
+                            "content": [{
+                              "content": {
+                                "level": "h2",
+                                "text": errText
+                              }
+                            }]
+                          };
+                          _this3.title = errTitle;
+                          loading.dismiss();
+                          console.log(error);
+                        });
+                      });
+
+                    case 6:
+                    case "end":
+                      return _context.stop();
+                  }
                 }
-              }, function (error) {
-                var errTitle = "Fehler";
-                var errText = "Fehler: Ups! Da ist etwas schiefgelaufen. Versuche bitte die Inhalte noch einmal herunterzuladen.";
-
-                if (_this3.lang == 'en') {
-                  errTitle = "Error";
-                  errText = "Ups! Something went wrong. Please try to download the content again.";
-                }
-
-                _this3.content = {
-                  "id": "error",
-                  "title": errTitle,
-                  "template": "default",
-                  "content": [{
-                    "content": {
-                      "level": "h2",
-                      "text": errText
-                    }
-                  }]
-                };
-                _this3.title = errTitle;
-                console.log(error);
-              });
-            });
+              }, _callee, this);
+            }));
           } // Get Rest Data
 
         }, {
           key: "restGET",
           value: function restGET() {
-            var _this4 = this;
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+              var _this4 = this;
 
-            this.activatedRoute.params.subscribe(function (params) {
-              var path = params['articleId'].split("/");
-              var url = undefined;
+              var loading;
+              return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                while (1) {
+                  switch (_context2.prev = _context2.next) {
+                    case 0:
+                      _context2.next = 2;
+                      return this.loadingController.create({
+                        cssClass: 'spinner'
+                      });
 
-              if (path.length > 1) {
-                url = "https://api.jankoll.de/rest/".concat(_this4.lang, "/article/").concat(path[0], "/").concat(path[path.length - 1]);
-                _this4.template = 'article';
-              } else {
-                url = "https://api.jankoll.de/rest/".concat(_this4.lang, "/article/").concat(path[path.length - 1]);
-                _this4.template = 'default';
-              } // HTTP Request
+                    case 2:
+                      loading = _context2.sent;
+                      _context2.next = 5;
+                      return loading.present();
+
+                    case 5:
+                      this.activatedRoute.params.subscribe(function (params) {
+                        var path = params['articleId'].split("/");
+                        var url = undefined;
+
+                        if (path.length > 1) {
+                          url = "https://api.jankoll.de/rest/".concat(_this4.lang, "/article/").concat(path[0], "/").concat(path[path.length - 1]);
+                          _this4.template = 'article';
+                        } else {
+                          url = "https://api.jankoll.de/rest/".concat(_this4.lang, "/article/").concat(path[path.length - 1]);
+                          _this4.template = 'default';
+                        } // HTTP Request
 
 
-              _this4.http.useBasicAuth('mail@example.de', 'Raute123');
+                        _this4.http.useBasicAuth('mail@example.de', 'Raute123');
 
-              _this4.http.get(url, {}, {}).then(function (data) {
-                _this4.content = JSON.parse(data.data); // data received by server
+                        _this4.http.get(url, {}, {}).then(function (data) {
+                          _this4.content = JSON.parse(data.data); // data received by server
 
-                if (!_this4.content.children) {
-                  _this4.title = _this4.content.title;
-                } else {
-                  var title = "Geschichte";
+                          if (!_this4.content.children) {
+                            _this4.title = _this4.content.title;
+                          } else {
+                            var title = "Geschichte";
 
-                  if (_this4.lang == 'en') {
-                    title = "Story";
+                            if (_this4.lang == 'en') {
+                              title = "Story";
+                            }
+
+                            _this4.title = title;
+                          }
+
+                          loading.dismiss();
+                        })["catch"](function (error) {
+                          console.log(error.status);
+                          console.log(error.error); // error message as string
+
+                          console.log(error.headers);
+                          loading.dismiss();
+                        });
+                      });
+
+                    case 6:
+                    case "end":
+                      return _context2.stop();
                   }
-
-                  _this4.title = title;
                 }
-              })["catch"](function (error) {
-                console.log(error.status);
-                console.log(error.error); // error message as string
-
-                console.log(error.headers);
-              });
-            });
+              }, _callee2, this);
+            }));
           } // Allow YouTube
 
         }, {
           key: "allowYoutube",
           value: function allowYoutube() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
               var _this5 = this;
 
               var title, msg, cancel, allow, alert;
-              return regeneratorRuntime.wrap(function _callee$(_context) {
+              return regeneratorRuntime.wrap(function _callee3$(_context3) {
                 while (1) {
-                  switch (_context.prev = _context.next) {
+                  switch (_context3.prev = _context3.next) {
                     case 0:
                       title = 'YouTube erlauben';
                       msg = 'Möchtest du das YouTube Video in der App schauen? Dabei werden möglicherweise Geräteinformationen an YouTube übermittelt.';
@@ -294,7 +371,7 @@
                         allow = 'Allow';
                       }
 
-                      _context.next = 7;
+                      _context3.next = 7;
                       return this.alertController.create({
                         header: title,
                         message: msg,
@@ -323,16 +400,16 @@
                       });
 
                     case 7:
-                      alert = _context.sent;
-                      _context.next = 10;
+                      alert = _context3.sent;
+                      _context3.next = 10;
                       return alert.present();
 
                     case 10:
                     case "end":
-                      return _context.stop();
+                      return _context3.stop();
                   }
                 }
-              }, _callee, this);
+              }, _callee3, this);
             }));
           }
         }, {
@@ -371,6 +448,8 @@
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["NavController"]
         }, {
           type: _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_7__["HTTP"]
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["LoadingController"]
         }, {
           type: _ionic_native_native_storage_ngx__WEBPACK_IMPORTED_MODULE_8__["NativeStorage"]
         }];

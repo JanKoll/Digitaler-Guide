@@ -327,33 +327,85 @@
         }, {
           key: "localGET",
           value: function localGET() {
-            var _this3 = this;
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+              var _this3 = this;
 
-            this.nativeStorage.getItem('database').then(function (data) {
-              _this3.content = data.main;
-              console.log(data.meta);
-            }, function (error) {
-              return console.log(error);
-            });
+              var loading;
+              return regeneratorRuntime.wrap(function _callee$(_context) {
+                while (1) {
+                  switch (_context.prev = _context.next) {
+                    case 0:
+                      _context.next = 2;
+                      return this.loadingController.create({
+                        cssClass: 'spinner'
+                      });
+
+                    case 2:
+                      loading = _context.sent;
+                      _context.next = 5;
+                      return loading.present();
+
+                    case 5:
+                      this.nativeStorage.getItem('database').then(function (data) {
+                        _this3.content = data.main;
+                        loading.dismiss();
+                      }, function (error) {
+                        console.log(error);
+                        loading.dismiss();
+                      });
+
+                    case 6:
+                    case "end":
+                      return _context.stop();
+                  }
+                }
+              }, _callee, this);
+            }));
           } // Get Rest Data
 
         }, {
           key: "restGET",
           value: function restGET() {
-            var _this4 = this;
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+              var _this4 = this;
 
-            // REST Authentication
-            this.http.useBasicAuth('mail@example.de', 'Raute123');
-            this.http.get("https://api.jankoll.de/rest/".concat(this.lang, "/main"), {}, {}).then(function (data) {
-              // console.log(data.status);
-              _this4.content = JSON.parse(data.data); // data received by server
-              // console.log(data.headers);
-            })["catch"](function (error) {
-              console.log(error.status);
-              console.log(error.error); // error message as string
+              var loading;
+              return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                while (1) {
+                  switch (_context2.prev = _context2.next) {
+                    case 0:
+                      _context2.next = 2;
+                      return this.loadingController.create({
+                        cssClass: 'spinner'
+                      });
 
-              console.log(error.headers);
-            });
+                    case 2:
+                      loading = _context2.sent;
+                      _context2.next = 5;
+                      return loading.present();
+
+                    case 5:
+                      // REST Authentication
+                      this.http.useBasicAuth('mail@example.de', 'Raute123');
+                      this.http.get("https://api.jankoll.de/rest/".concat(this.lang, "/main"), {}, {}).then(function (data) {
+                        _this4.content = JSON.parse(data.data); // data received by server
+
+                        loading.dismiss();
+                      })["catch"](function (error) {
+                        console.log(error.status);
+                        console.log(error.error); // error message as string
+
+                        console.log(error.headers);
+                        loading.dismiss();
+                      });
+
+                    case 7:
+                    case "end":
+                      return _context2.stop();
+                  }
+                }
+              }, _callee2, this);
+            }));
           } // Open BrowserModule
 
         }, {
@@ -365,13 +417,13 @@
         }, {
           key: "pollData",
           value: function pollData() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
               var _this5 = this;
 
               var title, msg, cancel, alert;
-              return regeneratorRuntime.wrap(function _callee$(_context) {
+              return regeneratorRuntime.wrap(function _callee3$(_context3) {
                 while (1) {
-                  switch (_context.prev = _context.next) {
+                  switch (_context3.prev = _context3.next) {
                     case 0:
                       title = 'Auf Gerät Speichern';
                       msg = 'Möchtest du alle Inhalte auf deinem Smartphone Speichern?';
@@ -383,7 +435,7 @@
                         cancel = 'Cancel';
                       }
 
-                      _context.next = 6;
+                      _context3.next = 6;
                       return this.alertController.create({
                         header: title,
                         message: msg,
@@ -407,16 +459,16 @@
                       });
 
                     case 6:
-                      alert = _context.sent;
-                      _context.next = 9;
+                      alert = _context3.sent;
+                      _context3.next = 9;
                       return alert.present();
 
                     case 9:
                     case "end":
-                      return _context.stop();
+                      return _context3.stop();
                   }
                 }
-              }, _callee, this);
+              }, _callee3, this);
             }));
           }
         }, {
@@ -482,13 +534,13 @@
         }, {
           key: "deleteData",
           value: function deleteData() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
               var _this7 = this;
 
               var title, msg, cancel, del, loading, alert;
-              return regeneratorRuntime.wrap(function _callee2$(_context2) {
+              return regeneratorRuntime.wrap(function _callee4$(_context4) {
                 while (1) {
-                  switch (_context2.prev = _context2.next) {
+                  switch (_context4.prev = _context4.next) {
                     case 0:
                       title = 'Gespeicherte Inhalte Löschen';
                       msg = 'Möchtest du alle gespeicherten Inhalte Löschen?';
@@ -504,7 +556,7 @@
                         loading = 'Deleting...';
                       }
 
-                      _context2.next = 8;
+                      _context4.next = 8;
                       return this.alertController.create({
                         header: title,
                         message: msg,
@@ -527,28 +579,28 @@
                       });
 
                     case 8:
-                      alert = _context2.sent;
-                      _context2.next = 11;
+                      alert = _context4.sent;
+                      _context4.next = 11;
                       return alert.present();
 
                     case 11:
                     case "end":
-                      return _context2.stop();
+                      return _context4.stop();
                   }
                 }
-              }, _callee2, this);
+              }, _callee4, this);
             }));
           }
         }, {
           key: "updateData",
           value: function updateData() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
               var _this8 = this;
 
               var title, msg, cancel, upd, alert;
-              return regeneratorRuntime.wrap(function _callee3$(_context3) {
+              return regeneratorRuntime.wrap(function _callee5$(_context5) {
                 while (1) {
-                  switch (_context3.prev = _context3.next) {
+                  switch (_context5.prev = _context5.next) {
                     case 0:
                       title = 'Es sind neue Inhalte verfügbar';
                       msg = 'Möchtest du die Inhalte aktualisieren?';
@@ -562,7 +614,7 @@
                         upd = 'Update';
                       }
 
-                      _context3.next = 7;
+                      _context5.next = 7;
                       return this.alertController.create({
                         header: title,
                         message: msg,
@@ -581,16 +633,16 @@
                       });
 
                     case 7:
-                      alert = _context3.sent;
-                      _context3.next = 10;
+                      alert = _context5.sent;
+                      _context5.next = 10;
                       return alert.present();
 
                     case 10:
                     case "end":
-                      return _context3.stop();
+                      return _context5.stop();
                   }
                 }
-              }, _callee3, this);
+              }, _callee5, this);
             }));
           }
         }]);

@@ -405,7 +405,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let LocationPage = class LocationPage {
-    constructor(modalCtrl, platform, alertController, sanitizer, qrScanner, zone, router, activatedRoute, http, nativeStorage) {
+    constructor(modalCtrl, platform, alertController, sanitizer, qrScanner, zone, router, activatedRoute, http, loadingController, nativeStorage) {
         this.modalCtrl = modalCtrl;
         this.platform = platform;
         this.alertController = alertController;
@@ -415,6 +415,7 @@ let LocationPage = class LocationPage {
         this.router = router;
         this.activatedRoute = activatedRoute;
         this.http = http;
+        this.loadingController = loadingController;
         this.nativeStorage = nativeStorage;
         // Check / Get Current Language
         this.nativeStorage.getItem('language')
@@ -450,36 +451,54 @@ let LocationPage = class LocationPage {
     }
     // Get Local Data
     localGET() {
-        this.activatedRoute.params.subscribe(params => {
-            let path = params['locationId'];
-            this.nativeStorage.getItem('database')
-                .then(data => {
-                data.main.forEach(element => {
-                    if (element.id == path) {
-                        this.content = element;
-                        this.coords = element.coords;
-                    }
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            const loading = yield this.loadingController.create({
+                cssClass: 'spinner',
+            });
+            yield loading.present();
+            this.activatedRoute.params.subscribe(params => {
+                let path = params['locationId'];
+                this.nativeStorage.getItem('database')
+                    .then(data => {
+                    data.main.forEach(element => {
+                        if (element.id == path) {
+                            this.content = element;
+                            this.coords = element.coords;
+                        }
+                    });
+                    this.callGeoInterval();
+                    loading.dismiss();
+                }, error => {
+                    console.log(error);
+                    loading.dismiss();
                 });
-                this.callGeoInterval();
-            }, error => console.log(error));
+            });
         });
     }
     // Get Rest Data
     restGET() {
-        this.activatedRoute.params.subscribe(params => {
-            // REST Authentication
-            this.http.useBasicAuth('mail@example.de', 'Raute123');
-            //HTTP GET
-            this.http.get(`https://api.jankoll.de/rest/${this.lang}/map/${params['locationId']}`, {}, {})
-                .then(data => {
-                this.content = JSON.parse(data.data); // data received by server
-                this.coords = this.content.coords;
-                this.callGeoInterval();
-            })
-                .catch(error => {
-                console.log(error.status);
-                console.log(error.error); // error message as string
-                console.log(error.headers);
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            const loading = yield this.loadingController.create({
+                cssClass: 'spinner',
+            });
+            yield loading.present();
+            this.activatedRoute.params.subscribe(params => {
+                // REST Authentication
+                this.http.useBasicAuth('mail@example.de', 'Raute123');
+                //HTTP GET
+                this.http.get(`https://api.jankoll.de/rest/${this.lang}/map/${params['locationId']}`, {}, {})
+                    .then(data => {
+                    this.content = JSON.parse(data.data); // data received by server
+                    this.coords = this.content.coords;
+                    this.callGeoInterval();
+                    loading.dismiss();
+                })
+                    .catch(error => {
+                    console.log(error.status);
+                    console.log(error.error); // error message as string
+                    console.log(error.headers);
+                    loading.dismiss();
+                });
             });
         });
     }
@@ -649,6 +668,7 @@ LocationPage.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"] },
     { type: _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_11__["HTTP"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["LoadingController"] },
     { type: _ionic_native_native_storage_ngx__WEBPACK_IMPORTED_MODULE_12__["NativeStorage"] }
 ];
 LocationPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([

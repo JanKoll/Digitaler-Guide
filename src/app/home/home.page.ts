@@ -100,34 +100,50 @@ export class HomePage {
     );
   }
 
-  localGET() {
+  async localGET() {
+    const loading = await this.loadingController.create({
+      cssClass: 'spinner',
+    });
+    await loading.present();
+
     this.nativeStorage.getItem('database')
     .then(
       data => {
         this.content = data.main;
-        console.log(data.meta);
-
+        loading.dismiss();
       },
-      error => console.log(error)
+      error => {
+        console.log(error);
+        loading.dismiss();
+      }
     );
   }
 
   // Get Rest Data
-  restGET() {
+  async restGET() {
+
+    const loading = await this.loadingController.create({
+      cssClass: 'spinner',
+    });
+    await loading.present();
+
     // REST Authentication
     this.http.useBasicAuth('mail@example.de', 'Raute123');
 
     this.http.get(`https://api.jankoll.de/rest/${this.lang}/main`, {}, {})
     .then(data => {
-      // console.log(data.status);
       this.content = JSON.parse(data.data); // data received by server
-      // console.log(data.headers);
+      loading.dismiss();
     })
     .catch(error => {
       console.log(error.status);
       console.log(error.error); // error message as string
       console.log(error.headers);
+      loading.dismiss();
     });
+
+
+
   }
 
   // Open BrowserModule

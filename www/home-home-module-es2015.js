@@ -191,26 +191,41 @@ let HomePage = class HomePage {
         }, error => this.restGET());
     }
     localGET() {
-        this.nativeStorage.getItem('database')
-            .then(data => {
-            this.content = data.main;
-            console.log(data.meta);
-        }, error => console.log(error));
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            const loading = yield this.loadingController.create({
+                cssClass: 'spinner',
+            });
+            yield loading.present();
+            this.nativeStorage.getItem('database')
+                .then(data => {
+                this.content = data.main;
+                loading.dismiss();
+            }, error => {
+                console.log(error);
+                loading.dismiss();
+            });
+        });
     }
     // Get Rest Data
     restGET() {
-        // REST Authentication
-        this.http.useBasicAuth('mail@example.de', 'Raute123');
-        this.http.get(`https://api.jankoll.de/rest/${this.lang}/main`, {}, {})
-            .then(data => {
-            // console.log(data.status);
-            this.content = JSON.parse(data.data); // data received by server
-            // console.log(data.headers);
-        })
-            .catch(error => {
-            console.log(error.status);
-            console.log(error.error); // error message as string
-            console.log(error.headers);
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            const loading = yield this.loadingController.create({
+                cssClass: 'spinner',
+            });
+            yield loading.present();
+            // REST Authentication
+            this.http.useBasicAuth('mail@example.de', 'Raute123');
+            this.http.get(`https://api.jankoll.de/rest/${this.lang}/main`, {}, {})
+                .then(data => {
+                this.content = JSON.parse(data.data); // data received by server
+                loading.dismiss();
+            })
+                .catch(error => {
+                console.log(error.status);
+                console.log(error.error); // error message as string
+                console.log(error.headers);
+                loading.dismiss();
+            });
         });
     }
     // Open BrowserModule

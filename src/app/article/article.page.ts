@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
-import { AlertController, NavController, Platform } from '@ionic/angular';
+import { AlertController, NavController, Platform, LoadingController } from '@ionic/angular';
 
 import { HTTP } from '@ionic-native/http/ngx';
 
@@ -28,6 +28,7 @@ export class ArticlePage {
     private router: Router,
     public navCtrl: NavController,
     private http: HTTP,
+    public loadingController: LoadingController,
     private nativeStorage: NativeStorage
   ) {
     // Check / Get Current Language
@@ -89,7 +90,7 @@ export class ArticlePage {
     this.activatedRoute.params.subscribe(params => {
       let path = params['articleId'].split("/");
 
-      if (path.length > 1) {
+      if (path.length > 1 || this.content.children) {
         this.router.navigate(['location', path[0]]);
       } else {
         this.router.navigate(['..']);
@@ -99,8 +100,18 @@ export class ArticlePage {
 
 
   // Get Local Data
-  localGET() {
+  async localGET() {
+    const loading = await this.loadingController.create({
+      cssClass: 'spinner',
+    });
+    await loading.present();
+
     this.activatedRoute.params.subscribe(params => {
+
+
+      console.log(params);
+      console.log("Hallo?!");
+
 
       let path = params['articleId'].split("/");
 
@@ -122,8 +133,14 @@ export class ArticlePage {
               }
             });
           } else {
-
             data.meta.forEach(element => {
+              if (element.id == params.articleId) {
+                this.content = element;
+                this.template = 'default';
+              }
+            });
+
+            data.main.forEach(element => {
               if (element.id == params.articleId) {
                 this.content = element;
                 this.template = 'default';
@@ -142,6 +159,7 @@ export class ArticlePage {
               }
             });
           }
+          loading.dismiss();
         },
         error => {
           let errTitle = "Fehler";
@@ -152,20 +170,22 @@ export class ArticlePage {
             errText = "Ups! Something went wrong. Please try to download the content again.";
           }
 
-            this.content = {
-              "id": "error",
-              "title": errTitle,
-              "template": "default",
-              "content": [
-                  {
-                      "content": {
-                          "level": "h2",
-                          "text": errText
-                      }
-                  }
-              ]
-            };
-            this.title = errTitle;
+          this.content = {
+            "id": "error",
+            "title": errTitle,
+            "template": "default",
+            "content": [
+                {
+                    "content": {
+                        "level": "h2",
+                        "text": errText
+                    }
+                }
+            ]
+          };
+          this.title = errTitle;
+
+          loading.dismiss();
 
           console.log(error);
         }
@@ -176,7 +196,12 @@ export class ArticlePage {
   }
 
   // Get Rest Data
-  restGET() {
+  async restGET() {
+    const loading = await this.loadingController.create({
+      cssClass: 'spinner',
+    });
+    await loading.present();
+
     this.activatedRoute.params.subscribe(params => {
          let path = params['articleId'].split("/");
          let url = undefined;
@@ -206,11 +231,13 @@ export class ArticlePage {
 
               this.title = title;
             }
+            loading.dismiss();
          })
          .catch(error => {
            console.log(error.status);
            console.log(error.error); // error message as string
            console.log(error.headers);
+           loading.dismiss();
          });
     });
   }
