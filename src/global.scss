@@ -66,6 +66,10 @@ $light: #EEEEEE;
     &:not(:first-child) {
       margin-block-start: 0;
     }
+
+    a {
+      color: $light;
+    }
   }
 
   h4 {

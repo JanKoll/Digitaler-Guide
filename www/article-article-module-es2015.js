@@ -122,16 +122,6 @@ let ArticlePage = class ArticlePage {
                             if (element.id == params.articleId) {
                                 this.content = element;
                                 this.template = 'default';
-                                if (!element.children) {
-                                    this.title = element.title;
-                                }
-                                else {
-                                    let title = "Geschichte";
-                                    if (this.lang == 'en') {
-                                        title = "Story";
-                                    }
-                                    this.title = title;
-                                }
                             }
                         });
                         data.main.forEach(element => {

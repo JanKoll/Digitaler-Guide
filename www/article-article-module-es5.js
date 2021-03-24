@@ -207,18 +207,6 @@
                               if (element.id == params.articleId) {
                                 _this3.content = element;
                                 _this3.template = 'default';
-
-                                if (!element.children) {
-                                  _this3.title = element.title;
-                                } else {
-                                  var title = "Geschichte";
-
-                                  if (_this3.lang == 'en') {
-                                    title = "Story";
-                                  }
-
-                                  _this3.title = title;
-                                }
                               }
                             });
                             data.main.forEach(function (element) {
